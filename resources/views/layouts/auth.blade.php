@@ -5,20 +5,16 @@
     @include('partials.head')
 </head>
 
-<body class="page-header-fixed">
-
-    <div style="margin-top: 10%;"></div>
-
-    <div class="container-fluid">
+<body class="login-page">
+    <div class="login-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Admin<b>{{ trans('global.global_title') }}</b></a>
+            <small>{{ trans('global.global_title') }}</small>
+        </div>
         @yield('content')
     </div>
 
-    <div class="scroll-to-top"
-         style="display: none;">
-        <i class="fa fa-arrow-up"></i>
-    </div>
-
-    @include('partials.javascripts')
-
+     @include('partials.javascripts')
 </body>
+
 </html>

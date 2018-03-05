@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">Change password</h3>
+    <div class="block-header">
+        <h2>Change password</h2>
+    </div>
 
     @if(session('success'))
         <!-- If password successfully show message -->
@@ -13,54 +15,62 @@
     @else
         {!! Form::open(['method' => 'PATCH', 'route' => ['auth.change_password']]) !!}
         <!-- If no success message in flash session show change password form  -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                @lang('global.app_edit')
-            </div>
 
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-12 form-group">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            @lang('global.app_edit')
+                        </h2>
+                    </div>
+                    <div class="body">
                         {!! Form::label('current_password', 'Current password*', ['class' => 'control-label']) !!}
-                        {!! Form::password('current_password', ['class' => 'form-control', 'placeholder' => '']) !!}
-                        <p class="help-block"></p>
-                        @if($errors->has('current_password'))
-                            <p class="help-block">
-                                {{ $errors->first('current_password') }}
-                            </p>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-12 form-group">
+                        <div class="form-group">
+                            <div class="form-line">
+                                {!! Form::password('current_password', ['class' => 'form-control', 'placeholder' => '']) !!}
+                                <p class="help-block"></p>
+                                @if($errors->has('current_password'))
+                                    <p class="help-block">
+                                        {{ $errors->first('current_password') }}
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
                         {!! Form::label('new_password', 'New password*', ['class' => 'control-label']) !!}
-                        {!! Form::password('new_password', ['class' => 'form-control', 'placeholder' => '']) !!}
-                        <p class="help-block"></p>
-                        @if($errors->has('new_password'))
-                            <p class="help-block">
-                                {{ $errors->first('new_password') }}
-                            </p>
-                        @endif
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                {!! Form::password('new_password', ['class' => 'form-control', 'placeholder' => '']) !!}
+                                <p class="help-block"></p>
+                                @if($errors->has('new_password'))
+                                    <p class="help-block">
+                                        {{ $errors->first('new_password') }}
+                                    </p>
+                                @endif
 
-                <div class="row">
-                    <div class="col-xs-12 form-group">
+                            </div>
+                        </div>
+
                         {!! Form::label('new_password_confirmation', 'New password confirmation*', ['class' => 'control-label']) !!}
-                        {!! Form::password('new_password_confirmation', ['class' => 'form-control', 'placeholder' => '']) !!}
-                        <p class="help-block"></p>
-                        @if($errors->has('new_password_confirmation'))
-                            <p class="help-block">
-                                {{ $errors->first('new_password_confirmation') }}
-                            </p>
-                        @endif
+                        <div class="form-group">
+                            <div class="form-line">
+                                {!! Form::password('new_password_confirmation', ['class' => 'form-control', 'placeholder' => '']) !!}
+                                <p class="help-block"></p>
+                                @if($errors->has('new_password_confirmation'))
+                                    <p class="help-block">
+                                        {{ $errors->first('new_password_confirmation') }}
+                                    </p>
+                                @endif
+
+                            </div>
+                        </div>
+
+
+                        {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger waves-effect']) !!}
                     </div>
                 </div>
             </div>
         </div>
-
-        {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
     @endif
 @stop

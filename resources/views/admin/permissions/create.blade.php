@@ -1,32 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('global.permissions.title')</h3>
+    <div class="block-header">
+        <h2>@lang('global.permissions.title')</h2>
+    </div>
     {!! Form::open(['method' => 'POST', 'route' => ['admin.permissions.store']]) !!}
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('global.app_create')
-        </div>
-        
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12 form-group">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        @lang('global.app_create')
+                    </h2>
+                </div>
+                <div class="body">
                     {!! Form::label('name', 'Name*', ['class' => 'control-label']) !!}
-                    {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('name'))
-                        <p class="help-block">
-                            {{ $errors->first('name') }}
-                        </p>
-                    @endif
+                    <div class="form-group">
+                        <div class="form-line">
+                            {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                            <p class="help-block"></p>
+                            @if($errors->has('name'))
+                                <p class="help-block">
+                                    {{ $errors->first('name') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+                    {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger waves-effect']) !!}
                 </div>
             </div>
-            
         </div>
     </div>
-
-    {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
 @stop
 
