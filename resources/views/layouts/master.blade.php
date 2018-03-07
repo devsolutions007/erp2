@@ -26,24 +26,24 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
     mathiasbynens.be/notes/touch-icons -->
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/960gs/fluid.css"> <!-- 960.gs Grid System -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/960gs/fluid.css"> <!-- 960.gs Grid System -->
     <!-- The HTML5-Boilerplate CSS styling -->
-    <link rel="stylesheet" href="/css/h5bp/normalize.css"> <!-- RECOMMENDED: H5BP reset styles -->
-    <link rel="stylesheet" href="/css/h5bp/non-semantic.helper.classes.css"> <!-- RECOMMENDED: H5BP helpers (e.g. .clear or .hidden) -->
-    <link rel="stylesheet" href="/css/h5bp/print.styles.css"> <!-- OPTIONAL: H5BP print styles -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/h5bp/normalize.css"> <!-- RECOMMENDED: H5BP reset styles -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/h5bp/non-semantic.helper.classes.css"> <!-- RECOMMENDED: H5BP helpers (e.g. .clear or .hidden) -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/h5bp/print.styles.css"> <!-- OPTIONAL: H5BP print styles -->
     <!-- The main styling -->
-    <link rel="stylesheet" href="/css/sprites.css"> <!-- STRONGLY RECOMMENDED: Basic sprites (e.g. buttons, jGrowl) -->
-    <link rel="stylesheet" href="/css/header.css"> <!-- REQUIRED: Header styling -->
-    <link rel="stylesheet" href="/css/navigation.css"> <!-- REQUIRED: Navigation styling -->
-    <link rel="stylesheet" href="/css/content.css"> <!-- REQUIRED: Content styling -->
-    <link rel="stylesheet" href="/css/footer.css"> <!-- REQUIRED: Footer styling -->
-    <link rel="stylesheet" href="/css/typographics.css"> <!-- REQUIRED: Typographics -->
-    <link rel="stylesheet" href="/css/ie.fixes.css"> <!-- OPTIONAL: Fixes for IE7 -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/sprites.css"> <!-- STRONGLY RECOMMENDED: Basic sprites (e.g. buttons, jGrowl) -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/header.css"> <!-- REQUIRED: Header styling -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/navigation.css"> <!-- REQUIRED: Navigation styling -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/content.css"> <!-- REQUIRED: Content styling -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/footer.css"> <!-- REQUIRED: Footer styling -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/typographics.css"> <!-- REQUIRED: Typographics -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/ie.fixes.css"> <!-- OPTIONAL: Fixes for IE7 -->
     <!-- Sprite styling -->
-    <link rel="stylesheet" href="/css/sprite.tables.css"> <!-- SPRITE: Tables styling -->
-    <link rel="stylesheet" href="/css/sprite.forms.css"> <!-- SPRITE: Forms styling -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/sprite.tables.css"> <!-- SPRITE: Tables styling -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/sprite.forms.css"> <!-- SPRITE: Forms styling -->
     <!-- Styling of JS plugins -->
-    <link rel="stylesheet" href="/css/external/jquery-ui-1.8.16.custom.css">	<!-- PLUGIN: jQuery UI styling -->
+    <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/external/jquery-ui-1.8.16.custom.css">	<!-- PLUGIN: jQuery UI styling -->
 
 
     <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -53,7 +53,7 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
     elements & feature detects;
     for optimal performance, create your own custom Modernizr build:
     www.modernizr.com/download/ -->
-    <script src="/js/libs/modernizr-2.0.6.min.js"></script>
+    <script src="/mukesh/erp2-test/public/master-js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
 <body>
@@ -121,10 +121,10 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
                                 <div class="dropdown">
                                     <ul>
                                         <li>
-                                            <a href="/admin/home">Settings</a>
+                                            <a href="/mukesh/erp2-test/admin/home">Settings</a>
                                         </li>
                                         <li>
-                                            <a href="/logout">Logout</a>
+                                            <a href="/mukesh/erp2-test/logout">Logout</a>
                                         </li>
                                     </ul>
                                 </div> <!-- End of menu -->
@@ -180,6 +180,24 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
                             </li>
                         </ul>
                     </li>
+                    <li {{ areActiveRoutes(['grow.*'],'class=current') }}>
+                        <a href="#">
+                            Grow</a>
+                        <ul>
+                            <li>
+                                <a href="grow/index">New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li {{ areActiveRoutes(['cashdesk.*'],'class=current') }}>
+                        <a href="/mukesh/erp2-test/cashdesk/affIndex">
+                            Point of sale</a>
+                        <!-- <ul>
+                            <li>
+                                <a href="cashdesk/index">New</a>
+                            </li>
+                        </ul> -->
+                    </li>
                 </ul>
                 <!-- End of the main navigation -->
             </div>
@@ -229,26 +247,26 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!-- JavaScript at the bottom for fast page loading -->
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/js/libs/jquery-1.7.1.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="/mukesh/erp2-test/public/master-js/libs/jquery-1.7.1.js"><\/script>')</script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-<script>window.jQuery.ui || document.write('<script src="/js/libs/jquery-ui-1.8.16.min.js"><\/script>')</script>
+<script>window.jQuery.ui || document.write('<script src="/mukesh/erp2-test/public/master-js/libs/jquery-ui-1.8.16.min.js"><\/script>')</script>
 
 <!-- scripts concatenated and minified via build script -->
-<script defer src="/js/plugins.js"></script> <!-- REQUIRED: Different own jQuery plugnis -->
-<script defer src="/js/mylibs/jquery.ba-resize.js"></script> <!-- RECOMMENDED when using sidebar: page resizing -->
-<script defer src="/js/mylibs/jquery.easing.1.3.js"></script> <!-- RECOMMENDED: box animations -->
-<script defer src="/js/mylibs/jquery.validate.js"></script>
-<script defer src="/js/mylibs/jquery.checkbox.js"></script>
-<script defer src="/js/mylibs/jquery.chosen.js"></script>
-<script defer src="/js/mylibs/jquery.fileinput.js"></script> <!-- Needed for <input type=file> -->
-<script defer src="/js/mylibs/jquery.placeholder.js"></script>
-<script defer src="/js/mylibs/jquery.miniColors.js"></script> <!-- Needed for <input type=color> -->
-<script defer src="/js/mylibs/jquery.text-overflow.js"></script> <!-- Needed for <input type=file> -->
-<script defer src="/js/mylibs/jquery.ui.timepicker.js"></script> <!-- Needed for <input type=date/datetime/time> -->
-<script defer src="/js/mylibs/jquery.ui.touch-punch.js"></script> <!-- RECOMMENDED: touch compatibility -->
-<script defer src="/js/plugins.js"></script> <!-- REQUIRED: Different own jQuery plugnis -->
-<script defer src="/js/mylibs/jquery.dataTables.js"></script>
-<script defer src="/js/script.js"></script> <!-- REQUIRED: Generic scripts -->
+<script defer src="/mukesh/erp2-test/public/master-js/plugins.js"></script> <!-- REQUIRED: Different own jQuery plugnis -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.ba-resize.js"></script> <!-- RECOMMENDED when using sidebar: page resizing -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.easing.1.3.js"></script> <!-- RECOMMENDED: box animations -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.validate.js"></script>
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.checkbox.js"></script>
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.chosen.js"></script>
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.fileinput.js"></script> <!-- Needed for <input type=file> -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.placeholder.js"></script>
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.miniColors.js"></script> <!-- Needed for <input type=color> -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.text-overflow.js"></script> <!-- Needed for <input type=file> -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.ui.timepicker.js"></script> <!-- Needed for <input type=date/datetime/time> -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.ui.touch-punch.js"></script> <!-- RECOMMENDED: touch compatibility -->
+<script defer src="/mukesh/erp2-test/public/master-js/plugins.js"></script> <!-- REQUIRED: Different own jQuery plugnis -->
+<script defer src="/mukesh/erp2-test/public/master-js/mylibs/jquery.dataTables.js"></script>
+<script defer src="/mukesh/erp2-test/public/master-js/script.js"></script> <!-- REQUIRED: Generic scripts -->
 <!-- end scripts -->
 
 <!--[if lt IE 7 ]>

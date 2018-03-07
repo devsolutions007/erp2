@@ -49,7 +49,22 @@ Route::group(['middleware' => ['auth']],function() {
         Route::post('test','CRM\SMSController@sendTest');
         Route::post('schedule','CRM\SMSController@scheduleMessage');
     });
-    
+    /* ##########-------------Grow Routes--------------############*/
+    Route::group(['prefix' => 'grow', 'as' => 'grow.'], function(){
+        Route::get('index','Custom\GrowController@index');
+    });
+    /* End*/
+
+    /* ###########------------POS route-------------------##########*/
+    Route::group(['prefix' => 'cashdesk', 'as' => 'cashdesk.'], function(){
+        Route::get('affIndex','CashDesk\POSController@affIndex');
+    });
+    /* ##########-----------societe---------------------########### */
+    // Route::group(['prefix' => 'societe', 'as' => 'societe.'], function(){
+    //     Route::get('affIndex','CashDesk\POSController@affIndex');
+    // });
+
+
 });
 
 
