@@ -1,0 +1,181 @@
+body {
+    background-color: #EDEDED;
+    margin: 0;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:14px;
+}
+.draggable {
+    cursor: move;
+}
+
+.dragscroll_view{
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+    cursor: grab;
+    cursor : -o-grab; 
+    cursor : -moz-grab; 
+    cursor : -webkit-grab; 
+    border:1px solid rgb(191,191,191);
+    background: #F9F9F9;
+}
+.contextMenu_set{
+    position: absolute;
+    background: #fff;
+    border: 1px solid #DDDDDD;
+    z-index: 1;
+}
+.contextMenu_set li{
+    list-style-type: none;
+    font-size: 15px;
+    padding: 3px 20px;
+    /* padding-top: 5px; */
+    margin-top: 5px;
+    cursor: pointer;
+}
+.contextMenu_li_margin_bottom{
+    margin-bottom: 5px !important;
+}
+.contextMenu_set li a{
+    text-decoration: none;
+    color: #575757;
+}
+.contextMenu_set li:hover{
+    background: #EDEDED;
+}
+.plant_gui_dialog{
+    color: red;
+    font-size: 16px;
+}
+.top_header_svg_controller{
+    height: 35px;
+    width: calc(50vw - 98px);
+    background: #C5C5C5;
+    text-align: right;
+}
+.top_header_svg_controller a{
+    display: inline-block;
+    padding: auto;
+    margin-right: 25px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.top_header_svg_controller_fullscreen{
+    height: 35px;
+    width: calc(100vw - 98px);
+    background: #C5C5C5;
+    text-align: right;
+}
+.top_header_svg_controller_fullscreen a{
+    display: inline-block;
+    padding: auto;
+    margin-right: 25px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.img_cursor_show{
+    cursor: pointer;
+}
+
+.fileupload_menu{
+    position: absolute;
+    background: #fff;
+    border: 1px solid #DDDDDD;
+    margin-top: 6px;
+    display: none;
+}
+.fileupload_menu li{
+    list-style-type: none;
+    font-size: 15px;
+    padding: 3px 0px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+.fileupload_menu_margin_bottom{
+    margin-bottom: 5px !important;
+}
+.fileupload_menu li{
+    text-decoration: none;
+    color: #575757;
+}
+.fileupload_menu li label{
+    margin-left: 0px !important;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+.fileupload_menu li:hover{
+    background: #EDEDED;
+}
+.fileupload_add_modal{
+    width: 1000px;
+    height: 80%;
+    padding: 20px;
+    color: #000;
+    background-color: #FFFFFF;
+    text-align: center;
+    top: 50% !important;
+    display: none;
+}
+
+.input_row_col_state{
+    width: 40%;
+    margin-left: 7%;
+}
+.input_row_col_state_right{
+    width: 40%;
+    margin-left: 2%;
+    margin-right: 5%;
+}
+
+.addfile_modal_detail_header{
+    border-bottom: 1px solid #c3c3c3;
+    margin-bottom: 20px;
+}
+.addfile_modal_detail_header p{
+    display: inline-block;
+}
+.fileupload_modal_number_area{
+    width: 30px;
+    text-align: left;
+}
+.fileupload_modal_delete_area{
+    width: 30px;
+    text-align: center;
+}
+.fileupload_modal_delete_area span{
+    font-size: 20px;
+    cursor: pointer;
+}
+.fileupload_modal_rfid_area{
+    width: 280px;
+    text-align: left;
+}
+.fileupload_modal_state_area{
+    width: 100px;
+    text-align: center;
+}
+.fileupload_modal_rowcol_area{
+    width: 120px;
+    text-align: center;
+}
+.fileupload_modal_plant_area{
+    width: 200px;
+    text-align: center;
+}
+.fileupload_modal_detail_font{
+    font-size: 15px;
+}
+
+.bodyline{
+    z-index: 10000 !important;
+    left: 50% !important;
+    top: 50% !important;
+    margin-left: -105px !important;
+    margin-top: -60px !important;
+}
+
+.searchfilter_btn {
+    width: 25%;
+}

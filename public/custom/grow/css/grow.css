@@ -1,0 +1,485 @@
+
+div.mainmenu.grow {
+	background-image: url(/custom/grow/img/grow.png);
+}
+
+div.mainmenu.report {
+	background-image: url(/custom/grow/img/report.png);
+}
+
+div.mainmenu.order {
+	background-image: url(/custom/grow/img/order.png);
+}
+
+tr.margin-table {
+	height: 50px;
+}
+th.grow-table-th
+{
+	text-align: center;
+}
+tr.grow-table
+{
+	cursor:pointer;
+}
+
+.active td{
+	background-color: #eee !important;
+}
+label {
+  margin-left:10px;
+}
+.td_nowrap{
+	white-space: nowrap;
+	text-align: center;
+}
+.demo {
+width: 500px;
+height:370px;
+padding: 20px;
+color: #000;
+background-color: #FFFFFF;
+border-radius: 10px;
+display: none;
+text-align: center;
+font-size: 17px;
+}
+.demo:after { /* clearfix */
+content: "";
+clear: both;
+display: block;
+}
+.demo p {
+font-size: 18px;
+}
+.demo .sample-head {
+margin: 0 0 15px;
+font-size: 36px;
+font-weight: bold;
+}
+.demo img {
+float: left;
+margin-right: 10px;
+box-shadow: none;
+}
+.demo .plainmodal-close {
+position: absolute;
+width: 45px;
+height: 45px;
+right: -15px;
+top: -15px;
+background: url('plainmodal-close.png') no-repeat;
+}
+.demo .plainmodal-close:hover {
+background-position: -45px 0;
+}
+.modal_btn_class{
+	text-align: center;
+	margin: 3rem;
+}
+.modal_btn_set{
+	background: #EEEEEE;
+	border-bottom: 1px solid #EEEEEE;
+	font-size: 20px;
+	padding: 10px,30px !important;
+	padding: 1rem;
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+.modal_btn_set :horver{
+	background: #D8D2D2;
+}
+.move_modal_detail{
+	margin:10px;
+	border:1px solid #C3C3C3;
+	padding:30px;
+}
+.bulk_move_grow{
+	margin-right:20px;
+}
+.move_modal_detail_table{
+	font-size: 13px;
+	font-weight: 600;
+}
+.move_modal_detail_table tr{
+	line-height: 35px;
+}
+.move_modal_detail_table td{
+	padding-left: 15px;
+	text-align: left;
+}
+.modal_btn_margin_value{
+	margin-top:20px;
+}
+.file_upload_result_missing{
+	width: 40%;
+	height: 40%;
+	border: 2px solid #DDDDDD;
+	word-wrap: break-word;
+	padding:10px;
+}
+.file_upload_result_missing p{
+	color: #000;
+	font-size: 16px;
+}
+.file_upload_result_missing h3{
+	font-size: 18px;
+	color: #6D6D6D;
+}
+
+.draggable {
+    cursor: move;
+}
+.full_screen {
+    <!-- width: 100%;
+    height: 100%;
+    background: #EDEDED; -->
+}
+.left_panel {
+    height: calc(100vh - 120px);
+}
+.right_panel_margin_svg {
+    margin-left: 20px;
+    width: 48% !important;
+}
+
+.dragscroll_view{
+    width: calc(100% - 2px);
+    height: calc(100% - 35px);
+    overflow: hidden; 
+    cursor: grab;
+    cursor : -o-grab; 
+    cursor : -moz-grab; 
+    cursor : -webkit-grab; 
+    border:1px solid rgb(191,191,191);
+    background: #F9F9F9;
+}
+.left_panel_state{
+    margin-left: 25%;
+    width:200px;
+}
+.right_panel_state{
+    margin-left: 65%;
+    width:200px;
+}
+.floatingCircle {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+    display: none;
+    border-radius: 25px;
+}
+.select_customer_indicate div{
+	width: 80% !important;
+}
+.grow_svg_return_btn{
+	margin-left:30px;
+}
+.grow_remove_modal{
+	width:500px;
+	height:200px;
+	outline:3px solid #B7B7B7;
+	border-radius: 0px;
+	padding:30px;
+}
+.inner_remove_modal{
+	padding:40px 80px;
+	border:1px solid #EBEBEB;
+}
+.plant_modal_set_hide{
+	display: none;
+}
+.plant_modal_set_show{
+	display: block;
+}
+.add_plant_set{
+	font-size: 14px;
+    padding-bottom: 0px;
+	border-radius: 0px;
+}
+.btn_common_width{
+	width:70px;
+}
+.bottom_color_bar{
+	margin-top:20px;
+	margin-right:50px;
+	float:right;
+	height:50px;
+}
+.bottom_color_bar svg{
+	width:300px;
+	height:50px;
+}
+.bottom_color_bar rect{
+	width:300px;
+	border:1px solid #FFF;
+	outline:2px solid #CCC;
+}
+.room_preview_setting{
+	height: calc(100vh - 180px);
+    margin-top: 15px;
+    cursor: -webkit-grab;
+    border: 1px solid rgb(191,191,191);
+    background: #F9F9F9;
+    width: calc(50vw - 140px);
+    overflow: hidden;
+}
+.grow_room_setting_table h3{
+	text-align: center;
+	padding: 20px 0px;
+}
+.grow_room_setting_table table{
+	width:100%;
+}
+.room_setting_btn{
+	text-align: center;
+	margin-top:50px;
+}
+.room_save_sucess{
+	background:#56c29e;
+	color:#FFF;
+	font-size:18px;
+	padding:10px 0px;
+	text-align:center;
+	display:none;
+	margin-top:20px;
+}
+.ui-widget-content{
+	z-index: 10000;
+}
+.panel_control_icon{
+	width: 25px;
+    height: 25px;
+    margin-left: 30px;
+	cursor: pointer;
+}
+.plant_gui_top_left{
+	display: inline-block;
+}
+.plant_gui_top_right{
+	display: inline-block;
+    float: right;
+}
+.plant_margin_20_right{
+	margin-left: 30px;
+}
+.dragscroll_view_fullscreen{
+    width: calc(100% - 2px);
+    height: calc(100% - 35px);
+    overflow: hidden; 
+    cursor: grab;
+    cursor : -o-grab; 
+    cursor : -moz-grab; 
+    cursor : -webkit-grab; 
+    border:1px solid rgb(191,191,191);
+    background: #F9F9F9;
+}
+.right_panel_show{
+	display: block;
+}
+.right_panel_hide{
+	display: none;
+}
+.left_svg_palette{
+	border: 1px solid rgb(191,191,191);
+	background : #FFF;
+    width: 150px;
+    height: 170px;
+    position: absolute;
+    margin-top: -172px;
+	right: 0px;
+}
+.left_svg_palette_fullscreen{
+	border: 1px solid rgb(191,191,191);
+	background : #FFF;
+    width: 150px;
+    height: 170px;
+    position: absolute;
+    margin-top: -172px;
+}
+.right_svg_palette{
+	border: 1px solid rgb(191,191,191);
+	background : #FFF;
+    width: 150px;
+    height: 148px;
+    position: absolute;
+    margin-top: -150px;
+}
+.left_svg_palette_items{
+	margin-top: 10px;
+	margin-left: 15px;
+}
+
+@media (max-width: 1200px) {
+	.right_panel_margin_svg {
+		width: 100% !important;
+		margin-left: 0px;
+		margin-top: 30px;
+	}
+	.dragscroll_view{
+		width: calc(100% - 2px);
+		height: calc(100% - 35px);
+		overflow: hidden; 
+		cursor: grab;
+		cursor : -o-grab; 
+		cursor : -moz-grab; 
+		cursor : -webkit-grab; 
+		border:1px solid rgb(191,191,191);
+		background: #F9F9F9;
+	}
+	.top_header_svg_controller{
+		width: 100%;
+	}
+	.left_svg_palette{
+		border: 1px solid rgb(191,191,191);
+		background : #FFF;
+		width: 150px;
+		height: 170px;
+		position: absolute;
+		margin-top: -172px;
+	}
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+	font-size: 13px;
+}
+.plant_mgt_dialog{
+	color: red;
+    font-size: 16px;
+}
+.move_modal_detail_stock_set{
+	margin: 10px;
+    border: 1px solid #C3C3C3;
+    padding: 20px 35px;
+}
+.move_modal_detail_stock_set table{
+	font-size: 13px;
+}
+.modal_dialog_alert_sucess{
+	background: #56c29e;
+    color: #FFF;
+    font-size: 18px;
+    padding: 5px 0px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.modal_dialog_alert_error{
+	background: red;
+    color: #FFF;
+    font-size: 18px;
+    padding: 5px 0px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.modal_dialog_error_text_p{
+	margin: 0px;
+    float: right;
+    font-size: 11px;
+    color: red;
+    text-align: right;
+	margin-top: 4px;
+}
+.fileupload_modal_detail_newpart{
+    margin: 10px 0px;
+	padding: 0px 15px;
+    border: 1px solid #C3C3C3;
+    height: 75%;
+    overflow-y: auto;
+}
+.fileupload_release_warehouse{
+    float: right;
+    bottom: 0px;
+    margin-top: 35px;
+    margin-right: 15px;
+}
+.fileupload_modal_room_area{
+    width: 150px;
+    text-align: center;
+}
+.fileupload_modal_rowcol_value{
+    width: 100px;
+    text-align: center;
+}
+.fileupload_modal_now_state{
+    width: 120px;
+    text-align: center;
+}
+.fileupload_modal_next_state{
+    width: 120px;
+    text-align: center;
+}
+.plant_gui_room_select{
+	width: 110px;
+    display: inline-block;
+    float: left;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+.absolute_div
+{
+    position: absolute;
+}
+.fullscreen_control_set{
+    width: calc(100vw - 85px);
+    margin-left: 10px;
+}
+.grow_grid_menu{
+	position: absolute;
+    background: #fff;
+    border: 1px solid #DDDDDD;
+    margin-top: 1px;
+    display: none;
+	z-index: 5;
+}
+.grow_grid_menu table{
+	padding: 5px;
+}
+.grow_grid_menu td{
+	padding: 5px;
+	cursor: pointer;
+}
+.add_file_label{
+	padding-right: 60px !important;
+}
+.move_file_label{
+	padding-right: 50px !important;
+}
+.room_information_modal{
+	margin-top: 0px !important;
+    top: 20% !important;
+    height: 590px !important;
+}
+.room_infor_tables{
+	display: inline-block;
+    width: 48%;
+    vertical-align: top;
+}
+.grow_set_width_100{
+	width: 100%;
+}
+.fileupload_modal_parent_area{
+    width: 160px;
+    text-align: left;
+    margin-left: 10px;
+}
+.right_menu_bar_set{
+	border: 1px solid #d0d0d0;
+    padding: 20px 30px;
+    width: 350px;
+}
+.right_menu_bar_set .row{
+	line-height: 35px;
+    height: 35px;
+}
+.right_menu_bar_set .row .rfid_weight_values{
+	width: 60px;
+    margin-left: 100px;
+}

@@ -45,7 +45,7 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
     <!-- Styling of JS plugins -->
     <link rel="stylesheet" href="/mukesh/erp2-test/public/master-css/external/jquery-ui-1.8.16.custom.css">	<!-- PLUGIN: jQuery UI styling -->
 
-
+    <!--  end -->
     <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
     <!-- All JavaScript at the bottom, except this Modernizr build incl. Respond.js
@@ -54,6 +54,7 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
     for optimal performance, create your own custom Modernizr build:
     www.modernizr.com/download/ -->
     <script src="/mukesh/erp2-test/public/master-js/libs/modernizr-2.0.6.min.js"></script>
+
 </head>
 
 <body>
@@ -181,13 +182,13 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
                         </ul>
                     </li>
                     <li {{ areActiveRoutes(['grow.*'],'class=current') }}>
-                        <a href="#">
+                        <a href="/mukesh/erp2-test/grow/index">
                             Grow</a>
-                        <ul>
+                        <!-- <ul>
                             <li>
-                                <a href="grow/index">New</a>
+                                <a href="/mukesh/erp2-test/grow/index">New</a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                     <li {{ areActiveRoutes(['cashdesk.*'],'class=current') }}>
                         <a href="/mukesh/erp2-test/cashdesk/affIndex">

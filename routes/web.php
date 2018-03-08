@@ -60,9 +60,11 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('affIndex','CashDesk\POSController@affIndex');
     });
     /* ##########-----------societe---------------------########### */
-    // Route::group(['prefix' => 'societe', 'as' => 'societe.'], function(){
-    //     Route::get('affIndex','CashDesk\POSController@affIndex');
-    // });
+    Route::group(['prefix' => 'societe', 'as' => 'societe.'], function(){
+        Route::get('modal_card','Societe\SocieteController@modal_card');
+        Route::get('pos_consumption','Societe\SocieteController@pos_consumption');
+        //Route::get('pos_consumption/{socid?}','Societe\SocieteController@pos_consumption');
+    });
 
 
 });
