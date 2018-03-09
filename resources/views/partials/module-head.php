@@ -18,14 +18,16 @@ More info: h5bp.com/b/378 -->
 <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/includes/jquery/plugins/select2/select2.css?version=6.0.0">
 <!-- End -->
 <!-- Includes CSS for font awesome -->
-<link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/plugins/fontawesome/css/font-awesome.min.css?version=6.0.0">
+<link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/plugins/font-awesome/css/font-awesome.min.css?version=6.0.0">
 <!-- Includes CSS for Dolibarr theme -->
 <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/theme/style.css">
 <!--  end -->
+<!-- Includes CSS added by module grow -->
+<link rel="stylesheet" href="/mukesh/erp2-test/public/custom/grow/css/grow.css">
+<!-- end -->
 <!-- Includes CSS added by page -->
 <link rel="stylesheet" href="/mukesh/erp2-test/public/cashdesk/css/pos_style.css">
-<!-- <link rel="stylesheet" href="/mukesh/erp2-test/public/cashdesk/css/ticket.css"> -->
-<!--  template css -->
+
 <link rel="stylesheet" href="/mukesh/erp2-test/public/cashdesk/template/css/style.css">
 <!--  custom societe css -->
 <link rel="stylesheet" href="/mukesh/erp2-test/public/societe/css/custom.css">

@@ -52,6 +52,12 @@ Route::group(['middleware' => ['auth']],function() {
     /* ##########-------------Grow Routes--------------############*/
     Route::group(['prefix' => 'grow', 'as' => 'grow.'], function(){
         Route::get('index','Custom\GrowController@index');
+        Route::get('basic_grow','Custom\GrowController@basic_grow');
+        Route::get('settings/room','Custom\GrowController@room');
+        Route::get('settings/global','Custom\GrowController@global');
+        Route::get('growing/index','Custom\GrowController@growIndex');
+        Route::get('history/index','Custom\GrowController@historyIndex');
+        Route::get('mgt_gui','Custom\GrowController@mgtGUI');
     });
     /* End*/
 
@@ -63,7 +69,12 @@ Route::group(['middleware' => ['auth']],function() {
     Route::group(['prefix' => 'societe', 'as' => 'societe.'], function(){
         Route::get('modal_card','Societe\SocieteController@modal_card');
         Route::get('pos_consumption','Societe\SocieteController@pos_consumption');
-        //Route::get('pos_consumption/{socid?}','Societe\SocieteController@pos_consumption');
+        
+    });
+
+    /* ##########-------------Product-------------------########### */
+    Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
+        Route::get('card','Product\ProductController@card');
     });
 
 

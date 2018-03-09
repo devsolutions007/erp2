@@ -421,12 +421,12 @@
         </form>
         <div id="file_upload_result_missing"></div>
         <!-- <script src="/custom/grow/js/jquery-1.11.0.min.js"></script> -->
-        <!-- <script src="/mukesh/erp2-test/public/custom/grow/js/jquery.plainmodal.min.js"></script>
+        <script src="/mukesh/erp2-test/public/custom/grow/js/jquery.plainmodal.min.js"></script>
         <script src="/mukesh/erp2-test/public/custom/grow/js/jquery.form.js"></script>
         <script src="/mukesh/erp2-test/public/custom/grow/js/event.js"></script>
         <script src="/mukesh/erp2-test/public/custom/grow/js/process.js"></script>
         <script src="/mukesh/erp2-test/public/custom/grow/js/action.js"></script>
-        <script src="/mukesh/erp2-test/public/custom/grow/js/FileUpload.js"></script> -->
+        <script src="/mukesh/erp2-test/public/custom/grow/js/FileUpload.js"></script>
     </div> <!-- End div class="fiche" -->
 </div>
 
