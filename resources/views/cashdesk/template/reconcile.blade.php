@@ -17,5 +17,5 @@
     	@include( 'cashdesk.affPay_money' )
     </div>
 </div>
-<script src="/mukesh/erp2-test/public/cashdesk/template/js/reconcile.js"></script>
+<script src="{{ asset('cashdesk/template/js/reconcile.js') }}"></script>
 

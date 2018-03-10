@@ -8,7 +8,7 @@
             <tbody>
                 <tr>
                     <td class="nobordernopadding widthpictotitle" valign="middle">
-                        <img src="/mukesh/erp2-test/public/custom/grow/img/grow.png" alt="" title="" class="valignmiddle" id="pictotitle">
+                        <img src="{{ asset('custom/grow/img/grow.png') }}" alt="" title="" class="valignmiddle" id="pictotitle">
                     </td>
                     <td class="nobordernopadding" valign="middle">
                         <div class="titre">GrowArea</div>
@@ -74,7 +74,7 @@
                             <tr class="margin-table">
                                 <td colspan="2">Process Date : 
                                 <input id="fiscalyear" name="fiscalyear" class="maxwidth75" maxlength="11" value="03/09/2018" onchange="dpChangeDay('fiscalyear','MM/dd/yyyy'); " type="text"><button id="fiscalyearButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','fiscalyear','MM/dd/yyyy','en_US');">
-                                <img src="/mukesh/erp2-test/public/theme/eldy/img/object_calendarday.png" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="09" type="hidden">
+                                <img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="09" type="hidden">
                                 <input id="fiscalyearmonth" name="fiscalyearmonth" value="03" type="hidden">
                                 <input id="fiscalyearyear" name="fiscalyearyear" value="2018" type="hidden">
                                 </td>
@@ -406,7 +406,7 @@ $("#RFID").change( function(){
 });
 
 $("#addproduct").click(function(){
-        window.open("/mukesh/erp2-test/product/card?leftmenu=product&action=create&type=0", 'openwin');
+        window.open("/product/card?leftmenu=product&action=create&type=0", 'openwin');
 });
 
 $(document).ready(function(e) {

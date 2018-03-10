@@ -9,7 +9,7 @@
             <table summary="" class="centpercent notopnoleftnoright" style="margin-bottom: 2px;">
                 <tbody>
                     <tr>
-                        <td class="nobordernopadding widthpictotitle" valign="middle"><img src="/mukesh/erp2-test/public/theme/eldy/img/title_products.png" alt="" title="" class="valignmiddle" id="pictotitle"></td><td class="nobordernopadding" valign="middle"><div class="titre">New product</div></td>
+                        <td class="nobordernopadding widthpictotitle" valign="middle"><img src="theme/eldy/img/title_products.png" alt="" title="" class="valignmiddle" id="pictotitle"></td><td class="nobordernopadding" valign="middle"><div class="titre">New product</div></td>
                     </tr>
                 </tbody>
             </table>

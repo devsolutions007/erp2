@@ -25,8 +25,8 @@
 				</tr>
 			</table>
 		</div>
-		<img src='/mukesh/erp2-test/public/cashdesk/img/user_history.png' id='pos_customer_name'>
-		<img src='/mukesh/erp2-test/public/cashdesk/img/add_user.png' id='pos_add_customer'>
+		<img src="{{ asset('cashdesk/img/user_history.png') }}" id='pos_customer_name'>
+		<img src="{{ asset('cashdesk/img/add_user.png') }}" id='pos_add_customer'>
 	</div>
 	<div class="pos_customer_product_list pos-list-panel">
 		<table class="topics_num" id="product_topics_order">
@@ -88,7 +88,7 @@
 	}
 
 	$("#pos_add_customer").click(function(){
-		$("#content-php").load("/mukesh/erp2-test/societe/modal_card");
+		$("#content-php").load("/societe/modal_card");
 		$("#addcustomer_modal").css("display", "block");  
 	});
 

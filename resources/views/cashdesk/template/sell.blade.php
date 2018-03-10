@@ -34,5 +34,5 @@
         @include( 'cashdesk.affOrder' )
     </div>
 </div>
-<script src="/mukesh/erp2-test/public/cashdesk/template/js/sell.js"></script>
+<script src="{{ asset('cashdesk/template/js/sell.js') }}"></script>
 

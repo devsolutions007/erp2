@@ -6,7 +6,7 @@
 
 <div class="full-width">
     <div class="product-left-panel align-right-panel" style="padding-top: 25px;">
-        <label for="search_product"><img src="/mukesh/erp2-test/public/cashdesk/img/ic_search.png" width="40" height="40" style="margin-bottom: 10px;"></label>
+        <label for="search_product"><img src="{{ asset('cashdesk/img/ic_search.png') }}" width="40" height="40" style="margin-bottom: 10px;"></label>
     </div>
     <div class="product-right-panel">
         <input type="text" id="search_product" class="input-type-div">
@@ -46,7 +46,7 @@
                 <ul class="product-ul">
                     <li class="product-li item-candidate item-selected" data-id="1" data-category="3," data-search="$10 Bowl" style="width: 290.333px; top: 0px; left: 0px;">
                         <div class="product-item">
-                            <img src="/mukesh/erp2-test/public/cashdesk//img/product.png" class="product-img">
+                            <img src="{{ asset('cashdesk/img/product.png') }}" class="product-img">
                             <div class="product-detail-wrapper">
                                 <div style="width: 160.333px;">
                                     <a href="#" target="new" style="width: 160.333px;">$10 Bowl</a>
@@ -59,10 +59,10 @@
                     </li>
                 </ul>
                 <div class="loading">
-                    <img src="/mukesh/erp2-test/public/cashdesk/img/circle_loading_animation.gif">
+                    <img src="{{ asset('cashdesk/img/circle_loading_animation.gif') }}">
                 </div>
                 <div class="empty">
-                    <img src="/mukesh/erp2-test/public/cashdesk/img/empty_stock.png">
+                    <img src="{{ asset('cashdesk/img/empty_stock.png') }}">
                 </div>
             </div>
         </div>
@@ -86,5 +86,5 @@
         </div>
     </div>
 </div>
-<script src="/mukesh/erp2-test/public/cashdesk/template/js/products.js"></script>
+<script src="{{ asset('cashdesk/template/js/products.js') }}"></script>
 

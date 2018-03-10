@@ -8,26 +8,26 @@ $(document).ready(function(){
         if(mode == '' || mode == 'sell'){
 
         } else {
-            window.open("/mukesh/erp2-test/cashdesk/affIndex?menutpl=facturation&id=NOUV", '_self');
+            window.open("/cashdesk/affIndex?menutpl=facturation&id=NOUV", '_self');
         }
     });
 
     $('#btn_redirect_products').click(function(){
         var mode = $('#pos_wrapper').data('mode');
         if(mode != 'products'){
-            window.open("/mukesh/erp2-test/cashdesk/affIndex?menutpl=facturation&id=NOUV&mode=products", '_self');
+            window.open("/cashdesk/affIndex?menutpl=facturation&id=NOUV&mode=products", '_self');
         }
     });
 
     $('#btn_redirect_reconcile').click(function(){
         var mode = $('#pos_wrapper').data('mode');
         if(mode != 'reconcile'){
-            window.open("/mukesh/erp2-test/cashdesk/affIndex?menutpl=facturation&id=NOUV&mode=reconcile", '_self');
+            window.open("/cashdesk/affIndex?menutpl=facturation&id=NOUV&mode=reconcile", '_self');
         }
     });
 
     $('#btn_redirect_back').click(function(){
-        window.open("/mukesh/erp2-test?mainmenu=home&leftmenu=home", '_self');
+        window.open("/", '_self');
     });
 
     $('#pos_sell_history_id').change(function(){

@@ -111,7 +111,7 @@
 							<option value="34">Andorra (AD)</option>
 						</select>
 
-						<img src="/mukesh/erp2-test/public/theme/eldy/img/info.png" alt="" title="You can change values for this list from menu Setup - Dictionaries" class="hideonsmartphone">
+						<img src="theme/eldy/img/info.png" alt="" title="You can change values for this list from menu Setup - Dictionaries" class="hideonsmartphone">
 					</td>
 				</tr>
 				<tr>

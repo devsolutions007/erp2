@@ -15,14 +15,14 @@
                                 </select>
                             </td>
                             <td>From : 
-                                <input id="startdate" name="startdate" class="maxwidth75" maxlength="11" value="03/01/2018" onchange="dpChangeDay('startdate','MM/dd/yyyy'); " type="text"><button id="startdateButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','startdate','MM/dd/yyyy','en_US');"><img src="/mukesh/erp2-test/public/theme/eldy/img/object_calendarday.png" alt="" title="Select a date" class="datecallink"></button>
+                                <input id="startdate" name="startdate" class="maxwidth75" maxlength="11" value="03/01/2018" onchange="dpChangeDay('startdate','MM/dd/yyyy'); " type="text"><button id="startdateButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','startdate','MM/dd/yyyy','en_US');"><img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button>
                                 <input id="startdateday" name="startdateday" value="01" type="hidden">
                                 <input id="startdatemonth" name="startdatemonth" value="03" type="hidden">
                                 <input id="startdateyear" name="startdateyear" value="2018" type="hidden">
                             </td>
                             <td>To : 
                                 <input id="lastdate" name="lastdate" class="maxwidth75" maxlength="11" value="03/09/2018" onchange="dpChangeDay('lastdate','MM/dd/yyyy'); " type="text">
-                                <button id="lastdateButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','lastdate','MM/dd/yyyy','en_US');"><img src="/mukesh/erp2-test/public/theme/eldy/img/object_calendarday.png" alt="" title="Select a date" class="datecallink"></button>
+                                <button id="lastdateButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','lastdate','MM/dd/yyyy','en_US');"><img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button>
                                 <input id="lastdateday" name="lastdateday" value="09" type="hidden">
                                 <input id="lastdatemonth" name="lastdatemonth" value="03" type="hidden">
                                 <input id="lastdateyear" name="lastdateyear" value="2018" type="hidden">

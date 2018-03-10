@@ -101,7 +101,7 @@ var LayoutControl = function ( parent_div_id , columns , rows )
 }
 
 function setLayout( x , y ){
-    $("#grow_grid_img").attr("src","/mukesh/erp2-test/public/custom/grow/mgt-gui/img/file_upload/file" + x + "-" + y + ".png");
+    $("#grow_grid_img").attr("src","custom/grow/mgt-gui/img/file_upload/file" + x + "-" + y + ".png");
     GlobalLayout = new LayoutControl( 'RenderDiv' , x , y );
     $("#area_select" ).trigger('change');
 }

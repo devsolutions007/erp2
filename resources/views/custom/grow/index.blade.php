@@ -12,7 +12,7 @@
                     <tbody>
                         <tr>
                             <td>Date</td>
-                            <td><input id="fiscalyear" name="fiscalyear" class="maxwidth75" maxlength="11" value="03/08/2018" onchange="dpChangeDay('fiscalyear','MM/dd/yyyy'); " type="text"><button id="fiscalyearButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','fiscalyear','MM/dd/yyyy','en_US');"><img src="/theme/eldy/img/object_calendarday.png" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="08" type="hidden">
+                            <td><input id="fiscalyear" name="fiscalyear" class="maxwidth75" maxlength="11" value="03/08/2018" onchange="dpChangeDay('fiscalyear','MM/dd/yyyy'); " type="text"><button id="fiscalyearButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','fiscalyear','MM/dd/yyyy','en_US');"><img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="08" type="hidden">
                             <input id="fiscalyearmonth" name="fiscalyearmonth" value="03" type="hidden">
                             <input id="fiscalyearyear" name="fiscalyearyear" value="2018" type="hidden">
                             </td>
@@ -57,7 +57,7 @@
                     <tbody>
                         <tr>
                             <td>Date </td>
-                            <td><input id="fiscalyear" name="fiscalyear" class="maxwidth75" maxlength="11" value="03/08/2018" onchange="dpChangeDay('fiscalyear','MM/dd/yyyy'); " type="text"><button id="fiscalyearButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','fiscalyear','MM/dd/yyyy','en_US');"><img src="/theme/eldy/img/object_calendarday.png" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="08" type="hidden">
+                            <td><input id="fiscalyear" name="fiscalyear" class="maxwidth75" maxlength="11" value="03/08/2018" onchange="dpChangeDay('fiscalyear','MM/dd/yyyy'); " type="text"><button id="fiscalyearButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','fiscalyear','MM/dd/yyyy','en_US');"><img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="08" type="hidden">
                             <input id="fiscalyearmonth" name="fiscalyearmonth" value="03" type="hidden">
                             <input id="fiscalyearyear" name="fiscalyearyear" value="2018" type="hidden">
                             </td>
@@ -94,7 +94,7 @@
                     <tbody>
                         <tr>
                             <td>Date </td>
-                            <td><input id="fiscalyear" name="fiscalyear" class="maxwidth75" maxlength="11" value="03/08/2018" onchange="dpChangeDay('fiscalyear','MM/dd/yyyy'); " type="text"><button id="fiscalyearButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','fiscalyear','MM/dd/yyyy','en_US');"><img src="/theme/eldy/img/object_calendarday.png" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="08" type="hidden">
+                            <td><input id="fiscalyear" name="fiscalyear" class="maxwidth75" maxlength="11" value="03/08/2018" onchange="dpChangeDay('fiscalyear','MM/dd/yyyy'); " type="text"><button id="fiscalyearButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','fiscalyear','MM/dd/yyyy','en_US');"><img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button><input id="fiscalyearday" name="fiscalyearday" value="08" type="hidden">
                             <input id="fiscalyearmonth" name="fiscalyearmonth" value="03" type="hidden">
                             <input id="fiscalyearyear" name="fiscalyearyear" value="2018" type="hidden">
                             </td>
@@ -421,12 +421,12 @@
         </form>
         <div id="file_upload_result_missing"></div>
         <!-- <script src="/custom/grow/js/jquery-1.11.0.min.js"></script> -->
-        <script src="/mukesh/erp2-test/public/custom/grow/js/jquery.plainmodal.min.js"></script>
-        <script src="/mukesh/erp2-test/public/custom/grow/js/jquery.form.js"></script>
-        <script src="/mukesh/erp2-test/public/custom/grow/js/event.js"></script>
-        <script src="/mukesh/erp2-test/public/custom/grow/js/process.js"></script>
-        <script src="/mukesh/erp2-test/public/custom/grow/js/action.js"></script>
-        <script src="/mukesh/erp2-test/public/custom/grow/js/FileUpload.js"></script>
+        <script src="{{ asset('custom/grow/js/jquery.plainmodal.min.js') }}"></script>
+        <script src="{{ asset('custom/grow/js/jquery.form.js') }}"></script>
+        <script src="{{ asset('custom/grow/js/event.js') }}"></script>
+        <script src="{{ asset('custom/grow/js/process.js') }}"></script>
+        <script src="{{ asset('custom/grow/js/action.js') }}"></script>
+        <script src="{{ asset('custom/grow/js/FileUpload.js') }}"></script>
     </div> <!-- End div class="fiche" -->
 </div>
 

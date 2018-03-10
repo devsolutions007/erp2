@@ -44,7 +44,7 @@ if(isset($_GET['mode'])) {
 					<table>
 						<tbody>
 						<tr>
-							<td width="70"><img src="/mukesh/erp2-test/public/cashdesk/img/alert.png" width="70" height="70"></td>
+							<td width="70"><img src="{{ asset('cashdesk/img/alert.png') }}" width="70" height="70"></td>
 							<td><p id="alert_message">Something is wrong.</p></td>
 						</tr>
 						</tbody>
@@ -54,11 +54,11 @@ if(isset($_GET['mode'])) {
 			</div>
 		</div>
 		<div class="processing">
-			<img src="/mukesh/erp2-test/public/cashdesk/img/processing.gif">
+			<img src="{{ asset('cashdesk/img/processing.gif') }}">
 		</div>
 
 	</div>
-	<script type="text/javascript" src="/mukesh/erp2-test/public/cashdesk/template/js/global.js"></script>
-	<script type="text/javascript" src="/mukesh/erp2-test/public/cashdesk/javascript/pos_event.js"></script>
+	<script type="text/javascript" src="{{ asset('cashdesk/template/js/global.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('cashdesk/javascript/pos_event.js') }}"></script>
 </body>
 </html>

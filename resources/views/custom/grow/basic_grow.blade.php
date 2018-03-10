@@ -8,7 +8,7 @@
             <tbody>
                 <tr>
                     <td class="nobordernopadding widthpictotitle" valign="middle">
-                        <img src="/mukesh/erp2-test/public/custom/grow/img/grow.png" alt="" title="" class="valignmiddle" id="pictotitle">
+                        <img src="{{ asset('custom/grow/img/grow.png') }}" alt="" title="" class="valignmiddle" id="pictotitle">
                     </td>
                     <td class="nobordernopadding" valign="middle">
                         <div class="titre">GrowArea</div>

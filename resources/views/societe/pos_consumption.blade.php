@@ -72,16 +72,16 @@
 			</div>
 			<div class="inline-block floatleft">
 				<div class="floatleft inline-block valignmiddle divphotoref">
-					<img class="photosociete photoref" alt="No photo" src="/mukesh/erp2-test/public/theme/common/nophoto.png">
+					<img class="photosociete photoref" alt="No photo" src="theme/common/nophoto.png">
 				</div>
 			</div>
 			<div class="inline-block floatleft valignmiddle refid refidpadding">Main Customer <div class="refidno">
 				<!-- BEGIN part to show address block -->
 				<a href="#" class="hideonsmartphone" onclick="return copyToClipboard('Main Customer<br>United States','Use Ctrl+C to copy to clipboard');">
-					<img src="/mukesh/erp2-test/public/theme/eldy/img/object_address.png" alt="" title="Address" class="inline-block valigntextbottom"></a> United States
+					<img src="theme/eldy/img/object_address.png" alt="" title="Address" class="inline-block valigntextbottom"></a> United States
 					<div style="clear: both;"></div>
 					<div class="nospan float" style="margin-right: 10px">
-						<img src="/mukesh/erp2-test/public/theme/eldy/img/object_email.png" alt="" title="E-mail" class="inline-block valigntextbottom"> <a style="text-overflow: ellipsis;" href="mailto:future_web@outlook.com">future_web@outlook.com</a>
+						<img src="theme/eldy/img/object_email.png" alt="" title="E-mail" class="inline-block valigntextbottom"> <a style="text-overflow: ellipsis;" href="mailto:future_web@outlook.com">future_web@outlook.com</a>
 					</div>
 					<!-- END Part to show address block -->
 				</div>
@@ -159,12 +159,12 @@
 		$("#purchase_btn").removeClass('select_btn_menu');
 		$('.order_table').css('display', 'table');
 		$('.purchase_table').css('display', 'none');
-		//$("#content-php").load( "/mukesh/erp2-test/societe/pos_consumption.php?socid=" + 1 + "&type_element=order&button_third=Search&limit=25" );
+		//$("#content-php").load( "/societe/pos_consumption.php?socid=" + 1 + "&type_element=order&button_third=Search&limit=25" );
 		//$("#addcustomer_modal").css("display", "block");  
 	});
 
 	$("#purchase_btn").click(function(){
-		//$("#content-php").load( "/mukesh/erp2-test/societe/pos_consumption.php?socid=" + 1 + "&type_element=invoice&button_third=Search&limit=25" );
+		//$("#content-php").load( "/societe/pos_consumption.php?socid=" + 1 + "&type_element=invoice&button_third=Search&limit=25" );
 		//$("#addcustomer_modal").css("display", "block");  
 		$(this).addClass('select_btn_menu');
 		$("#order_btn").removeClass('select_btn_menu');

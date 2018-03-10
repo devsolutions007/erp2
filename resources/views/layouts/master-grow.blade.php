@@ -22,33 +22,33 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <!-- Includes CSS for JQuery (Ajax library) -->
-    <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/includes/jquery/css/smoothness/jquery-ui.css?version=6.0.0">
-    <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/includes/jquery/plugins/tiptip/tipTip.css?version=6.0.0">
-    <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/includes/jquery/plugins/jnotify/jquery.jnotify-alt.min.css?version=6.0.0">
-    <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/includes/jquery/plugins/select2/select2.css?version=6.0.0">
+    <link rel="stylesheet" type="text/css" href="{{ asset('includes/jquery/css/smoothness/jquery-ui.css?version=6.0.0') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('includes/jquery/plugins/tiptip/tipTip.css?version=6.0.0') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('includes/jquery/plugins/jnotify/jquery.jnotify-alt.min.css?version=6.0.0') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('includes/jquery/plugins/select2/select2.css?version=6.0.0') }}">
     <!-- End -->
     <!-- Includes CSS for font awesome -->
-    <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/plugins/font-awesome/css/font-awesome.min.css?version=6.0.0">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css?version=6.0.0') }}">
     <!-- Includes CSS for Dolibarr theme -->
-    <link rel="stylesheet" type="text/css" href="/mukesh/erp2-test/public/theme/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/style.css') }}">
     <!--  end -->
     <!--  grow page custom css -->
-    <link rel="stylesheet" href="/mukesh/erp2-test/public/custom/grow/css/custom.css"> 
+    <link rel="stylesheet" href="{{ asset('custom/grow/css/custom.css') }}"> 
     <!--  end -->
     <!-- Includes CSS added by module grow -->
-    <link rel="stylesheet" href="/mukesh/erp2-test/public/custom/grow/css/grow.css">
+    <link rel="stylesheet" href="{{ asset('custom/grow/css/grow.css') }}">
     <!-- end -->
     <!-- Includes JS for JQuery -->
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/js/jquery.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/js/jquery-ui.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/plugins/tablednd/jquery.tablednd.0.6.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/plugins/tiptip/jquery.tipTip.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/plugins/jnotify/jquery.jnotify.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/core/js/jnotify.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/plugins/flot/jquery.flot.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/plugins/flot/jquery.flot.pie.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/plugins/flot/jquery.flot.stack.min.js?version=6.0.0"></script>
-    <script type="text/javascript" src="/mukesh/erp2-test/public/includes/jquery/plugins/select2/select2.min.js?version=6.0.0"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/js/jquery.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/js/jquery-ui.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/plugins/tablednd/jquery.tablednd.0.6.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/plugins/tiptip/jquery.tipTip.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/plugins/jnotify/jquery.jnotify.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="core/js/jnotify.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/plugins/flot/jquery.flot.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/plugins/flot/jquery.flot.pie.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/plugins/flot/jquery.flot.stack.min.js?version=6.0.0') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/jquery/plugins/select2/select2.min.js?version=6.0.0') }}"></script>
     
 </head>
 
@@ -102,68 +102,68 @@ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
                         <div class="blockvmenu blockvmenupair blockvmenufirst">
                         <!-- Process menu entry with mainmenu=grow, leftmenu=grow_Stock, level=0 enabled=1, position=1102 -->
                             <div class="menu_titre">
-                                <a class="vmenu" href="/mukesh/erp2-test/grow/index">Grow House</a>
+                                <a class="vmenu" href="/grow/index">Grow House</a>
                             </div>
                             <div class="menu_top"></div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1103 -->
                             <div class="menu_contenu menu_contenu_grow_basic_grow">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/basic_grow">Grow Area</a><br>
+                                <a class="vsmenu" href="/grow/basic_grow">Grow Area</a><br>
                             </div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1104 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-mgt_stock">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/index">Plant Mgt</a><br>
+                                <a class="vsmenu" href="/grow/index">Plant Mgt</a><br>
                             </div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1105 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-mgt-gui_index">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/mgt_gui?idmenu=320&amp;mainmenu=grow&amp;leftmenu=">Plant Mgt(GUI)</a><br>
+                                <a class="vsmenu" href="/grow/mgt_gui?idmenu=320&amp;mainmenu=grow&amp;leftmenu=">Plant Mgt(GUI)</a><br>
                             </div>
                             <div class="menu_end"></div>
                         </div>
                         <div class="blockvmenu blockvmenuimpair">
                             <!-- Process menu entry with mainmenu=grow, leftmenu=grow_basic_data, level=0 enabled=1, position=1106 -->
                             <div class="menu_titre">
-                                <a class="vmenu" href="/mukesh/erp2-test/grow/settings/room">Setting</a>
+                                <a class="vmenu" href="/grow/settings/room">Setting</a>
                             </div>
                             <div class="menu_top"></div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1107 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-room-setting_index">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/settings/room">Room</a><br>
+                                <a class="vsmenu" href="/grow/settings/room">Room</a><br>
                             </div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1108 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-room-setting_global">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/settings/global">Global</a><br>
+                                <a class="vsmenu" href="/grow/settings/global">Global</a><br>
                             </div>
                             <div class="menu_end"></div>
                             </div>
                             <div class="blockvmenu blockvmenupair">
                             <!-- Process menu entry with mainmenu=grow, leftmenu=grow_growing, level=0 enabled=1, position=1109 -->
                             <div class="menu_titre">
-                                <a class="vmenu" href="/mukesh/erp2-test/grow/growing/index?growmode=new&idmenu=325&mainmenu=grow&leftmenu=">Growing</a>
+                                <a class="vmenu" href="/grow/growing/index?growmode=new&idmenu=325&mainmenu=grow&leftmenu=">Growing</a>
                             </div>
                             <div class="menu_top"></div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1110 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-growing_index">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/growing/index?growmode=new&idmenu=325&mainmenu=grow&leftmenu=">New Grow</a><br>
+                                <a class="vsmenu" href="/grow/growing/index?growmode=new&idmenu=325&mainmenu=grow&leftmenu=">New Grow</a><br>
                             </div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1111 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-growing_index">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/growing/index?growmode=move&idmenu=326&mainmenu=grow&leftmenu=">Move Grow</a><br>
+                                <a class="vsmenu" href="/grow/growing/index?growmode=move&idmenu=326&mainmenu=grow&leftmenu=">Move Grow</a><br>
                             </div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1112 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-growing_index">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/growing/index?growmode=release&amp;idmenu=327&amp;mainmenu=grow&amp;leftmenu=">Release</a><br>
+                                <a class="vsmenu" href="/grow/growing/index?growmode=release&amp;idmenu=327&amp;mainmenu=grow&amp;leftmenu=">Release</a><br>
                             </div>
                             <div class="menu_end"></div>
                         </div>
                         <div class="blockvmenu blockvmenuimpair blockvmenulast">
                             <!-- Process menu entry with mainmenu=grow, leftmenu=grow_History, level=0 enabled=1, position=1113 -->
                             <div class="menu_titre">
-                                <a class="vmenu" href="/mukesh/erp2-test/grow/history/index?idmenu=328&amp;mainmenu=grow&amp;leftmenu=">History</a>
+                                <a class="vmenu" href="/grow/history/index?idmenu=328&amp;mainmenu=grow&amp;leftmenu=">History</a>
                             </div>
                             <div class="menu_top"></div>
                             <!-- Process menu entry with mainmenu=grow, leftmenu=, level=1 enabled=1, position=1114 -->
                             <div class="menu_contenu menu_contenu_grow_pages_plant-move-history_history">
-                                <a class="vsmenu" href="/mukesh/erp2-test/grow/history/index?idmenu=329&amp;mainmenu=grow&amp;leftmenu=">Move History</a><br>
+                                <a class="vsmenu" href="/grow/history/index?idmenu=329&amp;mainmenu=grow&amp;leftmenu=">Move History</a><br>
                             </div>
                             <div class="menu_end"></div>
                         </div>

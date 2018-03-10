@@ -100,7 +100,7 @@ $(document).ready(function(){
 	$("#CASHDESK_ID_THIRDPARTY" ).trigger( "change");
 
 	$("#pos_customer_name").click(function(){
-		$("#content-php").load( "/mukesh/erp2-test/societe/pos_consumption?socid=" + $("#CASHDESK_ID_THIRDPARTY option:selected").val()
+		$("#content-php").load( "/societe/pos_consumption?socid=" + $("#CASHDESK_ID_THIRDPARTY option:selected").val()
 			+ "&type_element=invoice&button_third=Search&limit=25" );
 		$("#addcustomer_modal").css("display", "block");
 	});
