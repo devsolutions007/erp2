@@ -5,15 +5,16 @@ $(document).ready(function(){
 	$('.postotal_payment_value').text(total_title);
 
 	$("#rfid_val").change(function(){
-		if($("#rfid_val").val() != ""){
+		if($("#rfid_val").val() != "") {
 			$.ajax({
-				url	:"affProcess.php",
+				url	:"/product/getProduct",
 				type: "POST",
 				data: {
 					action  	: 'getProduct',
 					rfid_val    : $("#rfid_val").val(),
 					room_id     : $("#WarehouseID").val()
 				},
+				headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
 				success: function(data){
 					$("#product_list").html(data);
 					$('.product_list_area_value').click(function() {

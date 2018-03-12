@@ -43,21 +43,7 @@
         <div class="product-list-area">
             <div class="product-list-panel">
                 <input type="hidden" id="product_page" value="0">
-                <ul class="product-ul">
-                    <li class="product-li item-candidate item-selected" data-id="1" data-category="3," data-search="$10 Bowl" style="width: 290.333px; top: 0px; left: 0px;">
-                        <div class="product-item">
-                            <img src="{{ asset('cashdesk/img/product.png') }}" class="product-img">
-                            <div class="product-detail-wrapper">
-                                <div style="width: 160.333px;">
-                                    <a href="#" target="new" style="width: 160.333px;">$10 Bowl</a>
-                                </div>
-                                <div style="width: 160.333px;">Age: 36 days</div>
-                                <div style="width: 160.333px;">Price: $6.95</div>
-                                <div style="width: 160.333px;">Stock: 0.00kg</div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="product-ul"></ul>
                 <div class="loading">
                     <img src="{{ asset('cashdesk/img/circle_loading_animation.gif') }}">
                 </div>

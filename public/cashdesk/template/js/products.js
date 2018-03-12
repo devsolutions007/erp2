@@ -4,9 +4,9 @@
 
 $(document).ready(function(){
 
-    //$('.loading').css('display', 'block');
+    $('.loading').css('display', 'block');
 
-    //loadProducts();
+    loadProducts();
 
     $(window).resize(function(){
         execSearch();
@@ -239,14 +239,16 @@ $(document).ready(function(){
             last_id = $('.product-li').last().data('id');
         }
         $.ajax({
-            url: 'affAjax.php',
+            url: '/product/getProduct',
             type: 'POST',
             data: {
                 action: 'get_product_list',
                 last_id: last_id,
                 room_id: $('#WarehouseID').val()
             },
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
             success: function(data){
+
                 if(data != '' && data != 'failed'){
                     $('.product-ul').append(data);
                     if(last_id == 0){

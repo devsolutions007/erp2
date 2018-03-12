@@ -41,7 +41,7 @@ More info: h5bp.com/b/378 -->
 <script type="text/javascript" src="{{ asset('includes/jquery/plugins/tablednd/jquery.tablednd.0.6.min.js?version=6.0.0') }}"></script>
 <script type="text/javascript" src="{{ asset('includes/jquery/plugins/tiptip/jquery.tipTip.min.js?version=6.0.0') }}"></script>
 <script type="text/javascript" src="{{ asset('includes/jquery/plugins/jnotify/jquery.jnotify.min.js?version=6.0.0') }}"></script>
-<script type="text/javascript" src="core/js/jnotify.js?version=6.0.0') }}"></script>
+<script type="text/javascript" src="{{ asset('core/js/jnotify.js?version=6.0.0') }}"></script>
 <script type="text/javascript" src="{{ asset('includes/jquery/plugins/flot/jquery.flot.min.js?version=6.0.0') }}"></script>
 <script type="text/javascript" src="{{ asset('includes/jquery/plugins/flot/jquery.flot.pie.min.js?version=6.0.0') }}"></script>
 <script type="text/javascript" src="{{ asset('includes/jquery/plugins/flot/jquery.flot.stack.min.js?version=6.0.0') }}"></script>

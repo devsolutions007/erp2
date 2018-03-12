@@ -9,6 +9,8 @@ if(isset($_GET['mode'])) {
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	@include('partials.module-head')
 	
 </head>

@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth']],function() {
     /* ##########-------------Product-------------------########### */
     Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
         Route::get('card','Product\ProductController@card');
+        Route::post('getProduct','Product\ProductController@getProduct');
     });
 
 
