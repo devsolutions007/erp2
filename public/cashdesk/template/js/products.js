@@ -85,6 +85,7 @@ $(document).ready(function(){
             } else {
                 var cat_str = $(this).data('category');
                 var cats = cat_str.split(',');
+                //var cats = 1;
                 for(var m = 0; m < cats.length; m++){
                     if(cats[m] != ''){
                         var cat_item = parseInt(cats[m]);
@@ -248,7 +249,6 @@ $(document).ready(function(){
             },
             headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
             success: function(data){
-
                 if(data != '' && data != 'failed'){
                     $('.product-ul').append(data);
                     if(last_id == 0){

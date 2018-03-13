@@ -20,22 +20,13 @@
             <div class="category-item-wrapper align-center-panel">
                 <div class="all-item">Show All</div>
             </div>
-            <div class="category-item-wrapper align-center-panel">
-                <div class="category-item" data-id="8">Medical category</div>
-                <div class="category-sub-wrapper align-center-panel"></div>
-            </div>
-            <div class="category-item-wrapper align-center-panel">
-                <div class="category-item" data-id="3">Product1</div>
-                <div class="category-sub-wrapper align-center-panel">
-                    <div class="category-sub-item" data-id="9">Grain category</div>
-                        <div class="category-sub-item" data-id="5">Subcategory1</div>
-                        <div class="category-sub-item" data-id="6">Subcategory2</div>
+            @if($categories)
+            @foreach( $categories as $category )
+                <div class="category-item-wrapper align-center-panel">
+                    <div class="category-item" data-id="{{$category->id}}">{{$category->name}}</div>
                 </div>
-            </div>
-            <div class="category-item-wrapper align-center-panel">
-                    <div class="category-item" data-id="4">Product2</div>
-                    <div class="category-sub-wrapper align-center-panel"></div>
-            </div>
+            @endforeach
+            @endif
         </div>
         <div class="product-list-margin-div" style="width: 300px;"></div>
     </div>
