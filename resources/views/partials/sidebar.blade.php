@@ -27,9 +27,426 @@
             <!-- #User Info -->
             <!-- Menu -->
             <div class="menu">
+                 @if(isset($_GET['growMenu']))
                 <ul class="list">
+
+                    <li class="header">NAVIGATION</li>
+                    <li class="{{ Request::is('/') ? '' : ''}}">
+                        <a href="{{ url('/') }}">
+                            <i class="material-icons">home</i>
+                            <span>@lang('global.app_dashboard')</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="menu-toggle">
+                            <span>Grow</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="">
+                                <a href="/grow/index?growMenu=visible">
+                                    <span>Grow House</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <span>Grow Area</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <span>Plant Mgt</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <span>Plant Mgt(GUI)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#" class="menu-toggle">
+                            <span>Setting</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="">
+                                <a href="#">
+                                    <span>Room</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <span>Global</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#" class="menu-toggle">
+                            <span>Growing</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="">
+                                <a href="/grow/index?growMenu=visible">
+                                    <span>New Grow</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <span>Move Grow</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <span>Release</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#" class="menu-toggle">
+                            <span>History</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="">
+                                <a href="#">
+                                    <span>Move History</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- <li>
+                        <a href="pages/typography.html">
+                            <i class="material-icons">text_fields</i>
+                            <span>Typography</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pages/helper-classes.html">
+                            <i class="material-icons">layers</i>
+                            <span>Helper Classes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Widgets</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Cards</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="pages/widgets/cards/basic.html">Basic</a>
+                                    </li>
+                                    <li>
+                                        <a href="pages/widgets/cards/colored.html">Colored</a>
+                                    </li>
+                                    <li>
+                                        <a href="pages/widgets/cards/no-header.html">No Header</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Infobox</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="pages/widgets/infobox/infobox-1.html">Infobox-1</a>
+                                    </li>
+                                    <li>
+                                        <a href="pages/widgets/infobox/infobox-2.html">Infobox-2</a>
+                                    </li>
+                                    <li>
+                                        <a href="pages/widgets/infobox/infobox-3.html">Infobox-3</a>
+                                    </li>
+                                    <li>
+                                        <a href="pages/widgets/infobox/infobox-4.html">Infobox-4</a>
+                                    </li>
+                                    <li>
+                                        <a href="pages/widgets/infobox/infobox-5.html">Infobox-5</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">swap_calls</i>
+                            <span>User Interface (UI)</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/ui/alerts.html">Alerts</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/animations.html">Animations</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/badges.html">Badges</a>
+                            </li>
+
+                            <li>
+                                <a href="pages/ui/breadcrumbs.html">Breadcrumbs</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/buttons.html">Buttons</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/collapse.html">Collapse</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/colors.html">Colors</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/dialogs.html">Dialogs</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/icons.html">Icons</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/labels.html">Labels</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/list-group.html">List Group</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/media-object.html">Media Object</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/modals.html">Modals</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/notifications.html">Notifications</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/pagination.html">Pagination</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/preloaders.html">Preloaders</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/progressbars.html">Progress Bars</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/range-sliders.html">Range Sliders</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/sortable-nestable.html">Sortable & Nestable</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/tabs.html">Tabs</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/thumbnails.html">Thumbnails</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/tooltips-popovers.html">Tooltips & Popovers</a>
+                            </li>
+                            <li>
+                                <a href="pages/ui/waves.html">Waves</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">assignment</i>
+                            <span>Forms</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/forms/basic-form-elements.html">Basic Form Elements</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/advanced-form-elements.html">Advanced Form Elements</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/form-examples.html">Form Examples</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/form-validation.html">Form Validation</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/form-wizard.html">Form Wizard</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/editors.html">Editors</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">view_list</i>
+                            <span>Tables</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/tables/normal-tables.html">Normal Tables</a>
+                            </li>
+                            <li>
+                                <a href="pages/tables/jquery-datatable.html">Jquery Datatables</a>
+                            </li>
+                            <li>
+                                <a href="pages/tables/editable-table.html">Editable Tables</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">perm_media</i>
+                            <span>Medias</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/medias/image-gallery.html">Image Gallery</a>
+                            </li>
+                            <li>
+                                <a href="pages/medias/carousel.html">Carousel</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">pie_chart</i>
+                            <span>Charts</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/charts/morris.html">Morris</a>
+                            </li>
+                            <li>
+                                <a href="pages/charts/flot.html">Flot</a>
+                            </li>
+                            <li>
+                                <a href="pages/charts/chartjs.html">ChartJS</a>
+                            </li>
+                            <li>
+                                <a href="pages/charts/sparkline.html">Sparkline</a>
+                            </li>
+                            <li>
+                                <a href="pages/charts/jquery-knob.html">Jquery Knob</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">content_copy</i>
+                            <span>Example Pages</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/examples/sign-in.html">Sign In</a>
+                            </li>
+                            <li>
+                                <a href="pages/examples/sign-up.html">Sign Up</a>
+                            </li>
+                            <li>
+                                <a href="pages/examples/forgot-password.html">Forgot Password</a>
+                            </li>
+                            <li>
+                                <a href="pages/examples/blank.html">Blank Page</a>
+                            </li>
+                            <li>
+                                <a href="pages/examples/404.html">404 - Not Found</a>
+                            </li>
+                            <li>
+                                <a href="pages/examples/500.html">500 - Server Error</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">map</i>
+                            <span>Maps</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/maps/google.html">Google Map</a>
+                            </li>
+                            <li>
+                                <a href="pages/maps/yandex.html">YandexMap</a>
+                            </li>
+                            <li>
+                                <a href="pages/maps/jvectormap.html">jVectorMap</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">trending_down</i>
+                            <span>Multi Level Menu</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <span>Menu Item</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <span>Menu Item - 2</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Level - 2</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Menu Item</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="menu-toggle">
+                                            <span>Level - 3</span>
+                                        </a>
+                                        <ul class="ml-menu">
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <span>Level - 4</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="pages/changelogs.html">
+                            <i class="material-icons">update</i>
+                            <span>Changelogs</span>
+                        </a>
+                    </li>
+                    <li class="header">LABELS</li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="material-icons col-red">donut_large</i>
+                            <span>Important</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="material-icons col-amber">donut_large</i>
+                            <span>Warning</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="material-icons col-light-blue">donut_large</i>
+                            <span>Information</span>
+                        </a>
+                    </li> -->
+                </ul>
+                @else
+                    <ul class="list">
+
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="{{ $request->segment(2) == 'home' ? 'active' : '' }}">
+                    <li class="{{ Request::is('/') ? 'active' : 'active'}}">
                         <a href="{{ url('/') }}">
                             <i class="material-icons">home</i>
                             <span>@lang('global.app_dashboard')</span>
@@ -60,6 +477,78 @@
                         </ul>
                     </li>
                     @endcan
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Third Parties</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Product | Services</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Commercial</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Financial</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Bank/Cash</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>HRM</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Tools</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>CRM</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('/cashdesk/affIndex') ? 'active' : ''}}">
+                        <a href="/cashdesk/affIndex">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Point of sale</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('/grow/index') ? 'active' : ''}}">
+                        <a href="/grow/index?growMenu=visible">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Grow</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Report</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::is('') ? 'active' : ''}}">
+                        <a href="#">
+                            <i class="material-icons">image_aspect_ratio</i>
+                            <span>Order</span>
+                        </a>
+                    </li>
                     <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                         <a href="{{ route('auth.change_password') }}">
                             <i class="material-icons">vpn_key</i>
@@ -400,15 +889,16 @@
                         </a>
                     </li> -->
                 </ul>
+                @endif
             </div>
             <!-- #Menu -->
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                    &copy; 2018 - 2019 <a href="javascript:void(0);">Admin Hotbox</a>.
                 </div>
                 <div class="version">
-                    <b>Version: </b> 1.0.5
+                    <b>Version: </b> ERP2 0.0.1
                 </div>
             </div>
             <!-- #Footer -->
