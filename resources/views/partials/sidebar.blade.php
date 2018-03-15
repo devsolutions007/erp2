@@ -48,7 +48,7 @@
                                 </a>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="/grow/growArea?growMenu=visible">
                                     <span>Grow Area</span>
                                 </a>
                             </li>
@@ -66,16 +66,16 @@
                     </li>
                     <li class="">
                         <a href="#" class="menu-toggle">
-                            <span>Setting</span>
+                            <span>Settings</span>
                         </a>
                         <ul class="ml-menu">
                             <li class="">
-                                <a href="#">
+                                <a href="/grow/settings/room?growMenu=visible">
                                     <span>Room</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="/grow/settings/global?growMenu=visible">
                                     <span>Global</span>
                                 </a>
                             </li>
@@ -87,17 +87,17 @@
                         </a>
                         <ul class="ml-menu">
                             <li class="">
-                                <a href="/grow/index?growMenu=visible">
+                                <a href="/grow/growing/index?growMenu=visible&growMode=new">
                                     <span>New Grow</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="/grow/growing/index?growMenu=visible&growMode=move">
                                     <span>Move Grow</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="/grow/growing/index?growMenu=visible&growMode=release">
                                     <span>Release</span>
                                 </a>
                             </li>
@@ -109,7 +109,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li class="">
-                                <a href="#">
+                                <a href="/grow/history/index?growMenu=visible">
                                     <span>Move History</span>
                                 </a>
                             </li>

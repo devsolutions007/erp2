@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth']],function() {
     /* ##########-------------Grow Routes--------------############*/
     Route::group(['prefix' => 'grow', 'as' => 'grow.'], function(){
         Route::get('index','Custom\GrowController@index');
-        Route::get('basic_grow','Custom\GrowController@basic_grow');
+        Route::get('growArea','Custom\GrowController@growArea');
         Route::get('settings/room','Custom\GrowController@room');
         Route::get('settings/global','Custom\GrowController@global');
         Route::get('growing/index','Custom\GrowController@growIndex');

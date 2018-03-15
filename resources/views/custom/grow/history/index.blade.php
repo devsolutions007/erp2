@@ -1,67 +1,101 @@
-@extends('layouts.master-grow')
+@extends('layouts.app')
 
 @section('content')
-<div id="id-right">
-    <div class="fiche">
-        <form method="post" name="form" id="form">
-            <div style="width:80%" class="div-table-responsive">
-                <table width="100%">
-                    <tbody>
-                        <tr class="margin-table">
-                            <td>Grow Areas : 
-                                <select id="move_src" name="move_src">
-                                    <option value="1">Denver</option>
-                                    <option value="48">Jason Street</option>
-                                </select>
-                            </td>
-                            <td>From : 
-                                <input id="startdate" name="startdate" class="maxwidth75" maxlength="11" value="03/01/2018" onchange="dpChangeDay('startdate','MM/dd/yyyy'); " type="text"><button id="startdateButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','startdate','MM/dd/yyyy','en_US');"><img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button>
-                                <input id="startdateday" name="startdateday" value="01" type="hidden">
-                                <input id="startdatemonth" name="startdatemonth" value="03" type="hidden">
-                                <input id="startdateyear" name="startdateyear" value="2018" type="hidden">
-                            </td>
-                            <td>To : 
-                                <input id="lastdate" name="lastdate" class="maxwidth75" maxlength="11" value="03/09/2018" onchange="dpChangeDay('lastdate','MM/dd/yyyy'); " type="text">
-                                <button id="lastdateButton" type="button" class="dpInvisibleButtons" onclick="showDP('/core/','lastdate','MM/dd/yyyy','en_US');"><img src="{{ asset('theme/eldy/img/object_calendarday.png') }}" alt="" title="Select a date" class="datecallink"></button>
-                                <input id="lastdateday" name="lastdateday" value="09" type="hidden">
-                                <input id="lastdatemonth" name="lastdatemonth" value="03" type="hidden">
-                                <input id="lastdateyear" name="lastdateyear" value="2018" type="hidden">
-                            </td>
-                            <td nowrap="">Metric ID :
-                                <input name="RFID" id="RFID" style="width:60%">
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;&nbsp;<input class="button" id="searchvalue" value="Search" type="button">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="tagtable liste">
-                    <tbody>
-                        <tr style="text-align:center;" class="liste_titre">
-                            <th class="liste_titre">Date</th>
-                            <th class="liste_titre">Product</th>
-                            <th class="liste_titre">Metric ID</th>
-                            <th class="liste_titre">From Place</th>
-                            <th class="liste_titre">To Place</th>
-                        </tr>
-                    </tbody>
-                </table>
+   <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="body">
+                    <form>
+                        <div class="row clearfix">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label>Grow Area :</label>
+                                        <select class="form-control show-tick">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">   
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label>From :</label>
+                                        <input type="text" class="datepicker form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label>To :</label>
+                                        <input type="text" class="datepicker form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">   
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label>Metric ID :</label>
+                                        <input class="form-control" placeholder="" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                                <button type="button" class="btn btn-default waves-effect">Search</button>
+                            </div>    
+                        </div>
+                    </form>            
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Date</th>
+                                        <th>Product</th>
+                                        <th>Metric ID</th>
+                                        <th>From Place</th>
+                                        <th>To Place</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>Otto</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>Otto</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>Otto</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                     </div>  
+                </div>
             </div>
-        </form>
-    </div> <!-- End div class="fiche" -->  
-</div>
+        </div>
+    </div>
 
-<script type="text/javascript">
-jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
-
-$("#searchvalue").click( function() {
-    document.form.submit();
-});
-</script>
 @endsection
 

@@ -17,9 +17,9 @@ class GrowController extends Controller
         return view('custom.grow.index', compact('growAreas', 'growRooms'));
     }
 
-    public function basic_grow() {
+    public function growArea() {
         
-        return view('custom.grow.basic_grow');
+        return view('custom.grow.growArea');
     }
 
     public function room() {
