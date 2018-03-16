@@ -1,75 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        @include('partials.head')
+    </head>
+    <body>
 
-<head>
-    @include('partials.head')
-</head>
-
-<body class="theme-red">
-    <!-- Page Loader -->
-    <div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
+        <!-- Loading starts -->
+        <div class="loading-wrapper">
+            <div class="loading">
+                <div class="img"></div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <p>Please wait...</p>
         </div>
-    </div>
-    <!-- #END# Page Loader -->
-    <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
-    <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    @include('partials.topbar')
-    <!-- #Top Bar -->
-    @include('partials.sidebar')
+        <!-- Loading ends -->
 
-    <section class="content">
-         @if(isset($siteTitle))
-            <h3 class="page-title">
-                {{ $siteTitle }}
-            </h3>
-        @endif
-        <div class="container-fluid">
-            @if (Session::has('message'))
-                <div class="note note-info">
-                    <p>{{ Session::get('message') }}</p>
-                </div>
-            @endif
-            @if ($errors->count() > 0)
-                <div class="note note-danger">
-                    <ul class="list-unstyled">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @yield('content')
-        </div>
-    </section>
-    {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
-    <button type="submit">Logout</button>
-    {!! Form::close() !!}
-    @include('partials.javascripts')
-</body>
+        <!-- BEGIN .app-wrap -->
+        <div class="app-wrap">
+            <!-- BEGIN .app-heading -->
+            @include('partials.topbar')
+            <!-- END: .app-heading -->
+            <!-- BEGIN .app-container -->
+            <div class="app-container">
+                <!-- BEGIN .app-side -->
+                @include('partials.sidebar')
+                <!-- END: .app-side -->
 
+                <!-- BEGIN .app-main -->
+                <div class="app-main">
+                    <!-- BEGIN .main-heading -->
+                     @include('partials.header')
+                    <!-- END: .main-heading -->
+                    <!-- BEGIN .main-content -->
+                    @if (Session::has('message'))
+                    <div class="note note-info">
+                        <p>{{ Session::get('message') }}</p>
+                    </div>
+                    @endif
+                    @if ($errors->count() > 0)
+                        <div class="note note-danger">
+                            <ul class="list-unstyled">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="main-content">
+                        @yield('content')
+                    </div>
+                    <!-- END: .main-content -->
+                </div>
+                <!-- END: .app-main -->
+            </div>
+            <!-- END: .app-container -->
+            <!-- BEGIN .main-footer -->
+
+            @include('partials.footer')
+            <!-- END: .main-footer -->
+        </div>
+        <!-- END: .app-wrap -->
+        {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
+        <button type="submit">Logout</button>
+        {!! Form::close() !!}
+        <!-- Include Javascript -->
+        @include('partials.javascripts')
+    </body>
 </html>

@@ -1,322 +1,511 @@
 @extends('layouts.app')
 @section('content')
-    <!-- <div class="row">
-        <div class="col-md-10">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <div class="block-header">
-        <h2>DASHBOARD</h2>
-    </div>
-
-    <!-- Widgets -->
-    <div class="row clearfix">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-pink hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">playlist_add_check</i>
-                </div>
-                <div class="content">
-                    <div class="text">NEW TASKS</div>
-                    <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-cyan hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">help</i>
-                </div>
-                <div class="content">
-                    <div class="text">NEW TICKETS</div>
-                    <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-light-green hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">forum</i>
-                </div>
-                <div class="content">
-                    <div class="text">NEW COMMENTS</div>
-                    <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-orange hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">person_add</i>
-                </div>
-                <div class="content">
-                    <div class="text">NEW VISITORS</div>
-                    <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- #END# Widgets -->
-    <!-- CPU Usage -->
-    <div class="row clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <!-- Row start -->
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
             <div class="card">
-                <div class="header">
-                    <div class="row clearfix">
-                        <div class="col-xs-12 col-sm-6">
-                            <h2>CPU USAGE (%)</h2>
+                <div class="card-body">
+                    <div class="stats-widget">
+                        <div class="stats-widget-header">
+                            <i class="icon-facebook"></i>
                         </div>
-                        <div class="col-xs-12 col-sm-6 align-right">
-                            <div class="switch panel-switch-btn">
-                                <span class="m-r-10 font-12">REAL TIME</span>
-                                <label>OFF<input type="checkbox" id="realtime" checked><span class="lever switch-col-cyan"></span>ON</label>
+                        <div class="stats-widget-body">
+                            <!-- Row start -->
+                            <ul class="row no-gutters">
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h6 class="title">Facebook</h6>
+                                </li>
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h4 class="total">5,600</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stats-widget">
+                        <div class="stats-widget-header">
+                            <i class="icon-twitter"></i>
+                        </div>
+                        <div class="stats-widget-body">
+                            <!-- Row start -->
+                            <ul class="row no-gutters">
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h6 class="title">Twitter</h6>
+                                </li>
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h4 class="total">3,500</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stats-widget">
+                        <a href="#" class="stats-label" data-toggle="tooltip" data-placement="top" title="New Followers">47</a>
+                        <div class="stats-widget-header">
+                            <i class="icon-googleplus"></i>
+                        </div>
+                        <div class="stats-widget-body">
+                            <!-- Row start -->
+                            <ul class="row no-gutters">
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h6 class="title">Google</h6>
+                                </li>
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h4 class="total">2,800</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stats-widget">
+                        <a href="#" class="stats-label" data-toggle="tooltip" data-placement="top" title="New Posts">12</a>
+                        <div class="stats-widget-header">
+                            <i class="icon-rss"></i>
+                        </div>
+                        <div class="stats-widget-body">
+                            <!-- Row start -->
+                            <ul class="row no-gutters">
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h6 class="title">Blog</h6>
+                                </li>
+                                <li class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                                    <h4 class="total">7,000</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row end -->
+    <!-- Row start -->
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">Overview<a href="widgets.html" class="link">More examples</a></div>
+                <div class="card-body">
+                    <!-- Row start -->
+                    <div class="row gutters">
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                            <h6 class="card-title mt-0">Visitors</h6>
+                            <div class="chartist custom-one">
+                                <div class="line-chart"></div>
+                            </div>
+                            <div class="download-details">
+                                <p>21<sup>%</sup> more visitors than last month</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                            <div class="monthly-avg">
+                                <h6>Monthly Average</h6>
+                                <div class="avg-block">
+                                    <h4 class="avg-total text-secondary">9500</h4>
+                                    <h6 class="avg-label">
+                                        Visitors
+                                    </h6>
+                                </div>
+                                <div class="avg-block">
+                                    <h4 class="avg-total text-primary">$510<sup>k</sup></h4>
+                                    <h6 class="avg-label">
+                                        Sales
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                            <h6 class="card-title mt-0">Sales</h6>
+                            <div class="chartist custom-two">
+                                <div class="line-chart2"></div>
+                            </div>
+                            <div class="download-details">
+                                <p>15<sup>%</sup> more sales than last month</p>
                             </div>
                         </div>
                     </div>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="body">
-                    <div id="real_time_chart" class="dashboard-flot-chart"></div>
+                    <!-- Row end -->
                 </div>
             </div>
         </div>
     </div>
-    <!-- #END# CPU Usage -->
-    <div class="row clearfix">
-        <!-- Visitors -->
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <!-- Row end -->
+    <!-- Row start -->
+    <div class="row gutters">
+        <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12">
             <div class="card">
-                <div class="body bg-pink">
-                    <div class="sparkline" data-type="line" data-spot-Radius="4" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#fff"
-                         data-min-Spot-Color="rgb(255,255,255)" data-max-Spot-Color="rgb(255,255,255)" data-spot-Color="rgb(255,255,255)"
-                         data-offset="90" data-width="100%" data-height="92px" data-line-Width="2" data-line-Color="rgba(255,255,255,0.7)"
-                         data-fill-Color="rgba(0, 188, 212, 0)">
-                        12,10,9,6,5,6,10,5,7,5,12,13,7,12,11
+                <div class="card-header">Team Activity</div>
+                <div class="card-body">
+                    <ul class="team-activity">
+                        <li class="product-list clearfix">
+                            <div class="product-time">
+                                <p class="date center-text">02:30 pm</p>
+                                <span class="badge badge-primary">New</span>
+                            </div>
+                            <div class="product-info">
+                                <div class="row gutter">
+                                    <div class="col-lg-8 col-md-7 col-sm-7">
+                                        <h5>Unify - Admin Dashboard</h5>
+                                        <p>by Luke Etheridge</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-5 col-sm-5">
+                                        <div class="progress sm no-margin">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="49" aria-valuemin="0" aria-valuemax="100" style="width: 49%">
+                                                <span class="sr-only">49% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                        <p>(225 of 700gb)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="product-list clearfix">
+                            <div class="product-time">
+                                <p class="date center-text">11:30 am</p>
+                                <span class="badge badge-primary">Task</span>
+                            </div>
+                            <div class="product-info">
+                                <div class="row gutter">
+                                    <div class="col-lg-8 col-md-7 col-sm-7">
+                                        <h5>User_Profile.php</h5>
+                                        <p>by Rovane Durso</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-5 col-sm-5">
+                                        <div class="progress sm no-margin">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%">
+                                                <span class="sr-only">78% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                        <p>90% completed</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="product-list clearfix">
+                            <div class="product-time">
+                                <p class="date center-text">12:50 pm</p>
+                                <span class="badge badge-primary">Closed</span>
+                            </div>
+                            <div class="product-info">
+                                <div class="row gutter">
+                                    <div class="col-lg-8 col-md-7 col-sm-7 col">
+                                        <h5>Material Design Kit</h5>
+                                        <p>by Cosmin Capitanu</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-5 col-sm-5 col">
+                                        <div class="chartist custom-one">
+                                            <div class="team-act"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12">
+            <div class="card">
+                <div class="card-header">Tasks</div>
+                <div class="card-body">
+                    <div class="chartist custom-one">
+                        <div class="donut-chart"></div>
                     </div>
-                    <ul class="dashboard-stat-list">
-                        <li>
-                            TODAY
-                            <span class="pull-right"><b>1 200</b> <small>USERS</small></span>
-                        </li>
-                        <li>
-                            YESTERDAY
-                            <span class="pull-right"><b>3 872</b> <small>USERS</small></span>
-                        </li>
-                        <li>
-                            LAST WEEK
-                            <span class="pull-right"><b>26 582</b> <small>USERS</small></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- #END# Visitors -->
-        <!-- Latest Social Trends -->
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <div class="card">
-                <div class="body bg-cyan">
-                    <div class="m-b--35 font-bold">LATEST SOCIAL TRENDS</div>
-                    <ul class="dashboard-stat-list">
-                        <li>
-                            #socialtrends
-                            <span class="pull-right">
-                                <i class="material-icons">trending_up</i>
-                            </span>
-                        </li>
-                        <li>
-                            #materialdesign
-                            <span class="pull-right">
-                                <i class="material-icons">trending_up</i>
-                            </span>
-                        </li>
-                        <li>#adminbsb</li>
-                        <li>#freeadmintemplate</li>
-                        <li>#bootstraptemplate</li>
-                        <li>
-                            #freehtmltemplate
-                            <span class="pull-right">
-                                <i class="material-icons">trending_up</i>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- #END# Latest Social Trends -->
-        <!-- Answered Tickets -->
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <div class="card">
-                <div class="body bg-teal">
-                    <div class="font-bold m-b--35">ANSWERED TICKETS</div>
-                    <ul class="dashboard-stat-list">
-                        <li>
-                            TODAY
-                            <span class="pull-right"><b>12</b> <small>TICKETS</small></span>
-                        </li>
-                        <li>
-                            YESTERDAY
-                            <span class="pull-right"><b>15</b> <small>TICKETS</small></span>
-                        </li>
-                        <li>
-                            LAST WEEK
-                            <span class="pull-right"><b>90</b> <small>TICKETS</small></span>
-                        </li>
-                        <li>
-                            LAST MONTH
-                            <span class="pull-right"><b>342</b> <small>TICKETS</small></span>
-                        </li>
-                        <li>
-                            LAST YEAR
-                            <span class="pull-right"><b>4 225</b> <small>TICKETS</small></span>
-                        </li>
-                        <li>
-                            ALL
-                            <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- #END# Answered Tickets -->
-    </div>
-
-    <div class="row clearfix">
-        <!-- Task Info -->
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            <div class="card">
-                <div class="header">
-                    <h2>TASK INFOS</h2>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="body">
-                    <div class="table-responsive">
-                        <table class="table table-hover dashboard-task-infos">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Task</th>
-                                    <th>Status</th>
-                                    <th>Manager</th>
-                                    <th>Progress</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Task A</td>
-                                    <td><span class="label bg-green">Doing</span></td>
-                                    <td>John Doe</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Task B</td>
-                                    <td><span class="label bg-blue">To Do</span></td>
-                                    <td>John Doe</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Task C</td>
-                                    <td><span class="label bg-light-blue">On Hold</span></td>
-                                    <td>John Doe</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-light-blue" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Task D</td>
-                                    <td><span class="label bg-orange">Wait Approvel</span></td>
-                                    <td>John Doe</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Task E</td>
-                                    <td>
-                                        <span class="label bg-red">Suspended</span>
-                                    </td>
-                                    <td>John Doe</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-red" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="row gutters">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col">
+                            <div class="info-stats">
+                                <span class="info-label"></span>
+                                <h6 class="info-title">Pending</h6>
+                                <h4 class="info-total">12</h4>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col">
+                            <div class="info-stats">
+                                <span class="info-label red"></span>
+                                <h6 class="info-title">Completed</h6>
+                                <h4 class="info-total">7</h4>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col">
+                            <div class="info-stats">
+                                <span class="info-label green"></span>
+                                <h6 class="info-title">New</h6>
+                                <h4 class="info-total">4</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- #END# Task Info -->
-        <!-- Browser Usage -->
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    </div>
+    <!-- Row end -->
+    <!-- Row start -->
+    <div class="row gutters">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
             <div class="card">
-                <div class="header">
-                    <h2>BROWSER USAGE</h2>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="body">
-                    <div id="donut_chart" class="dashboard-donut-chart"></div>
+                <div class="card-header">Events</div>
+                <div class="card-body p-0">
+                    <div class="events">
+                        <div class="all-events clearfix">
+                            <div id="today-date"></div>
+                            <a href="#" class="btn btn-sm">9 Events</a>
+                        </div>
+                        <ul class="event-list">
+                            <li>
+                                <a href="#">
+                                    <div class="event-status-icon">
+                                        <img src="{{ asset('img/checked.svg') }}" alt="checked" class="completed" />
+                                    </div>
+                                    <div class="event-info">
+                                        <span class="event-time">8:45</span>
+                                        <p class="event-desc text-truncate">Coffee with Hayashi</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="event-status-icon">
+                                        <img src="{{ asset('img/not-checked.svg') }}" alt="Not checked" class="completed" />
+                                    </div>
+                                    <div class="event-info">
+                                        <span class="event-time">10:30</span>
+                                        <p class="event-desc text-truncate">Product meeting with dev team</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- #END# Browser Usage -->
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">Income</div>
+                <div class="card-body p-0">
+                    <div class="row gutters">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col">
+                            <div class="income-stats">
+                                <h4 class="total">1465k</h4>
+                                <p class="income-title"><span class="income-label"></span>Overall Income</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col">
+                            <div class="income-stats">
+                                <h4 class="total">1049k</h4>
+                                <p class="income-title"><span class="income-label secondary"> </span>Overall Expenses</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chartist custom-two">
+                        <div class="income-area-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- Row end -->
+    <!-- Row start -->
+    <div class="row gutters">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="card">
+                <div class="card-header">Chat</div>
+                <div class="customScroll">
+                    <div class="card-body">
+                        <ul class="chats">
+                            <li class="chats-left">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar1.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">Wincy</div>
+                                </div>
+                                <div class="chats-text info">Hello, I'm Wincy.</div>
+                                <div class="chats-hour">08:55 <span class="icon-done_all"></span></div>
+                            </li>
+                            <li class="chats-right">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar1.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">You</div>
+                                </div>
+                                <div class="chats-text danger">How can I help you today?</div>
+                                <div class="chats-hour">08:56 <span class="icon-done_all"></span></div>
+                            </li>
+                            <li class="chats-left">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar1.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">James</div>
+                                </div>
+                                <div class="chats-text info">I need more information about Developer Plan.</div>
+                                <div class="chats-hour">08:57 <span class="icon-done_all"></span></div>
+                            </li>
+                            <li class="chats-right">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar2.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">You</div>
+                                </div>
+                                <div class="chats-text danger">Are we meeting today?</div>
+                                <div class="chats-hour">08:59 <span class="icon-done_all"></span></div>
+                            </li>
+                            <li class="chats-left">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar1.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">Wincy</div>
+                                </div>
+                                <div class="chats-text info">Maybe in an hour or so?</div>
+                                <div class="chats-hour">09:00 <span class="icon-done_all"></span></div>
+                            </li>
+                            <li class="chats-right">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar1.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">You</div>
+                                </div>
+                                <div class="chats-text danger">I need more information about Developer Plan.</div>
+                                <div class="chats-hour">09:00 <span class="icon-done_all"></span></div>
+                            </li>
+                            <li class="chats-left">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar1.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">Wincy</div>
+                                </div>
+                                <div class="chats-text info">Well I am not sure.</div>
+                                <div class="chats-hour">09:01 <span class="icon-done_all"></span></div>
+                            </li>
+                            <li class="chats-right">
+                                <div class="chats-avatar">
+                                    <img src="{{ asset('img/avatar2.svg') }}" alt="Unify Admin">
+                                    <div class="chats-name">You</div>
+                                </div>
+                                <div class="chats-text danger">The rest of the team is not here yet.</div>
+                                <div class="chats-hour">09:01 <span class="icon-done_all"></span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="card">
+                <div class="card-header">Activity</div>
+                <div class="customScroll">
+                    <div class="card-body pt-0 pb-0">
+                        <ul class="project-activity">
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl">N</span>
+                                    <p class="desc-info"><span>Novane Durso</span> server not found, connection problem.</p>
+                                    <a href="#" class="activity-status"><i class="icon-done_all"></i>Read</a>
+                                </div>
+                            </li>
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl secondary">L</span>
+                                    <p class="desc-info"><span>Luke Etheridge</span> send email notifications of subscriptions</p>
+                                    <a href="#" class="activity-status">Mark as read</a>
+                                </div>
+                            </li>
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl">C</span>
+                                    <p class="desc-info"><span>Cosmin Capitanu</span> required change logs activity reports</p>
+                                    <a href="#" class="activity-status"><i class="icon-done_all"></i>Read</a>
+                                </div>
+                            </li>
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl">M</span>
+                                    <p class="desc-info"><span>Moneyas Olina</span> strategic partnership plan</p>
+                                    <a href="#" class="activity-status">Mark as read</a>
+                                </div>
+                            </li>
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl secondary">A</span>
+                                    <p class="desc-info"><span>Auurso Novane</span> server not found, connection problem.</p>
+                                    <a href="#" class="activity-status"><i class="icon-done_all"></i>Read</a>
+                                </div>
+                            </li>
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl">J</span>
+                                    <p class="desc-info"><span>Jovin Xamire</span> send email notifications of subscriptions</p>
+                                    <a href="#" class="activity-status">Mark as read</a>
+                                </div>
+                            </li>
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl">C</span>
+                                    <p class="desc-info"><span>Cosmin Capitanu</span> required change logs activity reports</p>
+                                    <a href="#" class="activity-status"><i class="icon-done_all"></i>Read</a>
+                                </div>
+                            </li>
+                            <li class="activity-list">
+                                <div class="detail-info">
+                                    <span class="lbl secondary">M</span>
+                                    <p class="desc-info"><span>Moneyas Olina</span> strategic partnership plan</p>
+                                    <a href="#" class="activity-status">Mark as read</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">Orders</div>
+                <div class="customScroll">
+                    <div class="card-body">
+                        <ul class="order-list">
+                            <li>
+                                <p class="order-num placed">#45763 <span class="order-date">45 mins</span></p>
+                                <p class="order-desc">Jessse <span>placed</span> new order</p>
+                            </li>
+                            <li>
+                                <p class="order-num cancelled">#48239 <span class="order-date">38 mins</span></p>
+                                <p class="order-desc">Alex <span>cancelled</span> an order</p>
+                            </li>
+                            <li>
+                                <p class="order-num">#41470 <span class="order-date">24 mins</span></p>
+                                <p class="order-desc">Sunny <span>processed</span> an order</p>
+                            </li>
+                            <li>
+                                <p class="order-num placed">#46360 <span class="order-date">10 mins</span></p>
+                                <p class="order-desc">Thompson <span>placed</span> an order</p>
+                            </li>
+                            <li>
+                                <p class="order-num placed">#55242 <span class="order-date">45 mins</span></p>
+                                <p class="order-desc">Jessse <span>placed</span> new order</p>
+                            </li>
+                            <li>
+                                <p class="order-num cancelled">#33561 <span class="order-date">38 mins</span></p>
+                                <p class="order-desc">Alex <span>cancelled</span> an order</p>
+                            </li>
+                            <li>
+                                <p class="order-num">#12876 <span class="order-date">24 mins</span></p>
+                                <p class="order-desc">Sunny <span>processed</span> an order</p>
+                            </li>
+                            <li>
+                                <p class="order-num placed">#22536 <span class="order-date">10 mins</span></p>
+                                <p class="order-desc">Thompson <span>placed</span> an order</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row end -->
 @endsection

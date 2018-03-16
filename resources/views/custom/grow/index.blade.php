@@ -1,76 +1,68 @@
 @extends('layouts.app')
 
 @section('content')
-   <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="body">
-                    <form>
-                        <div class="row clearfix">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label>Grow Area :</label>
-                                        <select class="form-control show-tick">
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label>Rooms :</label>
-                                        <select class="form-control show-tick">
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label>Time in Rooms :</label>
-                                        <input class="form-control" placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label>Metric ID :</label>
-                                        <input class="form-control" placeholder="" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <button type="button" class="btn btn-default waves-effect">Search</button>
-                                <button type="button" class="btn btn-default waves-effect" data-toggle="modal" data-target="#addPlantModal">Add</button>
-                                <button type="button" class="btn btn-default waves-effect" data-toggle="modal" data-target="#bulkMoveModal">Move</button>
-                                <button type="button" class="btn btn-default waves-effect" data-toggle="modal" data-target="#bulkReleaseModal">Release</button>
-                                <button type="button" class="btn btn-default waves-effect" onclick="showConfirmMessageGrow()">Remove</button>
-                                <ul class="header-dropdown m-r--5" style="list-style: none; display: inline-block; padding-left: 15px;">
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0);" class="btn btn-default waves-effect dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                            <i class="material-icons">backup</i> File Upload
-                                        </a>
-                                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="javascript:void(0);">Action</a></li>
-                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                            <li><a href="javascript:void(0);">Something else here</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card top-blue-bdr">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="growArea" class="col-form-label">Grow Area</label>
+                            <select id="growArea" class="form-control">
+                                <option>Choose</option>
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
                         </div>
-                    </form>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <table class="table table-striped">
+                        <div class="form-group col-md-2">
+                            <label for="" class="col-form-label">Rooms</label>
+                            <select id="" class="form-control">
+                                <option>Choose</option>
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="" class="col-form-label">Time in Rooms</label>
+                            <input type="email" class="form-control" id="" placeholder="">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="" class="col-form-label">Metric ID</label>
+                            <input type="email" class="form-control" id="" placeholder="">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="" class="col-form-label" style="opacity: 0; display: block;">Search</label>
+                            <button class="btn btn-block btn-primary" type="submit">Search</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-1">
+                            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addPlantModal">Add</button>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#bulkMoveModal">Move</button>
+                        </div>
+                        <div class="form-group col-md-1">
+                               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#bulkReleaseModal">Release</button>
+                        </div>
+                        <ul class="col-md-2">
+                            <li class="dropdown">
+                                <a class="btn btn-block btn-primary dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    File Upload
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                    <a class="dropdown-item" href="#">Add File</a>
+                                    <a class="dropdown-item" href="#">Move File</a>
+                                    <a class="dropdown-item" href="#">Release File</a>
+                                    <a class="dropdown-item" href="#">Remove File</a>
+                                    <a class="dropdown-item" href="#">State Change</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped m-0">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -121,7 +113,7 @@
                                 </tbody>
                             </table>
                         </div>
-                     </div>  
+                    </div>         
                 </div>
             </div>
         </div>
@@ -130,96 +122,54 @@
     <div class="modal fade" id="addPlantModal" tabindex="-1" role="dialog" style="display: none;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="card">
-                    <div class="modal-header header">
-                        <h4 class="modal-title" id="addPlantModalLabel">Add Plant</h4>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="addPlantModalLabel">Add Plant</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <form class="form-horizontal">
-                        <div class="modal-body body">
-                        
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="addPlantDate">Date</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                             <input type="text" class="datepicker form-control" placeholder="">
-                                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row gutters">
+                                <label for="addPlantDate" class="col-sm-3 col-form-label">Date</label>
+                                <div class="col-sm-9">
+                                    <div class="datepicket-container blue">
+                                        <input class="datepicker form-control" id="addPlantDate" placeholder="Date" type="text">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="addPlantGrowArea">Grow Area</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="addPlantGrowArea" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="addPlantGrowArea" class="col-sm-3 col-form-label">Grow Area</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="addPlantGrowArea" placeholder="Grow Area" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="addPlantProduct">Product</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="addPlantProduct" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="addPlantProduct" class="col-sm-3 col-form-label">Product</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="addPlantProduct" placeholder="Product" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="addPlantMetricID">Metric ID</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="addPlantMetricID" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="addPlantMetricID" class="col-sm-3 col-form-label">Metric ID</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="addPlantMetricID" placeholder="Metric ID" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="addPlantParentID">Parent ID</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="addPlantParentID" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="addPlantParentID" class="col-sm-3 col-form-label">Parent ID</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="addPlantParentID" placeholder="Parent ID" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
-                                    
+                            <div class="form-group row gutters">
+                                <div class="col-sm-6">
+                                    <input type="text" id="addPlantRow" class="form-control" placeholder="Row">
                                 </div>
-                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="addPlantRow" class="form-control" placeholder="row">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="addPlantColumn" class="form-control" placeholder="column">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-7">
-                                    
+                                <div class="col-sm-6">
+                                    <input type="text" id="addPlantColumn" class="form-control" placeholder="Column">
                                 </div>
                             </div>
-                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect">Save</button>
@@ -234,78 +184,49 @@
     <!-- Bulk move modal start-->
     <div class="modal fade" id="bulkMoveModal" tabindex="-1" role="dialog" style="display: none;">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="card">
-                    <div class="modal-header header">
-                        <h4 class="modal-title" id="bulkMoveModalLabel">Bulk Move</h4>
+            <div class="modal-content"> <div class="card">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bulkMoveModalLabel">Bulk Move</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> 
                     </div>
                     <form class="form-horizontal">
-                        <div class="modal-body body">
-                        
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkMoveDate">Date</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="bulkMoveDate" type="text" class="datepicker form-control" placeholder="">
-                                        </div>
-                                    </div>
+                        <div class="modal-body">
+                            <div class="form-group row gutters">
+                                <label for="bulkMovetDate" class="col-sm-3 col-form-label">Date</label>
+                                <div class="col-sm-9">
+                                    <input class="datepicker form-control" id="bulkMovetDate" placeholder="Date" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkMoveGrowArea">Grow Area</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="bulkMoveGrowArea" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="bulkMoveGrowArea" class="col-sm-3 col-form-label">Grow Area</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="bulkMoveGrowArea" placeholder="Grow Area" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="moveBulkSource">Source</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="moveBulkSource" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="bulkMoveSource" class="col-sm-3 col-form-label">Source</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="bulkMoveSource" placeholder="Source" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkMoveDestination">Destination</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <select id="bulkMoveDestination" class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="bulkMoveDestination" class="col-sm-3 col-form-label">Destination</label>
+                                <div class="col-sm-9">
+                                    <select id="bulkMoveDestination" class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkMoveCount">Count</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="bulkMoveCount" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="bulkMoveCount" class="col-sm-3 col-form-label">Count</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="bulkMoveCount" placeholder="Count" type="text">
                                 </div>
                             </div>
                         </div>
@@ -323,102 +244,52 @@
     <div class="modal fade" id="bulkReleaseModal" tabindex="-1" role="dialog" style="display: none;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="card">
-                    <div class="modal-header header">
-                        <h4 class="modal-title" id="bulkReleaseModalLabel">Bulk Release</h4>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bulkReleaseModalLabel">Bulk Release</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <form class="form-horizontal">
-                        <div class="modal-body body">
-                        
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkReleaseDate">Date</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="bulkReleaseDate" type="text" class="datepicker form-control" placeholder="">
-                                        </div>
-                                    </div>
+                        <div class="modal-body">
+                            <div class="form-group row gutters">
+                                <label for="bulkReleasetDate" class="col-sm-3 col-form-label">Date</label>
+                                <div class="col-sm-9">
+                                    <input class="datepicker form-control" id="bulkReleasetDate" placeholder="Date" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkReleaseGrowArea">Grow Area</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="bulkReleaseGrowArea" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="bulkReleaseGrowArea" class="col-sm-3 col-form-label">Grow Area</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="bulkReleaseGrowArea" placeholder="Grow Area" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="ReleaseBulkSource">Source</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="ReleaseBulkSource" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkReleaseDestination">Destination</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <select id="bulkReleaseDestination" class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="bulkReleaseDestination" class="col-sm-3 col-form-label">Destination</label>
+                                <div class="col-sm-9">
+                                    <select id="bulkReleaseDestination" class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="bulkReleaseCount">Count</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="bulkReleaseCount" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
+                            <div class="form-group row gutters">
+                                <label for="bulkReleaseCount" class="col-sm-3 col-form-label">Count</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="bulkReleaseCount" placeholder="Count" type="text">
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
-                                    
+                            <div class="form-group row gutters">
+                                <div class="col-sm-6">
+                                    <input type="text" id="bulkReleaseFlowerWeight" class="form-control" placeholder="Flower weight">
                                 </div>
-                                <div class="col-lg-3 col-md-2 col-sm-3 col-xs-5">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="bulkReleaseFlowerWeight" class="form-control" placeholder="Flower weight">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-2 col-sm-3 col-xs-5">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="bulkReleaseWasteWeight" class="form-control" placeholder="Waste weight">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-4 col-sm-3 col-xs-7">
-                                    
+                                <div class="col-sm-6">
+                                    <input type="text" id="bulkReleaseWasteWeight" class="form-control" placeholder="Waste weight">
                                 </div>
                             </div>
-                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect">Save</button>
