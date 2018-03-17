@@ -26,9 +26,12 @@
     <script src="{{ asset('js/common.js') }}"></script>
     <script type="text/javascript">
         //Datepicker
-            $(function() {
-                $(".datepicker").datepicker();
-            });
+        $(function() {
+            $(".datepicker").datepicker();
+        });
+        // color picker
+        $('.colorpicker1').colorpicker();
+        $('#colorpicker1').colorpicker();
     </script>
     <script>
         window._token = '{{ csrf_token() }}';

@@ -87,7 +87,7 @@
                             <a href="/grow/growArea?growMenu=visible">Grow Area</a>
                         </li>
                         <li>
-                            <a href='#'>Plant Mgt</a>
+                            <a href='/grow/index?growMenu=visible'>Plant Mgt</a>
                         </li>
                         <li>
                             <a href='#'>Plant Mgt(GUI)</a>

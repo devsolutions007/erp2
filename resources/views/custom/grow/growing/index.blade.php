@@ -1,273 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
- <div class="row clearfix">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header">
+<div class="row gutters">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card top-blue-bdr">
+            <div class="card-header">
                 @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
-                <h2>New Grow</h2>  
+                Grow List
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addNewGrowModal">Add New Grow</button>  
                 @endif 
                 @if(isset($_GET['growMode']) and $_GET['growMode'] == 'move')
-                <h2>Move Grow</h2>  
+                Move Grow List
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addMoveGrowModal">Add Move Grow</button> 
                 @endif 
                 @if(isset($_GET['growMode']) and $_GET['growMode'] == 'release')
-                <h2>Release Grow</h2>  
+                Release Grow List
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addReleaseGrowModal">Add Release Grow</button>  
                 @endif              
             </div>
-            <div class="body">
-                <div class="row clearfix">
-                    @if(isset($_GET['growMode']) and ($_GET['growMode'] == 'new' or $_GET['growMode'] == 'move'))
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <form>
-                            <div class="row clearfix">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Grow Area :</label>
-                                            <select class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Process Date :</label>
-                                            <input type="text" class="datepicker form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @if(isset($_GET['growMode']) and $_GET['growMode'] == 'move')
-
-                            <div class="row clearfix">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Source Room :</label>
-                                            <select class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Destination Room :</label>
-                                            <select class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            @endif
-                            <div class="row clearfix">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Product :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <a href="#" class="btn btn-default waves-effect">Add New Product</a>
-                                </div>
-                            </div>
-                            <div class="row clearfix">     
-                                @endif
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Metric Id :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Parent Metric Id :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div> 
-                                @endif
-                            </div>
-                            @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
-                            <div class="row clearfix">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Column :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Row :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>
-                            @endif
-                            @if(isset($_GET['growMode']) and $_GET['growMode'] == 'release')
-                            <div class="row clearfix">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Flower Weight :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Waste Weight :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>WareHouse :</label>
-                                            <select class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                            <div class="row clearfix">  
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <button type="button" class="btn btn-default waves-effect">Add</button>
-                                    <button type="button" class="btn btn-default waves-effect">Remove</button>
-                                </div>
-                            </div>    
-                        </form>
-                    </div>
-                    @endif
-                    @if(isset($_GET['growMode']) and $_GET['growMode'] == 'release')
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <form>
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Grow Area :</label>
-                                            <select class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Process Date :</label>
-                                            <input type="text" class="datepicker form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Product :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Metric Id :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Flower Weight :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Waste Weight :</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>WareHouse :</label>
-                                            <select class="form-control show-tick">
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="40">40</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">  
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <button type="button" class="btn btn-default waves-effect">Add</button>
-                                    <button type="button" class="btn btn-default waves-effect">Remove</button>
-                                </div>
-                            </div>    
-                        </form>
-                    </div>
-                    @endif
-                    
-                    @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        <table class="table table-striped">
+            <div class="card-body">
+                <div class="row">
+                     @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
+                    <div class="col-md-12">
+                        <table class="table table-striped m-0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -304,8 +59,8 @@
                     </div>
                     @endif
                     @if(isset($_GET['growMode']) and $_GET['growMode'] == 'move')
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        <table class="table table-striped">
+                    <div class="col-md-12">
+                        <table class="table table-striped m-0">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -346,7 +101,7 @@
                     </div>    
                     @endif
                     @if(isset($_GET['growMode']) and $_GET['growMode'] == 'release')
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                     <div class="col-md-12">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -400,6 +155,243 @@
         </div>
     </div>
 </div>
+<!-- add new grow Modal start-->
+    <div class="modal fade" id="addNewGrowModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="addNewGrowModalLabel">Add New Grow</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="modal-body">
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Grow Area </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Process Date</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="datepicker form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label for="" class="col-sm-3 col-form-label">Product</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label for="" class="col-sm-3 col-form-label"></label>
+                                <div class="col-md-9">
+                                    <a href="#" class="btn btn-primary">Add New Product</a>
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Metric Id</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Parent Metric Id</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Column</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Row</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-primary">Remove</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- add grow area modal end -->
 
+<!-- add move grow Modal start-->
+    <div class="modal fade" id="addMoveGrowModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="addMoveGrowModalLabel">Add Move Grow</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="modal-body">
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Grow List </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Source Room </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Destination Room </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Process Date</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="datepicker form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label for="" class="col-sm-3 col-form-label">Product</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Metric Id</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-primary">Remove</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- add move area modal end -->
+
+
+<!-- add release grow Modal start-->
+    <div class="modal fade" id="addReleaseGrowModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="addReleaseGrowModalLabel">Add Move Grow</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="modal-body">
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Grow Area </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Process Date</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="datepicker form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label for="" class="col-sm-3 col-form-label">Product</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Metric Id</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Flower Weight</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">Waste Weight</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row gutters">
+                                <label class="col-sm-3 col-form-label">WareHouse </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control show-tick">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-primary">Remove</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- add move area modal end -->
 @endsection
 

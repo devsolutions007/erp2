@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{{ asset('fonts/icomoon/icomoon.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
 
+    <!-- Color picker css -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-colorpicker.min.css') }}" />
+    
     <!-- Datepickers css -->
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}" />
     <!-- <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}" /> -->
