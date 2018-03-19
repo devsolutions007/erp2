@@ -182,7 +182,7 @@
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Process Date</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="datepicker form-control" placeholder="">
+                                    <input type="text" class="bs-datepicker form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
@@ -286,7 +286,7 @@
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Process Date</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="datepicker form-control" placeholder="">
+                                    <input type="text" class="bs-datepicker form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
@@ -342,7 +342,7 @@
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Process Date</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="datepicker form-control" placeholder="">
+                                    <input type="text" class="bs-datepicker form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row gutters">

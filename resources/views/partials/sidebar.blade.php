@@ -152,7 +152,7 @@
                     </a>
                 </li>
                 <li class="{{ Request::is('') ? 'active' : ''}}">
-                    <a href="#">
+                    <a href="/mukesh/erp2-test/public/product/index?productMenu=visible">
                         <span class="has-icon">
                             <i class="icon-tabs-outline"></i>
                         </span>

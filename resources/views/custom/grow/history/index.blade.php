@@ -17,11 +17,11 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="" class="col-form-label">From</label>
-                                <input type="email" class="datepicker form-control" id="" placeholder="">
+                                <input type="email" class="bs-datepicker form-control" id="" placeholder="">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="" class="col-form-label">To</label>
-                                <input type="email" class="datepicker form-control" id="" placeholder="">
+                                <input type="email" class="bs-datepicker form-control" id="" placeholder="">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="" class="col-form-label">Metric ID</label>

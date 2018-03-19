@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('growing/index','Custom\GrowController@growIndex');
         Route::get('history/index','Custom\GrowController@historyIndex');
         Route::get('mgt_gui','Custom\GrowController@mgtGUI');
+        Route::post('roomAjax','Custom\GrowController@roomAjax');
+        Route::post('ajaxSearchGrowTable','Custom\GrowController@ajaxSearchGrowTable');
     });
     /* End*/
 
@@ -74,6 +76,8 @@ Route::group(['middleware' => ['auth']],function() {
 
     /* ##########-------------Product-------------------########### */
     Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
+        Route::get('index','Product\ProductController@index');
+        Route::get('createWareHouse','Product\ProductController@createWareHouse');
         Route::get('card','Product\ProductController@card');
         Route::post('getProduct','Product\ProductController@getProduct');
     });

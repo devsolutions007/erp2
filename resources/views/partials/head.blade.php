@@ -2,6 +2,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Unify Admin Panel" />
     <meta name="keywords" content="Admin, Dashboard, Bootstrap4, Sass, CSS3, HTML5, Responsive Dashboard, Responsive Admin Template, Admin Template, Best Admin Template, Bootstrap Template, Themeforest" />
@@ -19,7 +21,10 @@
     
     <!-- Datepickers css -->
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}" />
-    <!-- <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}" /> -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}" />
+
+    <!--  Custom css -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 
     <!-- Other CSS includes plugins - Cleanedup unnecessary CSS -->
     <!-- Chartist css -->

@@ -10,52 +10,34 @@
                         <div class="form-group row gutters">
                             <label class="col-sm-3 col-form-label">Clone Color</label>
                             <div class="col-sm-2">
-                                <div class="colorpicker1 input-group colorpicker-component" title="click to choose color">
-                                    <input id="colorpicker1" type="text" class="form-control" value="#DD0F20"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
+                                <input type="color" class="form-control" value="#DD0F20"/>
                             </div>
                             <div class="col-md-2"></div>
                             <label class="col-sm-3 col-form-label">Vegitation Color</label>
                             <div class="col-sm-2">
-                                <div class="colorpicker1 input-group colorpicker-component" title="click to choose color">
-                                    <input type="text" class="form-control" value="#DD0F20"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
+                                <input type="color" class="form-control" value="#DD0F20"/>
                             </div>
                         </div>
                         <div class="form-group row gutters">
                             <label class="col-sm-3 col-form-label">Flower Color</label>
                             <div class="col-sm-2">
-                                <div class="colorpicker1 input-group colorpicker-component" title="click to choose color">
-                                    <input type="text" class="form-control" value="#DD0F20"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
+                                <input type="color" class="form-control" value="#DD0F20"/>
                             </div>
                             <div class="col-md-2"></div>
                             <label class="col-sm-3 col-form-label">Cutweigh Wet Color</label>
                             <div class="col-sm-2">
-                                <div class="colorpicker1 input-group colorpicker-component" title="click to choose color">
-                                    <input type="text" class="form-control" value="#DD0F20"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
+                                <input type="color" class="form-control" value="#DD0F20"/>
                             </div>
                         </div>
                         <div class="form-group row gutters">
                             <label class="col-sm-3 col-form-label">Harvest Drying Color</label>
                             <div class="col-sm-2">
-                                <div class="colorpicker1 input-group colorpicker-component" title="click to choose color">
-                                    <input type="text" class="form-control" value="#DD0F20"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
+                                <input type="color" class="form-control" value="#DD0F20"/>
                             </div>
                             <div class="col-md-2"></div>
                             <label class="col-sm-3 col-form-label">Harvest Curing</label>
                             <div class="col-sm-2">
-                                <div class="colorpicker1 input-group colorpicker-component" title="click to choose color">
-                                    <input type="text" class="form-control" value="#DD0F20"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
+                                <input type="color" class="form-control" value="#DD0F20"/>
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary">Save</button>

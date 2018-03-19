@@ -24,15 +24,19 @@
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <!-- Common JS -->
     <script src="{{ asset('js/common.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script type="text/javascript">
         //Datepicker
         $(function() {
-            $(".datepicker").datepicker();
+            $(".bs-datepicker").datepicker();
         });
         // color picker
         $('.colorpicker1').colorpicker();
         $('#colorpicker1').colorpicker();
     </script>
+    <!-- grow js -->
+    <script src="{{ asset('custom/grow/js/process.js') }}"></script>
+
     <script>
         window._token = '{{ csrf_token() }}';
     </script>

@@ -9,26 +9,27 @@
                         <div class="form-group col-md-3">
                             <label for="growArea" class="col-form-label">Grow Area</label>
                             <select id="growArea" class="form-control">
-                                <option>Choose</option>
-                                <option>1</option>
-                                <option>2</option>
+                                @foreach( $growAreas as $growArea )
+                                <option value="{{ $growArea->id }}">{{ $growArea->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="" class="col-form-label">Rooms</label>
-                            <select id="" class="form-control">
-                                <option>Choose</option>
-                                <option>1</option>
-                                <option>2</option>
+                            <label for="growRooms" class="col-form-label">Rooms</label>
+                            <select id="growRooms" class="form-control">
+                                <option value="all">All</option>
+                                @foreach( $growRooms as $growRoom )
+                                <option value="{{ $growRoom->id }}">{{ $growRoom->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="" class="col-form-label">Time in Rooms</label>
-                            <input type="email" class="form-control" id="" placeholder="">
+                            <label for="roomTime" class="col-form-label">Time in Rooms</label>
+                            <input type="text" class="form-control" id="roomTime" placeholder="">
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="" class="col-form-label">Metric ID</label>
-                            <input type="email" class="form-control" id="" placeholder="">
+                            <label for="metricId" class="col-form-label">Metric ID</label>
+                            <input type="text" class="form-control" id="metricId" placeholder="">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="" class="col-form-label" style="opacity: 0; display: block;">Search</label>
@@ -76,7 +77,7 @@
                                         <th>States</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="search_table_body">
                                     <tr>
                                         <th scope="row">1</th>
                                         <th><input type="checkbox" id="grow_checkbox_2" class="filled-in"/>
@@ -134,7 +135,7 @@
                                 <label for="addPlantDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
                                     <div class="datepicket-container blue">
-                                        <input class="datepicker form-control" id="addPlantDate" placeholder="Date" type="text">
+                                        <input class="bs-datepicker form-control" id="addPlantDate" placeholder="Date" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +197,7 @@
                             <div class="form-group row gutters">
                                 <label for="bulkMovetDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <input class="datepicker form-control" id="bulkMovetDate" placeholder="Date" type="text">
+                                    <input class="bs-datepicker form-control" id="bulkMovetDate" placeholder="Date" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
@@ -255,7 +256,7 @@
                             <div class="form-group row gutters">
                                 <label for="bulkReleasetDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <input class="datepicker form-control" id="bulkReleasetDate" placeholder="Date" type="text">
+                                    <input class="bs-datepicker form-control" id="bulkReleasetDate" placeholder="Date" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">

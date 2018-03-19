@@ -14,6 +14,17 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
     
+    public function index() {
+        
+        return view('product.index');
+    }
+
+    public function createWareHouse() {
+        
+        return view('product.createWareHouse');
+    }
+
+
     public function card() {
         
         return view('product.card');
