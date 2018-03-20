@@ -25,26 +25,29 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="roomTime" class="col-form-label">Time in Rooms</label>
-                            <input type="text" class="form-control" id="roomTime" placeholder="">
+                            <input type="text" class="form-control" id="roomTime" placeholder="Enter values in days">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="metricId" class="col-form-label">Metric ID</label>
-                            <input type="text" class="form-control" id="metricId" placeholder="">
+                            <input type="text" class="form-control" id="metricId" placeholder="Enter Mertic Id">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="" class="col-form-label" style="opacity: 0; display: block;">Search</label>
-                            <button class="btn btn-block btn-primary" type="submit">Search</button>
+                            <button id="searchBtnGrow" class="btn btn-block btn-primary" type="submit">Search</button>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-1">
-                            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addPlantModal">Add</button>
+                            <button type="button" id="addnew_grow" class="btn btn-block btn-primary">Add</button>
                         </div>
                         <div class="form-group col-md-1">
                             <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#bulkMoveModal">Move</button>
                         </div>
                         <div class="form-group col-md-1">
                                <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#bulkReleaseModal">Release</button>
+                        </div>
+                        <div class="form-group col-md-1">
+                               <button type="button" class="btn btn-block btn-primary">Remove</button>
                         </div>
                         <ul class="col-md-2">
                             <li class="dropdown">
@@ -67,8 +70,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th><input type="checkbox" id="grow_checkbox_1" class="filled-in"/>
-                                         <label for="grow_checkbox_1"></label></th>
+                                        <th><input id="checkallactions" name="checkallactions" class="checkallactions" type="checkbox"></th>
                                         <th>Strain</th>
                                         <th>Birthdate</th>
                                         <th>Time in Room</th>
@@ -78,39 +80,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="search_table_body">
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <th><input type="checkbox" id="grow_checkbox_2" class="filled-in"/>
-                                         <label for="grow_checkbox_2"></label></th>
-                                        <td>Apothecanna - (0.5oz) Super Salve</td>
-                                        <td>2017-12-19</td>
-                                        <td>86 days</td>
-                                        <td>room-Drying (0 , 9)</td>
-                                        <td>1A400021266EE22000009365</td>
-                                        <td>harvest-drying</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                         <th><input type="checkbox" id="grow_checkbox_3" class="filled-in"/>
-                                         <label for="grow_checkbox_3"></label></th>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <th><input type="checkbox" id="grow_checkbox_4" class="filled-in"/>
-                                         <label for="grow_checkbox_4"></label></th>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -135,20 +104,20 @@
                                 <label for="addPlantDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
                                     <div class="datepicket-container blue">
-                                        <input class="bs-datepicker form-control" id="addPlantDate" placeholder="Date" type="text">
+                                        <input class="bs-datepicker form-control" id="addPlantDate" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="addPlantGrowArea" class="col-sm-3 col-form-label">Grow Area</label>
+                                <label for="modal_add_src" class="col-sm-3 col-form-label">Grow Area</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="addPlantGrowArea" placeholder="Grow Area" type="text">
+                                    <input  class="form-control" id="modal_add_src" placeholder="Grow Area" type="text" readonly>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label for="addPlantProduct" class="col-sm-3 col-form-label">Product</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="addPlantProduct" placeholder="Product" type="text">
+                                    <input class="form-control productNameList" id="addPlantProduct" placeholder="Product" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">

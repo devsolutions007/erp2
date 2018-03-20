@@ -28,12 +28,10 @@
     <script type="text/javascript">
         //Datepicker
         $(function() {
-            $(".bs-datepicker").datepicker();
+            $(".bs-datepicker").datepicker("getDate");
         });
-        // color picker
-        $('.colorpicker1').colorpicker();
-        $('#colorpicker1').colorpicker();
     </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- grow js -->
     <script src="{{ asset('custom/grow/js/process.js') }}"></script>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use App\Product;
 use App\ProductCategory;
 use App\Inventory;
@@ -121,5 +122,14 @@ class ProductController extends Controller
 
        		echo $result;
        	}
-    }   	
+    } 
+    public function productNameList(Request $request) {
+    	$term = $request->input('term');
+    	$products = Product::where('name', 'like', '%'.$term.'%')->take(5)->get();
+    	foreach ($products as $product)
+		{
+		    $results[] = [ 'id' => $product->id, 'value' => $product->name ];
+		}
+		return Response::json($results);
+    } 	
 }

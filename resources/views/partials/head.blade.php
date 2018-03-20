@@ -32,3 +32,6 @@
     <link href="{{ asset('vendor/chartist/css/chartist-custom.css') }}" rel="stylesheet" />
 
     <script src="{{ asset('js/jquery.js') }}"></script>
+    <style type="text/css">
+        .ui-autocomplete { z-index:2147483647; }
+    </style>
