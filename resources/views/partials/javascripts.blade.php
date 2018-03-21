@@ -35,6 +35,12 @@
     <!-- grow js -->
     <script src="{{ asset('custom/grow/js/process.js') }}"></script>
 
+    <!-- jquery  validation  plugin-->
+    <script src="{{ asset('js/jquery.validate.js') }}" type="text/javascript"></script>
+
+    <!-- jquery form validation -->
+    <script src="{{ asset('js/formValidate.js') }}" type="text/javascript"></script>
+    
     <script>
         window._token = '{{ csrf_token() }}';
     </script>

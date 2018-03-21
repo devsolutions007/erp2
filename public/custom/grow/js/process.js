@@ -18,10 +18,10 @@ $('#growArea').change( function() {
 
 $("#growRooms").change( function() {
     getSearchResult();
-    // if( $("#growRooms").val() == "all" )
-    //     $('.searchfilter_btn').attr("disabled","disabled");
-    // else
-    //     roomtype_check();
+    if( $("#growRooms").val() == "all" )
+        $('.searchfilter_btn').attr("disabled","disabled");
+    else
+        roomtype_check();
 });
 
 $('#searchBtnGrow').click( function() {
@@ -31,7 +31,7 @@ $('#searchBtnGrow').click( function() {
 function getRoomList() {
     $.ajax({
         type: "POST",
-        url: '/mukesh/erp2-test/public/grow/roomAjax',
+        url: '/grow/roomAjax',
         data: {
             action : 'getRoomList' ,
             area_id : $("#growArea").val() ,
@@ -41,6 +41,7 @@ function getRoomList() {
         headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
         success: function(data){
             $("#growRooms" ).html( data );
+            $('#home_dst_val').html( data);
             getSearchResult();
         }
     });
@@ -51,7 +52,7 @@ function getSearchResult()
 {
     $.ajax({
         type: "POST",
-        url: '/mukesh/erp2-test/public/grow/ajaxSearchGrowTable',
+        url: '/grow/ajaxSearchGrowTable',
         data: {
             mode        : 'searchResults',
             metric_id   : $("#metricId").val() ,
@@ -69,11 +70,12 @@ function roomtype_check(){
     $('.searchfilter_btn').removeAttr("disabled");     
     $.ajax({
         type: "POST",
-        url: '/mukesh/erp2-test/public/grow/roomAjax',
+        url: '/grow/roomAjax',
         data: {
             action : 'get_next_room_list' ,
             room_id : $("#growRooms").val()
         } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
         success: function(data){
             // $('#home_dst_val').html(data);
             $('#move_select_dst').html(data);
@@ -88,17 +90,146 @@ function roomtype_check(){
     });
 }
 
+// product name list
+$( ".productNameList" ).autocomplete({
+    source: '/product/productNameList',
+    autoFocus:true,
+    minLength:2,
+    select: function(event,ui) {
+        $('.productNameList').val(ui.item.value);
+        $('#sel_product_id').val(ui.item.id);
+    }
+});
+
+// add grow plant
+var ajaxRequestGrowModalRoute = '/grow/ajaxRequestGrowModal'; 
+
 $("#addnew_grow").click( function() {
     $("#modal_add_src").val($("#growArea").find('option:selected').text() + " - " + $("#growRooms").find('option:selected').text());
     $('#addPlantModal').modal('show');
 });
 
-// product name list
-$( ".productNameList" ).autocomplete({
-    source: '/mukesh/erp2-test/public/product/productNameList',
-    autoFocus:true,
-    minLength:2,
-    select: function(event,ui) {
-        $('.productNameList').val(ui.item.value);
-    }
+$("#bulk_add_grow").click(function(){
+    add_plant_update(); 
 });
+
+function add_plant_update(){
+
+    if( $("#sel_product_id").val() != "" && $("#rfid").val() != "" )
+    {
+        $.ajax({
+            type: "POST",
+            url: ajaxRequestGrowModalRoute,
+            data: {
+                mode        : 'add_plant',
+                date        : $("#fiscalyear").val(),
+                src         : $("#growRooms").val(),
+                p_id        : $("#sel_product_id").val() ,
+                rfid        : $("#rfid").val(),
+                p_rfid      : $("#p_rfid").val(),
+                rol         : $("#row_val").val(),
+                col         : $("#col_val").val(),
+            } ,
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+            success: function(data){
+                if( data == "The rfid is exist" )
+                {
+                    $(".error-message" ).show().text("Metric Id is already exist.");
+                    $(".error-message" ).show().delay(2000).fadeOut();
+                }else{
+                    getSearchResult();
+                    $('#addPlantModal').modal('hide');
+                }
+            }
+        });
+    } else {
+        $(".error-message" ).show().text("Please insert the product data.");
+        $(".error-message" ).show().delay(2000).fadeOut();
+    }
+
+}
+
+// move grow 
+
+$("#move_grow").click( function() {
+    $("#modal_move_src").val($("#growArea").find('option:selected').text());
+    $("#modal_home_src").val($("#growRooms").find('option:selected').text());
+    var check_count = $("[type='checkbox']:checked").length;
+    $("#modal_checklist_count").val(check_count);
+    $('#bulkMoveModal').modal('show');
+});
+
+$("#bulk_move_grow").click( function() {
+    move_plant_update(); 
+    $('#bulkMoveModal').modal('hide');
+});
+
+function move_plant_update(){
+    var checkboxValues = [];
+    $('input.checkboxfordelete:checked').map(function() {
+        checkboxValues.push($(this).val());
+    });
+    // var element = $("#home_dst_val" ).find('option:selected'); 
+    var option_type = $("#home_dst_val option:selected" ).attr("rtype");
+    
+    $.ajax({
+        type: "POST",
+        url: ajaxRequestGrowModalRoute,
+        data: {
+            mode    : 'move_plant',
+            RFID    : checkboxValues,
+            src     : $("#growRooms").val() ,
+            state   : option_type ,
+            dst     : $("#home_dst_val").val(),
+            date    : $("#movegrowfiscalyear").val(),
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+            getSearchResult();
+        }
+    });
+
+}
+
+// release grow modal 
+$("#release_grow").click( function() {
+    $("#modal_release_src").val($("#growArea").find('option:selected').text() + " - " + $("#growRooms").find('option:selected').text());
+    var check_count = $("[type='checkbox']:checked").length;
+    $("#modal_checklist_count_rel").val(check_count);
+    $('#bulkReleaseModal').modal('show');
+});
+
+
+// remove grow table row
+$("#remove_grow").click( function() {
+    if( !confirm("Do you want to remove the plants?") )
+        return;
+    remove_plant_update();
+});
+
+function remove_plant_update(){
+    var checkboxValues = [];
+    var add_data = new Array();
+
+    $('input.checkboxfordelete:checked').map(function() {
+        add_data.push({
+            RFID    : $(this).val() ,
+            src     : $("#growRooms").val() ,
+        });
+    });
+    
+    $.ajax({
+        type: "POST",
+        url: ajaxRequestGrowModalRoute,
+        data: {
+            mode      : 'remove_plant',
+            data      :  add_data ,
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+            getSearchResult();
+            alert("Removed Succesfully");
+        }
+    });
+
+}

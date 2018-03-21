@@ -18,9 +18,11 @@
                             <label for="growRooms" class="col-form-label">Rooms</label>
                             <select id="growRooms" class="form-control">
                                 <option value="all">All</option>
-                                @foreach( $growRooms as $growRoom )
-                                <option value="{{ $growRoom->id }}">{{ $growRoom->name }}</option>
-                                @endforeach
+                                @if($growRooms)
+                                    @foreach( $growRooms as $growRoom )
+                                    <option value="{{ $growRoom->id }}">{{ $growRoom->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="form-group col-md-2">
@@ -38,16 +40,16 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-1">
-                            <button type="button" id="addnew_grow" class="btn btn-block btn-primary">Add</button>
+                            <button type="button" id="addnew_grow" class="btn btn-block btn-primary searchfilter_btn">Add</button>
                         </div>
                         <div class="form-group col-md-1">
-                            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#bulkMoveModal">Move</button>
+                            <button type="button" class="btn btn-block btn-primary searchfilter_btn" id="move_grow">Move</button>
                         </div>
                         <div class="form-group col-md-1">
-                               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#bulkReleaseModal">Release</button>
+                               <button type="button" class="btn btn-block btn-primary searchfilter_btn" id="release_grow">Release</button>
                         </div>
                         <div class="form-group col-md-1">
-                               <button type="button" class="btn btn-block btn-primary">Remove</button>
+                               <button type="button" class="btn btn-block btn-primary searchfilter_btn" id="remove_grow">Remove</button>
                         </div>
                         <ul class="col-md-2">
                             <li class="dropdown">
@@ -100,12 +102,12 @@
                     </div>
                     <form class="form-horizontal">
                         <div class="modal-body">
+                            <div class="alert custom alert-danger error-message" style="display: none;"></div>
                             <div class="form-group row gutters">
                                 <label for="addPlantDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <div class="datepicket-container blue">
-                                        <input class="bs-datepicker form-control" id="addPlantDate" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
-                                    </div>
+                                    <input class="bs-datepicker form-control" id="fiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
+                                    
                                 </div>
                             </div>
                             <div class="form-group row gutters">
@@ -121,28 +123,29 @@
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="addPlantMetricID" class="col-sm-3 col-form-label">Metric ID</label>
+                                <label for="rfid" class="col-sm-3 col-form-label">Metric ID</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="addPlantMetricID" placeholder="Metric ID" type="text">
+                                    <input class="form-control" id="rfid" placeholder="Metric ID" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="addPlantParentID" class="col-sm-3 col-form-label">Parent ID</label>
+                                <label for="p_rfid" class="col-sm-3 col-form-label">Parent ID</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="addPlantParentID" placeholder="Parent ID" type="text">
+                                    <input class="form-control" id="p_rfid" placeholder="Parent ID" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <div class="col-sm-6">
-                                    <input type="text" id="addPlantRow" class="form-control" placeholder="Row">
+                                    <input type="text" id="row_val" class="form-control" placeholder="Row">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" id="addPlantColumn" class="form-control" placeholder="Column">
+                                    <input type="text" id="col_val" class="form-control" placeholder="Column">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save</button>
+                            <input name="sel_product_id" id="sel_product_id" type="hidden">
+                            <button type="button" id="bulk_add_grow" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>   
@@ -166,42 +169,37 @@
                             <div class="form-group row gutters">
                                 <label for="bulkMovetDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <input class="bs-datepicker form-control" id="bulkMovetDate" placeholder="Date" type="text">
+                                    <input class="bs-datepicker form-control" id="movegrowfiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="bulkMoveGrowArea" class="col-sm-3 col-form-label">Grow Area</label>
+                                <label for="modal_move_src" class="col-sm-3 col-form-label">Grow Area</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="bulkMoveGrowArea" placeholder="Grow Area" type="text">
+                                    <input class="form-control" id="modal_move_src" placeholder="Grow Area" type="text" readonly>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="bulkMoveSource" class="col-sm-3 col-form-label">Source</label>
+                                <label for="modal_home_src" class="col-sm-3 col-form-label">Source</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="bulkMoveSource" placeholder="Source" type="text">
+                                    <input class="form-control" id="modal_home_src" placeholder="Source" type="text" readonly>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="bulkMoveDestination" class="col-sm-3 col-form-label">Destination</label>
+                                <label for="home_dst_val" class="col-sm-3 col-form-label">Destination</label>
                                 <div class="col-sm-9">
-                                    <select id="bulkMoveDestination" class="form-control show-tick">
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
+                                    <select id="home_dst_val" class="form-control show-tick">
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="bulkMoveCount" class="col-sm-3 col-form-label">Count</label>
+                                <label for="modal_checklist_count" class="col-sm-3 col-form-label">Count</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="bulkMoveCount" placeholder="Count" type="text">
+                                    <input class="form-control" id="modal_checklist_count" placeholder="Count" type="text" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-primary" id="bulk_move_grow">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
@@ -223,15 +221,15 @@
                     <form class="form-horizontal">
                         <div class="modal-body">
                             <div class="form-group row gutters">
-                                <label for="bulkReleasetDate" class="col-sm-3 col-form-label">Date</label>
+                                <label for="releasefiscalyear" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <input class="bs-datepicker form-control" id="bulkReleasetDate" placeholder="Date" type="text">
+                                    <input name="releasefiscalyear" class="bs-datepicker form-control" id="releasefiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="bulkReleaseGrowArea" class="col-sm-3 col-form-label">Grow Area</label>
+                                <label for="modal_release_src" class="col-sm-3 col-form-label">Grow Area</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="bulkReleaseGrowArea" placeholder="Grow Area" type="text">
+                                    <input class="form-control" name="modal_release_src" id="modal_release_src" placeholder="Grow Area" type="text" readonly>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
@@ -247,22 +245,22 @@
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="bulkReleaseCount" class="col-sm-3 col-form-label">Count</label>
+                                <label for="modal_checklist_count_rel" class="col-sm-3 col-form-label">Count</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" id="bulkReleaseCount" placeholder="Count" type="text">
+                                    <input class="form-control" id="modal_checklist_count_rel" name="modal_checklist_count_rel" placeholder="Count" type="text" readonly>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <div class="col-sm-6">
-                                    <input type="text" id="bulkReleaseFlowerWeight" class="form-control" placeholder="Flower weight">
+                                    <input type="text" name="fl_weight" id="fl_weight" class="form-control" placeholder="Flower weight">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" id="bulkReleaseWasteWeight" class="form-control" placeholder="Waste weight">
+                                    <input type="text" id="wa_weight" name="wa_weight" class="form-control" placeholder="Waste weight">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-primary" id="bulk_release_grow">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>

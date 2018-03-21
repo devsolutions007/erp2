@@ -54,29 +54,46 @@ class GrowController extends Controller
     }
    
     public function roomAjax(Request $request) {
+        $area_id = $request->input('area_id');
+        $allset = $request->input('allset');
+        $select_room = $request->input('select_val');
         $options = '';
         if($request->input('action') == 'getRoomList') {
-            $growRooms = ProductGrowList::where( 'parent_id', '=', $request->input('area_id') )->get();
-            $options .= '<option value="all">All</option>';
-            foreach ($growRooms as $key => $growRoom) {
-                $options .= '<option value="'.$growRoom->id.'">'.$growRoom->name.'</option>';
+
+            $growRooms = ProductGrowList::where( 'parent_id', '=', $area_id )->get();
+
+            if( $allset ) $options .= "<option value='all' rtype=''>All</option>";
+
+            foreach ($growRooms as $key => $row) {
+                if($select_room != $row->id) {
+                    $options .= "<option value='".$row->id."' rtype='".$row->type."' >".$row->name."</option>";
+                } else {
+                    $options .= "<option value='".$row->id."' rtype='".$row->type."' selected>".$row->name."</option>";
+                }
             }
             echo $options;
             
         }
         if( $request->input('action') == 'get_next_room_list' )
         {
-            // $room_id = $request->input('room_id');
-            // $next_room_area = array();
-            // $next_room_area = $growroom->get_next_room($room_id);
-            // foreach($next_room_area as $row)
-            // {
-            //     if( ($row->type != "Harvest-drying") || ($row->type != "Harvest-curing") )
-            //         $ret .= "<option value='".$row->rowid."' rtype='".$row->type."' >".$row->name."</option>";
-            //     else
-            //         $ret = "";
-            // }
-            // echo $ret;
+            $room_id = $request->input('room_id');
+
+            // $next_room_area = DB::table('product_grow_lists')
+            //                 ->select('type', 'parent_id')
+            //                 ->where()
+            //                 ->toSql();
+
+            // return $next_room_area;
+            $next_room_area = ProductGrowList::where( 'id', '=', $room_id )->get();
+            
+            foreach($next_room_area as $row)
+            {
+                if( ($row->type != "Harvest-drying") || ($row->type != "Harvest-curing") )
+                    $ret .= "<option value='".$row->rowid."' rtype='".$row->type."' >".$row->name."</option>";
+                else
+                    $ret = "";
+            }
+            echo $ret;
         }
     }
 
@@ -143,7 +160,7 @@ class GrowController extends Controller
             $current = Carbon::now();
             if(count($product_lists) > 0 ) {
                 foreach ($product_lists as $key => $product) {
-                    if($product->stock_value > 0 ) {
+                    //if($product->stock_value > 0 ) {
                         $created = Carbon::parse($product->birthdate);
                         $age = $current->diffInDays($created);
                         $data .= '<tr>';
@@ -156,7 +173,7 @@ class GrowController extends Controller
                         $data .= '<td>'.$product->rfid.'</td>';
                         $data .= '<td>'.$product->state.'</td>';
                         $data .= '</tr>';
-                    }
+                    //}
                 }
             }
             echo $data;
@@ -164,4 +181,106 @@ class GrowController extends Controller
         }
     }
     
+    public function ajaxRequestGrowModal(Request $request) {
+        if( $request->input('mode') == 'add_plant' )
+        {
+            $date    = $request->input('date');
+            $src     = $request->input('src');
+            $p_id    = $request->input('p_id');
+            $rfid    = $request->input('rfid');
+            $p_rfid  = $request->input('p_rfid');
+            $rol     = $request->input('rol');
+            $col     = $request->input('col');
+
+            $new_date = date("Y-m-d", strtotime($date));
+
+            $countRFID = ProductGrowProductRFID::where('rfid', '=', $rfid)->count();
+            if($countRFID > 0) {
+                echo "The rfid is exist";
+            } else {
+                $validatedData = $request->validate([
+                    'rfid' => 'required|unique:product_grow_product_rfid',
+                    'p_id' => 'required',
+                ]);
+
+                $ProductGrowProductRFID = new ProductGrowProductRFID;
+        
+                $ProductGrowProductRFID->rfid = $rfid;
+                $ProductGrowProductRFID->p_id = $p_id;
+                $ProductGrowProductRFID->birthdate = $new_date;
+                $ProductGrowProductRFID->room_id = $src;
+                $ProductGrowProductRFID->col = $col;
+                $ProductGrowProductRFID->rol = $rol; 
+                $ProductGrowProductRFID->parent_rfid = $p_rfid;
+                $ProductGrowProductRFID->state = 'clone'; 
+                $ProductGrowProductRFID->save();
+
+                $ProductGrowMovement = new ProductGrowMovement;
+                $ProductGrowMovement->rfid = $rfid;
+                $ProductGrowMovement->dst = $src;
+                $ProductGrowMovement->qty = 1;
+                $ProductGrowMovement->date = $new_date;
+                $ProductGrowMovement->type = 'new';
+                $ProductGrowMovement->save();
+                echo "Sucess insert";
+
+            }
+        }
+
+        if( $request->input('mode') == 'move_plant' )
+        {
+            $date = $request->input('date');
+            $date = date("Y-m-d", strtotime($date));
+            $src  = $request->input('src');
+            $dst  = $request->input('dst');
+            $state  = $request->input('state');
+            $rfids = $request->input('RFID');
+
+            if( $state == '3' ) $state = "vegetation";
+            if( $state == '4' ) $state = "flower";
+            if( $state == '5' ) $state = "harvest-drying";
+            if( $state == '6' ) $state = "harvest-curing";
+            if( $state == '7' ) $state = "Cutweigh-wet";
+
+            foreach ($rfids as $key => $rfid) {
+                 $ProductGrowMovement       = new ProductGrowMovement;
+                 $ProductGrowMovement->rfid = $rfid;
+                 $ProductGrowMovement->src  = $src;
+                 $ProductGrowMovement->dst  = $dst;
+                 $ProductGrowMovement->qty  = 1;
+                 $ProductGrowMovement->date = $date;
+                 $ProductGrowMovement->type = 'move';
+                 $ProductGrowMovement->save();
+
+                 $ProductGrowProductRFID = ProductGrowProductRFID::find($rfid);
+                 $ProductGrowProductRFID->state = $state;
+                 $ProductGrowProductRFID->room_id = $dst;
+                 $ProductGrowProductRFID->save();
+            }
+            echo "success";
+
+        }
+
+        if( $request->input('mode') == 'remove_plant' )
+        {
+            $plantLists = $request->input('data');
+            $date     = date("Y-m-d");
+            $results = '';
+            foreach ($plantLists as $key => $plantList) {
+                $ProductGrowMovement = new ProductGrowMovement;
+                $ProductGrowMovement->rfid = $plantList["RFID"];
+                $ProductGrowMovement->src  = $plantList["src"];
+                $ProductGrowMovement->dst  = -1;
+                $ProductGrowMovement->qty  = 1;
+                $ProductGrowMovement->date = $date;
+                $ProductGrowMovement->type = 'release';
+                $ProductGrowMovement->save();
+
+                $ProductGrowProductRFID = ProductGrowProductRFID::find($plantList["RFID"]);
+                $ProductGrowProductRFID->room_id = -1;
+                $ProductGrowProductRFID->save();
+            }
+            echo "success";
+        }
+    }   
 }

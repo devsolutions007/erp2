@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('mgt_gui','Custom\GrowController@mgtGUI');
         Route::post('roomAjax','Custom\GrowController@roomAjax');
         Route::post('ajaxSearchGrowTable','Custom\GrowController@ajaxSearchGrowTable');
+        Route::post('ajaxRequestGrowModal','Custom\GrowController@ajaxRequestGrowModal');
     });
     /* End*/
 

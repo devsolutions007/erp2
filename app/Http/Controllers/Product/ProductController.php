@@ -125,10 +125,11 @@ class ProductController extends Controller
     } 
     public function productNameList(Request $request) {
     	$term = $request->input('term');
-    	$products = Product::where('name', 'like', '%'.$term.'%')->take(5)->get();
+    	$products = Product::where('label', 'like', '%'.$term.'%')->take(5)->get();
     	foreach ($products as $product)
 		{
-		    $results[] = [ 'id' => $product->id, 'value' => $product->name ];
+			$label = $product->ref. ' - ' .$product->label. ' - '. $product->price. 'Net of tax - Stock: '.$product->stock;
+		    $results[] = [ 'id' => $product->rowid, 'value' => $product->ref, 'label' => $label ];
 		}
 		return Response::json($results);
     } 	
