@@ -7,6 +7,9 @@ use App\ProductGrowList;
 use App\Product;
 use App\ProductGrowMovement;
 use App\ProductGrowProductRFID;
+use App\Entrepot;
+use App\StockMovement;
+use App\ProductStock;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -20,7 +23,8 @@ class GrowController extends Controller
 
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $growRooms = ProductGrowList::where( 'parent_id', '=', 1 )->get();
-        return view('custom.grow.index', compact('growAreas', 'growRooms'));
+        $warehouseList = Entrepot::all();
+        return view('custom.grow.index', compact('growAreas', 'growRooms', 'warehouseList'));
     }
 
     public function growArea() {
@@ -50,7 +54,9 @@ class GrowController extends Controller
 
     public function mgtGUI() {
         
-        return view('custom.grow.mgt_gui');
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        $growRooms = ProductGrowList::where( 'parent_id', '=', 1 )->get();
+        return view('custom.grow.mgt_gui', compact('growAreas', 'growRooms'));
     }
    
     public function roomAjax(Request $request) {
@@ -77,23 +83,19 @@ class GrowController extends Controller
         if( $request->input('action') == 'get_next_room_list' )
         {
             $room_id = $request->input('room_id');
-
-            // $next_room_area = DB::table('product_grow_lists')
-            //                 ->select('type', 'parent_id')
-            //                 ->where()
-            //                 ->toSql();
-
-            // return $next_room_area;
-            $next_room_area = ProductGrowList::where( 'id', '=', $room_id )->get();
-            
+            $options = '';
+            $next_room_area = DB::table('product_grow_lists')
+                                ->whereRaw(DB::raw('(type , parent_id) in ( select type + 1 , parent_id from product_grow_lists where id = "'.$room_id .'")'))
+                                ->get();
+            //return $next_room_area;
             foreach($next_room_area as $row)
             {
                 if( ($row->type != "Harvest-drying") || ($row->type != "Harvest-curing") )
-                    $ret .= "<option value='".$row->rowid."' rtype='".$row->type."' >".$row->name."</option>";
+                    $options .= "<option value='".$row->id."' rtype='".$row->type."' >".$row->name."</option>";
                 else
-                    $ret = "";
+                    $options = "";
             }
-            echo $ret;
+            echo $options;
         }
     }
 
@@ -124,6 +126,11 @@ class GrowController extends Controller
                                 ->groupBy('s.rfid');
                                 //->where('stock_value', '>', 0)
                 $product_lists = $query->get();
+
+                // $product_lists = DB::select('*')
+                //         ->from(DB::raw('SELECT b.label as p_name, p.rfid as rfid_value, s.p_id as rowid, s.birthdate as birthdate, s.col as col_val, s.rol as rol_val, s.parent_rfid as parent_rfid, as imgurl, s.state as state, m.name as room_name, SUM( case when (p.src = ) then p.qty else - p.qty end ) as stock_value FROM product_grow_movements as p LEFT JOIN product_grow_product_rfid as s on p.rfid = s.rfid LEFT JOIN product_grow_lists as m on m.id = s.room_id LEFT JOIN product as b on b.rowid = s.p_id WHERE ( (p.src = 0) or (p.dst < 1) ) and m.parent_id = 48 GROUP BY s.rfid as stable'))
+                //         ->where('stock_value', '>', 0)
+                //         ->get();
 
             } else {
                 $query = DB::table('product_grow_movements as p')
@@ -260,7 +267,80 @@ class GrowController extends Controller
             echo "success";
 
         }
+        if( $request->input('mode') == 'release_plant' )
+        {
+            $src        = $request->input('src');
+            $dst        = $request->input('dst');
+            $rfids       = $request->input('RFID');
+            $date       = $request->input('date');
+            $fl_weight  = $request->input('fl_weight');
+            $wa_weight  = $request->input('wa_weight');
+            $date   = date("Y-m-d", strtotime($date));
+            $product_date = date("Y-m-d H:i:s");
 
+            foreach ($rfids as $key => $rfid) {
+                $ProductGrowProductRFID = ProductGrowProductRFID::find($rfid);
+                $ProductGrowProductRFID->room_id = 0;
+                $ProductGrowProductRFID->flowerweight = $fl_weight;
+                $ProductGrowProductRFID->wasteweight = $wa_weight;
+                $ProductGrowProductRFID->save();
+
+                $ProductGrowMovement       = new ProductGrowMovement;
+                $ProductGrowMovement->rfid = $rfid;
+                $ProductGrowMovement->src  = $src;
+                $ProductGrowMovement->dst  = 0;
+                $ProductGrowMovement->qty  = 1;
+                $ProductGrowMovement->date = $date;
+                $ProductGrowMovement->type = 'release';
+                $ProductGrowMovement->save();
+
+                $fk_product = ProductGrowProductRFID::where('rfid',$rfid)->pluck('p_id');
+                $fk_product = $fk_product[0];
+                $StockMovement       = new StockMovement;
+                $StockMovement->tms = $product_date;
+                $StockMovement->datem  = $product_date;
+                $StockMovement->fk_product  = $fk_product;
+                $StockMovement->fk_entrepot  = $dst;
+                $StockMovement->value = 1;
+                $StockMovement->type_mouvement = 0;
+                $StockMovement->fk_user_author = 1;
+                $StockMovement->label = 'Stock correction for product';
+                $StockMovement->inventorycode = 22222;
+                $StockMovement->fk_origin = 0;
+                $StockMovement->rfid = $rfid;
+
+                $StockMovement->save();
+
+                $stockCount = DB::table("product_stock")->select('*')
+                        ->whereIn('fk_product',function($query) use ($dst, $rfid) {
+                        $query->select('p_id')->from('product_grow_product_rfid')
+                        ->where('fk_entrepot', $dst)
+                        ->where('rfid', $rfid);
+                        })
+                        ->count();
+                if($stockCount > 0 ) {
+                    $ProductStock = ProductStock::whereIn('fk_product',function($query) use ($dst, $rfid) {
+                        $query->select('p_id')->from('product_grow_product_rfid')
+                        ->where('fk_entrepot', $dst)
+                        ->where('rfid', $rfid);
+                        })
+                        ->first();
+                    $ProductStock->reel = $ProductStock->reel + 1;
+                    $ProductStock->rfid = $rfid;
+                    $ProductStock->save();
+                } else {
+                    $ProductStock = new ProductStock;
+                    $ProductStock->tms = $product_date;
+                    $ProductStock->fk_product = $fk_product;
+                    $ProductStock->fk_entrepot = $dst;
+                    $ProductStock->reel = 1;
+                    $ProductStock->rfid = $rfid;
+                    $ProductStock->save();
+                }
+            }
+            echo "success";
+
+        }
         if( $request->input('mode') == 'remove_plant' )
         {
             $plantLists = $request->input('data');

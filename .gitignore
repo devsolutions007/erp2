@@ -10,3 +10,4 @@ Homestead.yaml
 npm-debug.log
 .env
 /app/Console/.DS_Store
+/config/database.php

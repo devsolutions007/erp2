@@ -7,8 +7,8 @@ GrowToolbar.prototype.build_toolbar = function()
                 <select class="room_select_option_box" id="' + this.room_id + '_select" name="' + this.room_id + '_select" style="width:100%">\
                 </select>\
             </div>\
-            <a><img src="custom/grow/mgt-gui/img/button3.png" id="room_information_' + this.room_id + '" /></a>\
-            <a><img src="custom/grow/mgt-gui/img/button4.png" id="file_upload_menu_img_' + this.room_id + '" />\
+            <a><img src="/custom/grow/mgt-gui/img/button3.png" id="room_information_' + this.room_id + '" /></a>\
+            <a><img src="/custom/grow/mgt-gui/img/button4.png" id="file_upload_menu_img_' + this.room_id + '" />\
                 <div id="' + this.room_id + 'fileupload_menu" class="fileupload_menu">\
                     <li>\
                         <label for="' + this.room_id + '_file_add" class="img_cursor_show add_file_label">\
@@ -42,10 +42,10 @@ GrowToolbar.prototype.build_toolbar = function()
                     </li>\
                 </div>\
             </a>\
-            <a><img src="custom/grow/mgt-gui/img/button5.png" id="fullscreen_svg_area' + this.room_id + '" /></a>\
-            <a><img src="custom/grow/mgt-gui/img/button6.png" id="zoom_in_' + this.room_id + '" /></a>\
-            <a><img src="custom/grow/mgt-gui/img/button7.png" id="zoom_out_' + this.room_id + '" /></a>\
-            <a><img src="custom/grow/mgt-gui/img/button8.png" id="refresh_svg_panel' + this.room_id + '" /></a>\
+            <a><img src="/custom/grow/mgt-gui/img/button5.png" id="fullscreen_svg_area' + this.room_id + '" /></a>\
+            <a><img src="/custom/grow/mgt-gui/img/button6.png" id="zoom_in_' + this.room_id + '" /></a>\
+            <a><img src="/custom/grow/mgt-gui/img/button7.png" id="zoom_out_' + this.room_id + '" /></a>\
+            <a><img src="/custom/grow/mgt-gui/img/button8.png" id="refresh_svg_panel' + this.room_id + '" /></a>\
         </div>\
     ');
     //

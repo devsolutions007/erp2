@@ -57,11 +57,11 @@
                                     File Upload
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                    <a class="dropdown-item" href="#">Add File</a>
-                                    <a class="dropdown-item" href="#">Move File</a>
-                                    <a class="dropdown-item" href="#">Release File</a>
-                                    <a class="dropdown-item" href="#">Remove File</a>
-                                    <a class="dropdown-item" href="#">State Change</a>
+                                    <input type="file" name="addPlant" value="Add File">
+                                    <input type="file" name="addPlant" value="Move File">
+                                    <input type="file" name="addPlant" value="Release File">
+                                    <input type="file" name="addPlant" value="Remove File">
+                                    <input type="file" name="addPlant" value="State Change">
                                 </div>
                             </li>
                         </ul>
@@ -233,14 +233,14 @@
                                 </div>
                             </div>
                             <div class="form-group row gutters">
-                                <label for="bulkReleaseDestination" class="col-sm-3 col-form-label">Destination</label>
+                                <label for="idwarehouse" class="col-sm-3 col-form-label">Destination</label>
                                 <div class="col-sm-9">
-                                    <select id="bulkReleaseDestination" class="form-control show-tick">
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
+                                    <select id="idwarehouse" class="form-control show-tick">
+                                        @if($warehouseList)
+                                            @foreach($warehouseList as $warehouse)
+                                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>

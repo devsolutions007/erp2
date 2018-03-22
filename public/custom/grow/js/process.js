@@ -199,6 +199,36 @@ $("#release_grow").click( function() {
     $('#bulkReleaseModal').modal('show');
 });
 
+$("#bulk_release_grow").click( function() {
+    release_plant_update(); 
+    $('#bulkReleaseModal').modal('hide');
+});
+
+function release_plant_update(){
+    var checkboxValues = [];
+    $('input.checkboxfordelete:checked').map(function() {
+        checkboxValues.push($(this).val());
+    });
+    
+    $.ajax({
+        type: "POST",
+        url: ajaxRequestGrowModalRoute,
+        data: {
+            mode        : 'release_plant',
+            RFID        : checkboxValues,
+            src         : $("#growRooms").val() ,
+            date        : $("#releasefiscalyear").val(),
+            fl_weight   : $("#fl_weight").val() ,
+            wa_weight   : $("#wa_weight").val(),
+            dst         : $("#idwarehouse").val()
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+            getSearchResult();
+        }
+    });
+
+}
 
 // remove grow table row
 $("#remove_grow").click( function() {
