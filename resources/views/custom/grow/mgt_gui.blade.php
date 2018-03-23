@@ -9,58 +9,78 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" />
     <title>Hotbox</title>
+    <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}" />
     <!--  grow page custom css -->
     <link rel="stylesheet" href="{{ asset('custom/grow/css/custom.css') }}"> 
     <!--  end -->
     <!-- Includes CSS added by module grow -->
     <link rel="stylesheet" href="{{ asset('custom/grow/css/grow.css') }}">
-    <style type="text/css">
-        .absolute_div {
-            top: 0 !important;
-        }
-    </style>
+    
+    <!--Theme JS -->
     <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('vendor/unifyMenu/unifyMenu.js') }}"></script>
+    <script src="{{ asset('vendor/onoffcanvas/onoffcanvas.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/tether.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.2/umd/popper.min.js"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/setting.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/common/dragscroll.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/common/jspdf.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/SvgCreatorLibrary.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowEnum.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowPlant.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowRoom.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowMatrix.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowGUI.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowGUIConstant.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowGUIBox.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowModal.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowModalUpload.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowGUI.proto.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowToolbar.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowToolbar.Proto.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowToolbarUpload.Proto.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowBuild.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowBuild.Proto.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/GrowPalette.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/ShareFloatPlant.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/ShareAction.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/LayoutControl.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/engine/LayoutControlAction.Proto.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('custom/grow/settings/mgt-gui/js/GuiFilter.js') }}"></script>
+    <!-- Grow JS -->
+    <script src="{{ asset('custom/grow/js/jquery.plainmodal.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/common/dragscroll.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/common/jspdf.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/SvgCreatorLibrary.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowEnum.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowPlant.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowRoom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowMatrix.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUI.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUIConstant.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUIBox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowModal.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowModalUpload.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUI.proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowToolbar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowToolbar.Proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowToolbarUpload.Proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowBuild.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowBuild.Proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowPalette.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/ShareFloatPlant.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/ShareAction.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/LayoutControl.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/LayoutControlAction.Proto.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter_display.js') }}"></script>
 </head>
 <body>
+    <!-- Loading starts -->
+        <div class="loading-wrapper">
+            <div class="loading">
+                <div class="img"></div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <!-- Loading ends -->
+    <div id='floatingCircle' class="floatingCircle"></div>
     <div class="container-fluid">
         <div class="main-content">
-            <div class="row">
+            <div class="row grow-gui-nav">
                 <div class="col-md-3">
                     <div class="form-group row gutters">
                         <label for="modal_move_src" class="col-sm-4 col-form-label">Grow Area</label>
                         <div class="col-sm-6">
-                            <select id="move_src" name="move_src" class="form-control">
+                            <select id="area_select" name="area_select" class="form-control">
                                 @foreach( $growAreas as $growArea )
                                 <option value="{{ $growArea->id }}">{{ $growArea->name }}</option>
                                 @endforeach
@@ -101,34 +121,12 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div id='floatingCircle' class="floatingCircle"></div>
                     <div classs="fichecenter full_screen" id='RenderDiv'></div>
                 </div>
             </div>
         </div>    
     </div>
-
-<script type="text/javascript">
-    getRoomList();
-    function getRoomList() {
-        $.ajax({
-            type: "POST",
-            url: '/grow/roomAjax',
-            data: {
-                action : 'getRoomList' ,
-                area_id : $("#move_src").val() ,
-                select_val : $(".room_select_option_box").val() ,
-                allset : 1
-            } ,
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function(data){
-                $(".room_select_option_box" ).html( data );
-            }
-        });
-    }
-    $('#growArea').change( function() {
-        getRoomList();
-    });
-</script>
+    <!-- Common JS -->
+    <script src="{{ asset('js/common.js') }}"></script>
 </body>
 </html>

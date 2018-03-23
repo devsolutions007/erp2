@@ -59,8 +59,11 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('history/index','Custom\GrowController@historyIndex');
         Route::get('mgt_gui','Custom\GrowController@mgtGUI');
         Route::post('roomAjax','Custom\GrowController@roomAjax');
+        Route::get('getroomAjax','Custom\GrowController@getroomAjax');
+        Route::get('getplantAjax','Custom\GrowController@getplantAjax');
         Route::post('ajaxSearchGrowTable','Custom\GrowController@ajaxSearchGrowTable');
         Route::post('ajaxRequestGrowModal','Custom\GrowController@ajaxRequestGrowModal');
+        Route::post('plantAjaxFileUpload','Custom\GrowController@plantAjaxFileUpload');
     });
     /* End*/
 

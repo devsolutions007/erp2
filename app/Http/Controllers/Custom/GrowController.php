@@ -10,10 +10,12 @@ use App\ProductGrowProductRFID;
 use App\Entrepot;
 use App\StockMovement;
 use App\ProductStock;
+use App\ProductGrowListSetting;
+use App\ProductGrowListGlobal;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-
+use File;
 
 
 class GrowController extends Controller
@@ -99,6 +101,90 @@ class GrowController extends Controller
         }
     }
 
+    public function getroomAjax(Request $request) {
+        if( $request->input('action') == 'get_room_setting' )
+        {
+            $result = array();
+
+            $room_id = $request->input('room_id');
+
+            $first = DB::table('product_grow_list_setting')->select('key','value')
+                        ->where('room_id', $room_id);
+            $setting_list = DB::table('product_grow_list_setting_global')->select('key','value')
+                        ->unionAll($first)
+                        ->get();
+            if(count($setting_list) > 0) {
+                foreach ($setting_list as $key => $setting_value) {
+                    $result[ $setting_value->key ] = $setting_value->value;
+                }
+            } 
+            echo json_encode( $result );
+        }
+    }
+    public function getplantAjax(Request $request) {
+        if( $request->input('action') == 'get_plant_list' )
+        {
+            $room_id = $request->input('room_id');
+            $grow_id = '';
+            $query = DB::table('product_grow_movements as p')
+                                ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
+                                ->leftJoin('product_grow_lists as m', 'm.id', '=', 'p.src' )
+                                ->leftJoin('product_grow_lists as n', 'n.id', '=', 'p.dst' )
+                                ->leftJoin('product as b', 'b.rowid', '=', 's.p_id');
+                                
+                if( is_numeric( $room_id ) ) { 
+
+                    $query->where('p.src', '=', $room_id)
+                          ->orWhere('p.dst', '=', $room_id)
+                          ->where('m.parent_id', '=', $grow_id)
+                          ->select('b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'n.name', DB::raw("SUM( ( case when (p.src = '".$room_id."') then -p.qty else p.qty end ) ) AS stock_value"));
+                } else {
+                    $query->where(DB::raw( "p.src in(select id from product_grow_lists where parent_id = '".$grow_id."'" ))
+                          ->orwhere(DB::raw( "p.dst in(select id from product_grow_lists where parent_id = '".$grow_id."'" ) )
+                          ->where('m.parent_id', '=', $grow_id)
+                          ->select('b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'n.name', DB::raw("SUM( ( case when (p.src in(select id from product_grow_lists where parent_id = '".$grow_id."' ) then -p.qty else p.qty end ) ) AS stock_value"));
+                }
+                $query->groupBy('s.rfid');
+                //$query->where('stock_value', '>', 0); 
+            $product_lists = $query->get();
+
+            $print_result = [];
+            $today = strtotime(date("Y-m-d"));
+
+            foreach ($product_lists as $product_list)
+            {
+                if($product_list->p_id == 0) 
+                    continue;
+                // $this->cProd->fetch($product_list->p_id);
+                // $description = $this->cProd->show_photos_url($conf->product->multidir_output[$this->cProd->entity],1,1,0,0,0,80);
+                $description = '';
+                if( $description =="" ) $description = "/custom/grow/mgt-gui/img/flower.png";
+                
+                if(strlen($product_list->label) > 14) 
+                    $product_string = substr($product_list->label , 0 , 14 )."..";
+                else
+                    $product_string = $product_list->label;
+        
+                $birthdate_val = round(($today - strtotime($product_list->birthdate)) / (60 * 60 * 24));
+                array_push( $print_result , array(
+                    'r'=>$product_list->rol ,
+                    'c'=>$product_list->col ,
+                    'uid'=>$product_list->p_id ,
+                    'rfid'=>$product_list->rfid ,
+                    'infor'=> array(
+                            'days'=>$birthdate_val,
+                            'state'=>$product_list->state ,
+                            'imgurl'=>$description,
+                            'name'=> $product_string
+                        )
+                    ) 
+                );
+            }
+            return $print_result;
+
+            echo json_encode( $print_result );
+        }
+    }
     public function ajaxSearchGrowTable(Request $request) {
 
         $grow_id    = $request->input('grow_id');
@@ -362,5 +448,26 @@ class GrowController extends Controller
             }
             echo "success";
         }
-    }   
+    }  
+
+    public function plantAjaxFileUpload(Request $request) {
+        if($request->input('action') == 'file_upload_add_data_dialog') {
+            $room_id    = $request->input('room_id');
+             if ($request->hasFile('file')) {
+                $validatedData = $request->validate([
+                    'file' => 'required|mimes:txt'
+                ]);
+                $file     = $request->file('file');
+                echo $fileName = rand(1, 999) . $file->getClientOriginalName();
+                $contents = File::get($file->getRealPath());
+                $print_result = [];
+                $output_result = '';
+                $output_result = explode(",",$contents);
+                $suboutput_data = substr($output_result[1], 1, -1);
+                array_push( $print_result , $suboutput_data);
+                return $print_result;
+            }
+
+        }
+    } 
 }

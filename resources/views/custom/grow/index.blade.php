@@ -56,13 +56,43 @@
                                 <a class="btn btn-block btn-primary dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     File Upload
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                    <input type="file" name="addPlant" value="Add File">
+                                <ul id="fileupload_menu" aria-labelledby="navbarDropdown1" class="dropdown-menu fileupload_menu">
+                                    <li>
+                                        <label for="stock_file_add" class="img_cursor_show add_file_label">
+                                            Add file
+                                        </label>
+                                        <input type="file" name="file" id="stock_file_add"/>
+                                    </li>
+                                    <li>
+                                        <label for="stock_file_move" class="img_cursor_show move_file_label">
+                                            Move file
+                                        </label>
+                                        <input type="file" name="file" id="stock_file_move"/>
+                                    </li>
+                                    <li>
+                                        <label for="stock_file_release" class="img_cursor_show">
+                                            Release file
+                                        </label>
+                                        <input type="file" name="file" id="stock_file_release"/>
+                                    </li>
+                                    <li>
+                                        <label for="stock_file_remove" class="img_cursor_show">
+                                            Remove file
+                                        </label>
+                                        <input type="file" name="file" id="stock_file_remove"/>
+                                    </li>
+                                    <li class="fileupload_menu_margin_bottom">
+                                        <label for="stock_file_state" class="img_cursor_show">
+                                            State change
+                                        </label>
+                                        <input type="file" name="file" id="stock_file_state"/>
+                                    </li>
+                                </ul>
+                                    <!-- <input type="file" name="addPlant" value="Add File">
                                     <input type="file" name="addPlant" value="Move File">
                                     <input type="file" name="addPlant" value="Release File">
                                     <input type="file" name="addPlant" value="Remove File">
-                                    <input type="file" name="addPlant" value="State Change">
-                                </div>
+                                    <input type="file" name="addPlant" value="State Change"> -->
                             </li>
                         </ul>
                     </div> 

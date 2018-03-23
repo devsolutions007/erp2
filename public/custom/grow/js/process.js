@@ -263,3 +263,32 @@ function remove_plant_update(){
     });
 
 }
+
+// File Upload events
+
+$("#stock_file_add").change(function(){        
+    var data = new FormData();
+    data.append( 'file', $( '#stock_file_add' )[0].files[0] );
+    $.ajax({
+        url: '/grow/plantAjaxFileUpload?action=file_upload_add_data_dialog&room_id=' + $("#growRooms").val() ,
+        // dataType: 'html',
+        type: 'POST',
+        data: data,
+        cache: false,
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data)
+        {
+            var modal = $('#addfile_modal').plainModal({duration: 300});
+            modal.plainModal('open');
+            $("#fileupload_menu").css("display", "none");
+            $("#addfile_modal_detail_data").html(data);
+
+            $("#fileupload_room_select").val( $( "#home_src option:selected").val() );
+        },
+        error: function(xhr, textStatus, error){
+          alert('File could not be accepted ! Please upload any "*.txt" file');
+      }
+    });
+});

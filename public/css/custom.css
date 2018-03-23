@@ -5,3 +5,10 @@
 	font-size: inherit;
 	font-weight: 500;
 }
+#fileupload_menu li input {
+    display: none;
+}
+#fileupload_menu li label {
+    padding: 0 20px;
+    cursor: pointer;
+}

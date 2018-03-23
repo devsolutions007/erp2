@@ -26,23 +26,26 @@ GrowBuild.prototype.load_data = function()
 
     $.ajax({
         type: "GET",
-        url: '../../class/engine/roomAjax.php',
+        url: '/grow/getroomAjax',
         data: {
             action : 'get_room_setting' , 
             room_id : room_uid
         } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
         success: function(room_setting){
             var room_setting = JSON.parse(room_setting); 
             $.ajax({
                 type: "GET",
-                url: '../../class/engine/plantAjax.php',
+                url: '/grow/getplantAjax',
                 data: {
                     action : 'get_plant_list' ,
                     room_id : room_uid
                 } ,
+                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
                 success: function(data){
                     $( "#" + room_id ).empty();
-                    plantdata = JSON.parse( data );
+                    //plantdata = JSON.parse( data );
+                    plantdata = data;
                     that.init( plantdata , room_setting , 
                             { 	uid  : room_uid , 
                                 name : room_name , 
