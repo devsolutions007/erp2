@@ -280,15 +280,33 @@ $("#stock_file_add").change(function(){
         headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
         success: function(data)
         {
-            var modal = $('#addfile_modal').plainModal({duration: 300});
-            modal.plainModal('open');
-            $("#fileupload_menu").css("display", "none");
+            $('#addPlantUploadModal').modal('show');
             $("#addfile_modal_detail_data").html(data);
 
-            $("#fileupload_room_select").val( $( "#home_src option:selected").val() );
+            $("#fileupload_room_select").val( $( "#growRooms option:selected").val() );
         },
         error: function(xhr, textStatus, error){
           alert('File could not be accepted ! Please upload any "*.txt" file');
       }
     });
 });
+// delete  row from modal
+$("#addfile_modal_detail_data").on('click','.modal_row_delete',function(){
+    $(this).parent().remove();
+});
+
+// change state in modal
+function change_state_modal( rfid  , this_tr )
+{
+    var state = $(this_tr).html();
+    var update_state;
+    if( state == '' )                   update_state = "clone";
+    if( state == 'clone' )              update_state = "vegetation";
+    if( state == 'vegetation' )         update_state = "flower";
+    if( state == 'flower' )             update_state = "Cutweigh-wet";
+    if( state == 'Cutweigh-wet' )       update_state = "harvest-drying";
+    if( state == 'harvest-drying' )     update_state = "harvest-curing";
+    if( state == 'harvest-curing' )     update_state = "clone";
+
+    $(this_tr).html(update_state);
+}

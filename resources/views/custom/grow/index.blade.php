@@ -299,5 +299,55 @@
         </div>
     </div>
     <!-- Bulk Release modal end -->
+    <style type="text/css">
+        .modal_row_delete {
+            cursor: pointer;
+        }
+    </style>
+    <!-- File Uplaod Modal -->
+    <!-- Add plant by upload modal start-->
+    <div class="modal fade" id="addPlantUploadModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPlantUploadModalLabel">Add Plant</h5>
+                    <div>
+                        <select id="fileupload_room_select" class="form-control">
+                            <option value="all">All</option>
+                            @if($growRooms)
+                                @foreach( $growRooms as $growRoom )
+                                <option value="{{ $growRoom->id }}">{{ $growRoom->name }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <table class="table table-sm m-0">
+                            <thead>
+                                <th>SL No</th>
+                                <th>Metric Id</th>
+                                <th>Row</th>
+                                <th>Col</th>
+                                <th>State</th>
+                                <th>Strain</th>
+                                <th>Parent Metric Id</th>
+                                <th>x</th>
+                            </thead>
+                            <tbody id="addfile_modal_detail_data">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="bulk_release_grow">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Add Plant modal by upload file end -->
 @stop
 

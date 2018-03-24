@@ -458,14 +458,47 @@ class GrowController extends Controller
                     'file' => 'required|mimes:txt'
                 ]);
                 $file     = $request->file('file');
-                echo $fileName = rand(1, 999) . $file->getClientOriginalName();
-                $contents = File::get($file->getRealPath());
-                $print_result = [];
+                $fileName = $file->getClientOriginalName();
+                $filedata = [];
                 $output_result = '';
-                $output_result = explode(",",$contents);
-                $suboutput_data = substr($output_result[1], 1, -1);
-                array_push( $print_result , $suboutput_data);
-                return $print_result;
+                foreach(file($file->getRealPath()) as $line) {
+                    $output_result = explode(",",$line);
+                    $suboutput_data = substr($output_result[1], 1, -1);
+                    array_push( $filedata , $suboutput_data);
+                }
+                $room_rows = ProductGrowListSetting::where('room_id', $room_id)->where('key', 'rows')->pluck('value');
+                $room_cols = ProductGrowListSetting::where('room_id', $room_id)->where('key', 'columns')->pluck('value');
+
+                $emptyList = [];
+
+                for( $i = 0 ; $i < $room_rows[0] ; $i ++ ) {
+                    for( $j = 0 ; $j < $room_cols[0] ; $j ++ ) {
+                        $position_result_count = ProductGrowProductRFID::where('rol', $i)->where('col', $j)->where('room_id', $room_id)->get()->count();
+                        if($position_result_count > 0) {
+                            array_push( $emptyList , array( 'r' => $i , 'c' => $j ) );
+                        }
+                    }
+                }
+                $j = 0;
+                $data = '';
+                for ( $i = 0; $i < count( $filedata ); $i++) {
+                    if( $filedata[$i] !="dentifie" && $filedata[$i] !="" ){               
+                        $no = $j + 1;
+                        
+                        $data .= '<tr class="">';
+                        $data .= '<td class="">'.$no.'</td>
+                                    <td>'.$filedata[$i].'</td>
+                                    <td><input class="form-control" type="text" value='.$emptyList[$j]['r'].' name=""></td>
+                                    <td><input class="form-control" type="text" name="" value='.$emptyList[$j]['c'].'></td>
+                                    <td onclick="change_state_modal(\'clone\' , this)">Clone</td>
+                                    <td><input type="hidden" name="sel_product_id$j" id="sel_product_id$j"><input class="form-control" type="text" name=""></td>
+                                    <td><input class="form-control" type="text" name=""></td>
+                                    <td class="fileupload_modal_delete_area modal_row_delete" id="modal_row_delete$j"><span>&#10540</span></td>';
+                        $data .= '</tr>';
+                        $j++;
+                    }
+                }
+                echo $data .= "<input type='hidden' name='totalview' id='totalview' value='$j'> ";
             }
 
         }
