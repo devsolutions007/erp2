@@ -12,9 +12,10 @@ class Product extends Model
      * @var string
      */
     protected $table = 'product';
+    protected  $primaryKey = 'rowid';
 
     public function productCategory(){
-        return $this->belongsTo('App\ProductCategory', 'productcategory');
+        return $this->belongsTo('App\ProductCategory', 'fk_product_type');
     }
 
     public function inventory(){

@@ -282,8 +282,21 @@ $("#stock_file_add").change(function(){
         {
             $('#addPlantUploadModal').modal('show');
             $("#addfile_modal_detail_data").html(data);
-
             $("#fileupload_room_select").val( $( "#growRooms option:selected").val() );
+            var totalView = $('#totalview').val();
+            for(var i=0 ; i < totalView ; i++ ) {
+                //alert("#productNameList"+i);
+                 $( "#productNameList"+i ).autocomplete({
+                    source: '/product/productNameList',
+                    autoFocus:true,
+                    minLength:2,
+                    select: function(event,ui) {
+                        $('#productNameList'+i).val(ui.item.value);
+                        $('#sel_product_id'+i).val(ui.item.id);
+                    }
+                });
+            }
+           
         },
         error: function(xhr, textStatus, error){
           alert('File could not be accepted ! Please upload any "*.txt" file');

@@ -90,7 +90,7 @@
                             <a href='/grow/index?growMenu=visible'>Plant Mgt</a>
                         </li>
                         <li>
-                            <a href='#'>Plant Mgt(GUI)</a>
+                            <a href='/grow/mgt_gui?growMenu=visible'>Plant Mgt(GUI)</a>
                         </li>
                     </ul>
                 </li>

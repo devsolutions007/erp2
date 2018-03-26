@@ -149,7 +149,7 @@
                             <div class="form-group row gutters">
                                 <label for="addPlantProduct" class="col-sm-3 col-form-label">Product</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control productNameList" id="addPlantProduct" placeholder="Product" type="text">
+                                    <input class="form-control productNameList" name="productName" id="addPlantProduct" placeholder="Product" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">

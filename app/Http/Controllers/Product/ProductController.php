@@ -40,32 +40,32 @@ class ProductController extends Controller
         	$result = '';
 	        $rfid_val = $request->input('rfid_val');
 
-	        $products = Product::where('name', 'like', '%'.$rfid_val.'%')->get();
+	        $products = Product::where('label', 'like', '%'.$rfid_val.'%')->get();
 	        if($products) {
 	        	foreach ($products as $key => $product) {
-	        	if($product->image != '') {
-	        		$image = $product->image;
-	        	} else {
+	        	// if($product->image != '') {
+	        	// 	$image = $product->image;
+	        	// } else {
 	        		$image = 'product.png';
-	        	} 
-	        	if($product->costperunit != '')  {
-	        		$price = $product->costperunit;
+	        	//} 
+	        	if($product->price != '')  {
+	        		$price = $product->price;
 	        	} else {
 	        		$price  = 0;
 	        	}
-				$created =  date('d-m-Y', strtotime( $product->created ) );
-	        	$result .= '<div class="product_list_area_value" id="plavid'.$product->id.'">
-					    <input name="setProductID" id="setProductIDplavid'.$product->id.'" value="2" type="hidden">
-					    <input name="setProductRFID" id="setProductRFIDplavid'.$product->id.'" value="" type="hidden">
-					    <input name="sellby_weight_check" id="sellby_weight_checkplavid'.$product->id.'" value="1" type="hidden">
+				$created =  date('d-m-Y', strtotime( $product->tms ) );
+	        	$result .= '<div class="product_list_area_value" id="plavid'.$product->rowid.'">
+					    <input name="setProductID" id="setProductIDplavid'.$product->rowid.'" value="2" type="hidden">
+					    <input name="setProductRFID" id="setProductRFIDplavid'.$product->rowid.'" value="" type="hidden">
+					    <input name="sellby_weight_check" id="sellby_weight_checkplavid'.$product->rowid.'" value="1" type="hidden">
 					    <div id="product_img" class="product_list_img">
 					        <img src="/cashdesk/img/'.$image.'">
 					    </div>
 					    <div id="product_information" class="product_information_value">
-					        <p id="product_information_nameplavid'.$product->id.'">'. $product->name .'</p>
-					        <p id="product_information_unitplavid'.$product->id.'">'. number_format((float) ( $price ), 2, '.', ',').'</p>
-					        <p id="product_information_date'.$product->id.'">'.$created.'</p>
-					        <img src="/cashdesk/img/dolibarr_pos_check.png" id="product_information_value_checkplavid'.$product->id.'" class="product_information_value_check">
+					        <p id="product_information_nameplavid'.$product->rowid.'">'. $product->label .'</p>
+					        <p id="product_information_unitplavid'.$product->rowid.'">'. number_format((float) ( $price ), 2, '.', ',').'</p>
+					        <p id="product_information_date'.$product->rowid.'">'.$created.'</p>
+					        <img src="/cashdesk/img/dolibarr_pos_check.png" id="product_information_value_checkplavid'.$product->rowid.'" class="product_information_value_check">
 					    </div>
 					</div>';
 	        	}
@@ -84,31 +84,31 @@ class ProductController extends Controller
        		$last_id = $request->input('last_id');
        		$current = Carbon::now();
        		
-       		$products = Product::where('id', '>', $last_id)->orderBy('id', 'ASC')->limit(30)->get();
+       		$products = Product::where('rowid', '>', $last_id)->orderBy('rowid', 'ASC')->limit(30)->get();
        		if($products) {
        			foreach ($products as $key => $product) {
 
-       			$created =  date('Y-m-d', strtotime( $product->created ) );
-       			$created = Carbon::parse($product->created);
-       			$age = $current->diffInDays($created); 
-       			if($product->image != '') {
-	        		$image = $product->image;
-	        	} else {
+       			$created =  date('Y-m-d', strtotime( $product->tms ) );
+       			$tms = Carbon::parse($product->tms);
+       			$age = $current->diffInDays($tms); 
+       			// if($product->image != '') {
+	        	// 	$image = $product->image;
+	        	// } else {
 	        		$image = 'product.png';
-	        	}
-	        	$product_weight = Inventory::where('productid', $product->id)->sum('weight');
-       			$item = '<li class="product-li" data-id="' . $product->id . '" data-category="' . $product->productcategory . '," data-search="' . $product->name . '">';
+	        	//}
+	        	$product_weight = Inventory::where('productid', $product->rowid)->sum('weight');
+       			$item = '<li class="product-li" data-id="' . $product->rowid . '" data-category="' . $product->productcategory . '," data-search="' . $product->label . '">';
 	            $item .= '<div class="product-item">';
 	            $item .= '<img src="/cashdesk/img/'.$image.'" class="product-img">';
 	            $item .= '<div class="product-detail-wrapper">';
 	            $item .= '<div>';
-	            $item .= '<a href="/product/card.php?id=' . $product->id . '" target="new">' . $product->name . '</a>';
+	            $item .= '<a href="/product/card.php?id=' . $product->rowid . '" target="new">' . $product->label . '</a>';
 	            $item .= '</div>';
 	            $item .= '<div>';
 	            $item .= 'Age : ' . $age  . ( $age < 2 ? ' day' : ' days');
 	            $item .= '</div>';
 	            $item .= '<div>';
-	            $item .= 'Price' . ': $ ' . number_format((float) ($product->costperunit), 2, '.', ',');
+	            $item .= 'Price' . ': $ ' . number_format((float) ($product->price), 2, '.', ',');
 	            $item .= '</div>';
 	            $item .= '<div>';
 	            $item .= 'Stock : ' . number_format((float)$product_weight, 2, '.', ',') . 'kg';

@@ -491,9 +491,9 @@ class GrowController extends Controller
                                     <td><input class="form-control" type="text" value='.$emptyList[$j]['r'].' name=""></td>
                                     <td><input class="form-control" type="text" name="" value='.$emptyList[$j]['c'].'></td>
                                     <td onclick="change_state_modal(\'clone\' , this)">Clone</td>
-                                    <td><input type="hidden" name="sel_product_id$j" id="sel_product_id$j"><input class="form-control" type="text" name=""></td>
+                                    <td><input type="hidden" name="sel_product_id'.$j.'" id="sel_product_id'.$j.'"><input id="productNameList'.$j.'" class="form-control" type="text" name="productName'.$j.'"></td>
                                     <td><input class="form-control" type="text" name=""></td>
-                                    <td class="fileupload_modal_delete_area modal_row_delete" id="modal_row_delete$j"><span>&#10540</span></td>';
+                                    <td class="fileupload_modal_delete_area modal_row_delete" id="modal_row_delete'.$j.'"><span>&#10540</span></td>';
                         $data .= '</tr>';
                         $j++;
                     }

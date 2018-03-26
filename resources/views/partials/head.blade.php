@@ -5,9 +5,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Unify Admin Panel" />
-    <meta name="keywords" content="Admin, Dashboard, Bootstrap4, Sass, CSS3, HTML5, Responsive Dashboard, Responsive Admin Template, Admin Template, Best Admin Template, Bootstrap Template, Themeforest" />
-    <meta name="author" content="Bootstrap Gallery" />
+    <meta name="description" content="Hotbox app" />
+    <meta name="keywords" content="Hotbox app" />
+    <meta name="author" content="Hotbox" />
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" />
     <title>{{ trans('global.global_title') }}</title>
     
