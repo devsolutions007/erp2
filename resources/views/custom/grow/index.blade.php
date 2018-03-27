@@ -303,6 +303,17 @@
         .modal_row_delete {
             cursor: pointer;
         }
+        .fileupload_modal_rowcol_area input {
+            width: 40%;
+            display: inline-block;
+        }
+        .input_row_col_state_right {
+            float: right;
+        }
+        .modal_dialog_error_text_p {
+            color: #da1113;
+            display: none;
+        }
     </style>
     <!-- File Uplaod Modal -->
     <!-- Add plant by upload modal start-->
@@ -328,8 +339,7 @@
                             <thead>
                                 <th>SL No</th>
                                 <th>Metric Id</th>
-                                <th>Row</th>
-                                <th>Col</th>
+                                <th>Row / Col</th>
                                 <th>State</th>
                                 <th>Strain</th>
                                 <th>Parent Metric Id</th>
@@ -339,9 +349,10 @@
                                 
                             </tbody>
                         </table>
+                        <p class="alert alert-warning" id="modal_dialog_alert_add_data" style="display: none; color: #da1113;"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="bulk_release_grow">Save</button>
+                        <button type="button" class="btn btn-primary" id="fileupload_add_success">Save</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -349,5 +360,129 @@
         </div>
     </div>
     <!-- Add Plant modal by upload file end -->
+
+    <!-- Move Plant by upload modal start-->
+    <div class="modal fade" id="movefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-3" id="movefile_modalLabel">Move Plant</h5>
+                    <div class="col-md-1">
+                        <label for="move_select_src" class="col-form-label">Source</label>
+                    </div>
+                    <div class="col-md-3">   
+                        <input class="form-control" id="move_select_src" placeholder="Source" type="text" readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="move_select_dst" class="col-sm-3 col-form-label">Destination</label>
+                    </div>
+                    <div class="col-md-3">    
+                        <select id="move_select_dst" class="form-control show-tick"></select>
+                    </div>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <table class="table table-sm m-0">
+                            <thead>
+                                <th>SL No</th>
+                                <th>Metric Id</th>
+                                <th>Source Row/Col</th>
+                                <th>Destination Row/Col</th>
+                                <th>State</th>
+                                <th>x</th>
+                            </thead>
+                            <tbody id="movefile_modal_detail_data">
+                                
+                            </tbody>
+                        </table>
+                        <p class="alert alert-warning" id="modal_dialog_alert_move_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_move_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Move Plant modal by upload file end -->
+
+
+    <!-- Remove Plant by upload modal start-->
+    <div class="modal fade" id="removefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-9" id="removefile_modalLabel">Remove Plant</h5>
+                    <select id="idwarehouse" class="col-md-3 form-control show-tick">
+                            <option value=""></option>
+                        @if($warehouseList)
+                            @foreach($warehouseList as $warehouse)
+                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <table class="table table-sm m-0">
+                            <thead>
+                                <th>SL No</th>
+                                <th>Metric Id</th>
+                                <th>Room</th>
+                                <th>Source Row/Col</th>
+                                <th>State</th>
+                                <th>x</th>
+                            </thead>
+                            <tbody id="removefile_modal_detail_data">
+                                
+                            </tbody>
+                        </table>
+                        <p class="alert alert-warning" id="modal_dialog_alert_remove_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_remove_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Remove Plant modal by upload file end -->
+
+     <!-- State Change Plant by upload modal start-->
+    <div class="modal fade" id="statefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-9" id="removefile_modalLabel">State Change Plant</h5>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <table class="table table-sm m-0">
+                            <thead>
+                                <th>SL No</th>
+                                <th>Metric Id</th>
+                                <th>Room</th>
+                                <th>Source Row/Col</th>
+                                <th>Now State</th>
+                                <th>Next State</th>
+                                <th>x</th>
+                            </thead>
+                            <tbody id="statefile_modal_detail_data">
+                                
+                            </tbody>
+                        </table>
+                        <p class="alert alert-warning" id="modal_dialog_alert_state_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_state_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- State Change Plant modal by upload file end -->
 @stop
 

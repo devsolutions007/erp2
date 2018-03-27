@@ -208,7 +208,8 @@
                     </a>
                 </li>
                 <li class="{{ Request::is('') ? 'active' : ''}}">
-                    <a href="/cashdesk/affIndex">
+                    <!-- <a href="/cashdesk/affIndex"> -->
+                    <a target="_blank" href="http://hotbox.today/cashdesk/index.php?user=star&idmenu=138&mainmenu=cashdesk&leftmenu=">
                         <span class="has-icon">
                             <i class="icon-border_all"></i>
                         </span>
