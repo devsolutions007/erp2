@@ -35,3 +35,6 @@
     <style type="text/css">
         .ui-autocomplete { z-index:2147483647; }
     </style>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">

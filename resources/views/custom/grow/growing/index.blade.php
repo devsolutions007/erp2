@@ -30,30 +30,20 @@
                                 <th>Metric ID</th>
                                 <th>Parent Metric ID</th>
                                 <th>Grow House</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($product_lists as $key => $product_list)
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
+                                <th scope="row">{{$key+1}}</th>
+                                <td>{{$product_list->label}}</td>
+                                <td>{{$product_list->rfid}}</td>
+                                <td>{{$product_list->parent_rfid}}</td>
+                                <td></td>
+                                <td><button class="btn btn-sm btn-warning removeGrowArea" onclick='removeGrowArea( "{{$product_list->rfid}}", "{{$product_list->label}}" )'>Remove</button></td>
                             </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                         </table>
                     </div>
@@ -165,30 +155,32 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" method="POST" action="/grow/growing/growingAddGrow?growMenu=visible&growMode=new">
+                        <input type="hidden"
+                           name="_token"
+                           value="{{ csrf_token() }}">
                         <div class="modal-body">
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Grow Area </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control show-tick">
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
+                                    <select name="growArea" id="growingSelect" class="form-control show-tick">
+                                        @foreach ($growAreas as $key => $growArea): ?>
+                                            <option value="{{$growArea->id}}">{{$growArea->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Process Date</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="bs-datepicker form-control" placeholder="">
+                                    <input id="processDate" name="processDate" type="date" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label for="" class="col-sm-3 col-form-label">Product</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" placeholder="" type="text">
+                                    <input name="productName" class="form-control productNameList" placeholder="" type="text">
+                                    <input type="hidden" name="ProductId" id="sel_product_id">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
@@ -200,32 +192,31 @@
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Metric Id</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" name="metricId" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Parent Metric Id</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" name="parentMetricId" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Column</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" name="col" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Row</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" name="row" class="form-control" placeholder="">
                                 </div>
                             </div>
                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Add</button>
-                            <button type="button" class="btn btn-primary">Remove</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>   

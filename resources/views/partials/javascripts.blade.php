@@ -44,3 +44,6 @@
     <script>
         window._token = '{{ csrf_token() }}';
     </script>
+
+    <!-- sweet alert -->
+    <script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>

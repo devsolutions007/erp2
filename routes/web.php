@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('growArea','Custom\GrowController@growArea');
         Route::get('settings/room','Custom\GrowController@room');
         Route::get('settings/global','Custom\GrowController@global');
-        Route::get('growing/index','Custom\GrowController@growIndex');
+        
         Route::get('history/index','Custom\GrowController@historyIndex');
         Route::get('mgt_gui','Custom\GrowController@mgtGUI');
         Route::post('roomAjax','Custom\GrowController@roomAjax');
@@ -64,6 +64,13 @@ Route::group(['middleware' => ['auth']],function() {
         Route::post('ajaxSearchGrowTable','Custom\GrowController@ajaxSearchGrowTable');
         Route::post('ajaxRequestGrowModal','Custom\GrowController@ajaxRequestGrowModal');
         Route::post('plantAjaxFileUpload','Custom\GrowController@plantAjaxFileUpload');
+
+        Route::post('growAreaAdd','Custom\GrowController@growAreaAdd');
+        Route::post('growAreaEdit','Custom\GrowController@growAreaEdit');
+        Route::post('growAreaAjax','Custom\GrowController@growAreaAjax');
+
+        Route::get('growing/index','Custom\GrowController@growIndex');
+        Route::post('growing/growingAddGrow','Custom\GrowController@growingAddGrow');
     });
     /* End*/
 

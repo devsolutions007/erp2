@@ -31,9 +31,51 @@ class GrowController extends Controller
 
     public function growArea() {
         
-        return view('custom.grow.growArea');
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
+        return view('custom.grow.growArea', compact('growAreas', 'growRooms'));
     }
 
+    public function growAreaAdd(Request $request) {
+        
+        $productGrowList = new ProductGrowList;
+
+        $productGrowList->name =  $request->input('name');
+        $productGrowList->type =  $request->input('type');
+        $productGrowList->licence_num = $request->input('licence_number');
+        $productGrowList->reg_date = date('Y-m-d');
+        $productGrowList->parent_id = 0;
+        $productGrowList->owner = 'SuperAdmin';
+        $productGrowList->save();
+
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
+        return view('custom.grow.growArea', compact('growAreas', 'growRooms'));
+    }
+    public function growAreaAjax(Request $request) 
+    {
+        if($request->input('action') == 'remove_grow_area') 
+        {
+            $productGrowList = ProductGrowList::find($request->input('id'));
+            $productGrowList->delete();
+            echo "success"; 
+        }
+    }
+    public function growAreaEdit(Request $request) {
+        
+        $productGrowList = ProductGrowList::find($request->input('editGrowAreaId'));
+        $productGrowList->name =  $request->input('name');
+        $productGrowList->type =  $request->input('type');
+        $productGrowList->licence_num = $request->input('licence_number');
+        $productGrowList->reg_date = date('Y-m-d');
+        $productGrowList->parent_id = 0;
+        $productGrowList->owner = 'SuperAdmin';
+        $productGrowList->save();
+
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
+        return view('custom.grow.growArea', compact('growAreas', 'growRooms'));
+    }
     public function room() {
         
         return view('custom.grow.settings.room');
@@ -44,11 +86,59 @@ class GrowController extends Controller
         return view('custom.grow.settings.global');
     }
 
-    public function growIndex() {
-        
-        return view('custom.grow.growing.index');
+    public function growIndex() 
+    {
+        $grow_id ='';
+        $query = DB::table('product_grow_movements as p')
+                                ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
+                                ->leftJoin('product_grow_lists as m', 'm.id', '=', 's.room_id' )
+                                ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
+                                ->where('p.src', '=', 0)
+                                ->orWhere('p.dst', '<', 1)
+                                ->where('m.parent_id', '=', $grow_id)
+                                ->select('b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'm.name', DB::raw("SUM( ( case when (p.src = '".NULL."') then -p.qty else p.qty end ) ) AS stock_value"))
+                                ->groupBy('s.rfid');
+                                //->where('stock_value', '>', 0)
+        $product_lists = $query->orderBy( 'rowid','DESC')->take(5)->get(); 
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
+        $warehouseList = Entrepot::all();
+        return view('custom.grow.growing.index', compact('growAreas', 'growRooms', 'warehouseList', 'product_lists'));
     }
+    public function growingAddGrow(Request $request) 
+    {
+         
+        $date    = $request->input('processDate');
+        $src     = $request->input('growArea');
+        $p_id    = $request->input('productId');
+        $rfid    = $request->input('metricId');       
+        $p_rfid  = $request->input('parentMetricId');
+        $rol     = $request->input('row');
+        $col     = $request->input('col');
+        $new_date = date("Y-m-d", strtotime($date));
 
+        $ProductGrowProductRFID = new ProductGrowProductRFID;
+
+        $ProductGrowProductRFID->rfid = $rfid;
+        $ProductGrowProductRFID->p_id = $p_id;
+        $ProductGrowProductRFID->birthdate = $new_date;
+        $ProductGrowProductRFID->room_id = $src;
+        $ProductGrowProductRFID->col = $col;
+        $ProductGrowProductRFID->rol = $rol; 
+        $ProductGrowProductRFID->parent_rfid = $p_rfid;
+        $ProductGrowProductRFID->state = 'clone'; 
+        $ProductGrowProductRFID->save();
+
+        $ProductGrowMovement = new ProductGrowMovement;
+        $ProductGrowMovement->rfid = $rfid;
+        $ProductGrowMovement->dst = $src;
+        $ProductGrowMovement->qty = 1;
+        $ProductGrowMovement->date = $new_date;
+        $ProductGrowMovement->type = 'new';
+        $ProductGrowMovement->save();
+
+        return redirect('/grow/growing/index?growMenu=visible&growMode=new');
+    }
     public function historyIndex() {
         
         return view('custom.grow.history.index');

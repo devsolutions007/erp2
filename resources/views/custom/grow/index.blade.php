@@ -136,7 +136,7 @@
                             <div class="form-group row gutters">
                                 <label for="addPlantDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <input class="bs-datepicker form-control" id="fiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
+                                    <input type="date" class="form-control" id="fiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
                                     
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                             <div class="form-group row gutters">
                                 <label for="bulkMovetDate" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <input class="bs-datepicker form-control" id="movegrowfiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
+                                    <input type="date" class="form-control" id="movegrowfiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
@@ -253,7 +253,7 @@
                             <div class="form-group row gutters">
                                 <label for="releasefiscalyear" class="col-sm-3 col-form-label">Date</label>
                                 <div class="col-sm-9">
-                                    <input name="releasefiscalyear" class="bs-datepicker form-control" id="releasefiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
+                                    <input name="releasefiscalyear" type="date" class="form-control" id="releasefiscalyear" placeholder="Date" value="{{ date('m/d/Y')}}" type="text">
                                 </div>
                             </div>
                             <div class="form-group row gutters">
