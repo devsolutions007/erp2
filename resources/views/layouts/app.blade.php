@@ -35,11 +35,11 @@
                      @include('partials.header')
                     <!-- END: .main-heading -->
                     <!-- BEGIN .main-content -->
-                    @if (Session::has('message'))
+                    <!-- @if (Session::has('message'))
                     <div class="note note-info">
                         <p>{{ Session::get('message') }}</p>
                     </div>
-                    @endif
+                    @endif -->
                     @if ($errors->count() > 0)
                         <div class="note note-danger">
                             <ul class="list-unstyled">

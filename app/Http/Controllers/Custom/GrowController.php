@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use File;
+use Session;
 
 
 class GrowController extends Controller
@@ -86,64 +87,183 @@ class GrowController extends Controller
         return view('custom.grow.settings.global');
     }
 
+    /* plant growing part*/
+
     public function growIndex() 
     {
-        $grow_id ='';
-        $query = DB::table('product_grow_movements as p')
-                                ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
-                                ->leftJoin('product_grow_lists as m', 'm.id', '=', 's.room_id' )
-                                ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
-                                ->where('p.src', '=', 0)
-                                ->orWhere('p.dst', '<', 1)
-                                ->where('m.parent_id', '=', $grow_id)
-                                ->select('b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'm.name', DB::raw("SUM( ( case when (p.src = '".NULL."') then -p.qty else p.qty end ) ) AS stock_value"))
-                                ->groupBy('s.rfid');
-                                //->where('stock_value', '>', 0)
-        $product_lists = $query->orderBy( 'rowid','DESC')->take(5)->get(); 
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
         $warehouseList = Entrepot::all();
+        $date = date("Y-m-d");
+
+        $query = DB::table('product_grow_movements as b')
+                        ->leftJoin('product_grow_product_rfid as a', 'a.rfid', '=', 'b.rfid')
+                        ->leftJoin('product_grow_lists as c', 'b.src', '=', 'c.id' )
+                        ->leftJoin('product as d', 'a.p_id', '=', 'd.rowid');
+
+        if(request()->growMode == 'new') 
+        {
+            $query->select('d.label as label', 'a.rfid as rfid', 'c.name as srcname', 'a.parent_rfid as parent_rfid');
+        }
+        if(request()->growMode == 'move') 
+        {
+            $query->leftJoin('product_grow_lists as e', 'b.dst', '=', 'e.id' );
+            $query->where('b.date', '=', $date)->where('b.type', '=', request()->growMode);
+            $query->select('d.label as label', 'a.rfid as rfid', 'c.name as srcname', 'e.name as dstname', 'a.parent_rfid as parent_rfid');
+        }  
+        if(request()->growMode == 'release') 
+        {
+            $query->leftJoin('entrepot as e', 'b.dst', '=', 'e.rowid' );
+            $query->where('b.date', '=', $date)->where('b.type', '=', request()->growMode);
+            $query->select('d.label as label', 'a.rfid as rfid', 'a.flowerweight as flowerweight', 'a.wasteweight as wasteweight', 'c.name as srcname', 'e.label as dstname', 'a.parent_rfid as parent_rfid');
+        }  
+                
+        $product_lists = $query->get();
+
         return view('custom.grow.growing.index', compact('growAreas', 'growRooms', 'warehouseList', 'product_lists'));
+        
     }
+
+
     public function growingAddGrow(Request $request) 
     {
-         
-        $date    = $request->input('processDate');
-        $src     = $request->input('growArea');
-        $p_id    = $request->input('productId');
-        $rfid    = $request->input('metricId');       
-        $p_rfid  = $request->input('parentMetricId');
-        $rol     = $request->input('row');
-        $col     = $request->input('col');
-        $new_date = date("Y-m-d", strtotime($date));
+        if(request()->growMode == 'new') 
+        {
+            $date    = $request->input('processDate');
+            $src     = $request->input('growArea');
+            $p_id    = $request->input('productId');
+            $rfid    = $request->input('metricId');       
+            $p_rfid  = $request->input('parentMetricId');
+            $rol     = $request->input('row');
+            $col     = $request->input('col');
+            $date = date("Y-m-d", strtotime($date));
 
-        $ProductGrowProductRFID = new ProductGrowProductRFID;
+            $ProductGrowProductRFID = new ProductGrowProductRFID;
+            $ProductGrowProductRFID->rfid = $rfid;
+            $ProductGrowProductRFID->p_id = $p_id;
+            $ProductGrowProductRFID->birthdate = $date;
+            $ProductGrowProductRFID->room_id = $src;
+            $ProductGrowProductRFID->col = $col;
+            $ProductGrowProductRFID->rol = $rol; 
+            $ProductGrowProductRFID->parent_rfid = $p_rfid;
+            $ProductGrowProductRFID->state = 'clone'; 
+            $ProductGrowProductRFID->save();
 
-        $ProductGrowProductRFID->rfid = $rfid;
-        $ProductGrowProductRFID->p_id = $p_id;
-        $ProductGrowProductRFID->birthdate = $new_date;
-        $ProductGrowProductRFID->room_id = $src;
-        $ProductGrowProductRFID->col = $col;
-        $ProductGrowProductRFID->rol = $rol; 
-        $ProductGrowProductRFID->parent_rfid = $p_rfid;
-        $ProductGrowProductRFID->state = 'clone'; 
-        $ProductGrowProductRFID->save();
+            $ProductGrowMovement = new ProductGrowMovement;
+            $ProductGrowMovement->rfid = $rfid;
+            $ProductGrowMovement->dst = $src;
+            $ProductGrowMovement->qty = 1;
+            $ProductGrowMovement->date = $date;
+            $ProductGrowMovement->type = 'new';
+            $ProductGrowMovement->save();
+            Session::flash('message', 'Succesfully Added'); 
+            Session::flash('alert-class', 'alert-success');
+            return redirect('/grow/growing/index?growMenu=visible&growMode=new');
+        } 
 
-        $ProductGrowMovement = new ProductGrowMovement;
-        $ProductGrowMovement->rfid = $rfid;
-        $ProductGrowMovement->dst = $src;
-        $ProductGrowMovement->qty = 1;
-        $ProductGrowMovement->date = $new_date;
-        $ProductGrowMovement->type = 'new';
-        $ProductGrowMovement->save();
+        if(request()->growMode == 'move') 
+        {
+            $date    = $request->input('processDate');
+            $src     = $request->input('sourceRoom');
+            $dst     = $request->input('destinationRoom');
+            $p_id    = $request->input('productId');
+            $rfid    = $request->input('metricId');
+            $date = date("Y-m-d", strtotime($date));
 
-        return redirect('/grow/growing/index?growMenu=visible&growMode=new');
-    }
-    public function historyIndex() {
+            $ProductGrowMovement = new ProductGrowMovement;
+            $ProductGrowMovement->rfid = $rfid;
+            $ProductGrowMovement->src = $src;
+            $ProductGrowMovement->dst = $dst;
+            $ProductGrowMovement->qty = 1;
+            $ProductGrowMovement->date = $date;
+            $ProductGrowMovement->type = 'move';
+            $ProductGrowMovement->save();
+            Session::flash('message', 'Succesfully moved'); 
+            Session::flash('alert-class', 'alert-success');
+            return redirect('/grow/growing/index?growMenu=visible&growMode=move');
+        }
+
+        if(request()->growMode == 'release') 
+        {
+            $date    = $request->input('processDate');
+            $src     = $request->input('growArea');
+            $dst     = $request->input('wareHouse');
+            $p_id    = $request->input('productId');
+            $rfid    = $request->input('metricId');
+            $flowerWeight    = $request->input('flowerWeight');
+            $wasteWeight    = $request->input('wasteWeight');
+            $date = date("Y-m-d", strtotime($date));
+
+            $ProductGrowMovement       = new ProductGrowMovement;
+            $ProductGrowMovement->rfid = $rfid;
+            $ProductGrowMovement->src  = $src;
+            $ProductGrowMovement->dst  = $dst;
+            $ProductGrowMovement->qty  = 1;
+            $ProductGrowMovement->date = $date;
+            $ProductGrowMovement->type = 'release';
+            $ProductGrowMovement->save();
+
+            $ProductGrowProductRFID = ProductGrowProductRFID::find($rfid);
+            $ProductGrowProductRFID->flowerweight = $flowerWeight;
+            $ProductGrowProductRFID->wasteweight = $wasteWeight;
+            //$ProductGrowProductRFID->parent_rfid = $parent_rfid;
+            $ProductGrowProductRFID->save();
+
+            Session::flash('message', 'Succesfully Released'); 
+            Session::flash('alert-class', 'alert-success');
+            return redirect('/grow/growing/index?growMenu=visible&growMode=release');
+        }
         
-        return view('custom.grow.history.index');
+    }
+    public function growingAjax(Request $request) 
+    {
+        if($request->input('action') == 'remove_growing') 
+        {
+            $ProductGrowMovement = ProductGrowMovement::where('rfid', $request->input('id'));
+            $ProductGrowMovement->delete();
+            echo "success"; 
+        }
+    }
+    public function historyIndex() 
+    {
+        
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        $startdate = date("Y-m-01");
+        $lastdate = date("Y-m-d");
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        $histories = DB::table('product_grow_movements as p')
+                        ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
+                        ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
+                        ->leftJoin('product_grow_lists as c', 'c.id', '=', 'p.src' )
+                        ->leftJoin('product_grow_lists as d', 'd.id', '=', 'p.dst' )
+                        ->whereBetween('p.date', [$startdate, $lastdate])
+                        ->select('s.p_id as productid', 'p.date as date', 'b.label as label', 'p.rfid as rfid', 'c.name as srcname', 'd.name as dstname')
+                        ->groupBy('s.rfid')
+                        ->get();
+
+        return view('custom.grow.history.index', compact('histories', 'startdate', 'lastdate', 'growAreas'));
     }
 
+    public function historySearchResult(Request $request) 
+    {
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        $startdate = date("Y-m-d", strtotime($request->input('startdate')));
+        $lastdate = date("Y-m-d", strtotime($request->input('lastdate')));
+
+        $histories = DB::table('product_grow_movements as p')
+                        ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
+                        ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
+                        ->leftJoin('product_grow_lists as c', 'c.id', '=', 'p.src' )
+                        ->leftJoin('product_grow_lists as d', 'd.id', '=', 'p.dst' )
+                        ->whereBetween('p.date', [$startdate, $lastdate])
+                        ->select('s.p_id as productid', 'p.date as date', 'b.label as label', 'p.rfid as rfid', 'c.name as srcname', 'd.name as dstname')
+                        ->groupBy('s.rfid')
+                        ->get();
+
+        return view('custom.grow.history.index', compact('histories', 'startdate', 'lastdate', 'growAreas'));
+    }
     public function mgtGUI() {
         
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();

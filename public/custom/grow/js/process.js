@@ -1,3 +1,9 @@
+/* fade session message */
+
+$('.close-session-message').click( function() {
+    $('.session-message').fadeOut();
+});
+
 /* area select */
 
 $("#checkallactions").click(function() {
@@ -99,6 +105,7 @@ $( ".productNameList" ).autocomplete({
     select: function(event,ui) {
         $('.productNameList').val(ui.item.value);
         $('#sel_product_id').val(ui.item.id);
+        $('.productId').val(ui.item.id);
     }
 });
 
@@ -689,6 +696,39 @@ function removeGrowArea( id, name ) {
                 success: function(result) {
                     if ( result == 'success' ) {
                         $( '#growAreaRow'+id ).remove();
+                        swal("Deleted!", "Grow Area has been deleted successfully.", "success"); 
+                    }
+                    else {
+                        swal("Something Went Wrong!!!");
+                    }
+                }
+            });
+        });
+    }
+    /* end*/
+
+    /* Growing Remove */
+function removeGrowing( id, name, key ) {
+        swal({
+          title: "Are you sure?",
+          text: "You want to delete Growing  <b>"+name+"</b>.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false,
+          html: true
+        },
+        function(){
+            $.ajax({
+                url: "/grow/growingAjax",
+                type: "post",
+                cache: false,
+                data: {"action": 'remove_growing', "id": id },
+                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+                success: function(result) {
+                    if ( result == 'success' ) {
+                        $( '#growingRow'+key ).remove();
                         swal("Deleted!", "Grow Area has been deleted successfully.", "success"); 
                     }
                     else {

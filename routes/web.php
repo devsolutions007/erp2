@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('settings/room','Custom\GrowController@room');
         Route::get('settings/global','Custom\GrowController@global');
         
-        Route::get('history/index','Custom\GrowController@historyIndex');
+        
         Route::get('mgt_gui','Custom\GrowController@mgtGUI');
         Route::post('roomAjax','Custom\GrowController@roomAjax');
         Route::get('getroomAjax','Custom\GrowController@getroomAjax');
@@ -71,6 +71,10 @@ Route::group(['middleware' => ['auth']],function() {
 
         Route::get('growing/index','Custom\GrowController@growIndex');
         Route::post('growing/growingAddGrow','Custom\GrowController@growingAddGrow');
+        Route::post('growingAjax','Custom\GrowController@growingAjax');
+
+        Route::get('history/index','Custom\GrowController@historyIndex');
+        Route::post('history/searchResult','Custom\GrowController@historySearchResult');
     });
     /* End*/
 
