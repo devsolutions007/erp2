@@ -54,8 +54,11 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('index','Custom\GrowController@index');
         Route::get('growArea','Custom\GrowController@growArea');
         Route::get('settings/room','Custom\GrowController@room');
+
         Route::get('settings/global','Custom\GrowController@global');
-        
+        Route::post('saveColorSettings','Custom\GrowController@saveColorSettings');
+        Route::post('settings/roomAjax','Custom\GrowController@settingsRoomAjax');
+
         
         Route::get('mgt_gui','Custom\GrowController@mgtGUI');
         Route::post('roomAjax','Custom\GrowController@roomAjax');

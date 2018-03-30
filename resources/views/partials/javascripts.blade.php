@@ -47,3 +47,35 @@
 
     <!-- sweet alert -->
     <script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
+    @if (Request::path() == 'grow/settings/room')
+
+    <!-- Grow JS -->
+    <script src="{{ asset('custom/grow/js/jquery.plainmodal.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/common/dragscroll.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/common/jspdf.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/SvgCreatorLibrary.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowEnum.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowPlant.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowRoom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowMatrix.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUI.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUIConstant.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUIBox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowModal.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowModalUpload.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowGUI.proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowToolbar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowToolbar.Proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowToolbarUpload.Proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowBuild.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowBuild.Proto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/GrowPalette.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/ShareFloatPlant.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/ShareAction.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/LayoutControl.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/engine/LayoutControlAction.Proto.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter_display.js') }}"></script> 
+    @endif

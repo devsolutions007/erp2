@@ -38,3 +38,7 @@
 
     <!-- sweet alert -->
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
+
+    <!--  grow page custom css -->
+    <link rel="stylesheet" href="{{ asset('custom/grow/css/custom.css') }}"> 
+    <!--  end -->

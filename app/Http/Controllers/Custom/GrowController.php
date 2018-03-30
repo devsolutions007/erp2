@@ -11,7 +11,7 @@ use App\Entrepot;
 use App\StockMovement;
 use App\ProductStock;
 use App\ProductGrowListSetting;
-use App\ProductGrowListGlobal;
+use App\ProductGrowListSettingGlobal;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -77,14 +77,112 @@ class GrowController extends Controller
         $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
         return view('custom.grow.growArea', compact('growAreas', 'growRooms'));
     }
-    public function room() {
-        
-        return view('custom.grow.settings.room');
+    public function room() 
+    {
+        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
+        return view('custom.grow.settings.room', compact('growAreas'));
+    }
+
+    public function settingsRoomAjax(Request $request) 
+    {
+        if($request->input('action') == 'get_room_list') 
+        {
+            $area_id = $request->input('area_id');
+            $options = '';
+
+            $growRooms = ProductGrowList::where( 'parent_id', '=', $area_id )->get();
+
+            foreach ($growRooms as $key => $row) 
+            {
+                $options .= "<option value='".$row->id."' rtype='".$row->type."'>".$row->name."</option>";
+            }
+            echo $options;
+
+        } 
+
+       if($request->input('action') == 'get_room_setting')  
+       {
+           $room_id =  $request->input('room_id');
+           $result = [];
+           $ProductGrowListSettings = ProductGrowListSetting::where('room_id', $room_id)->get(['key', 'value']);
+
+           foreach ($ProductGrowListSettings as $ProductGrowListSetting) {
+               $result[ $ProductGrowListSetting->key ] = $ProductGrowListSetting->value;
+           }
+           echo json_encode( $result );
+       }
+
+       if($request->input('action') == 'update_room_setting')  
+       {
+            $room_id                = $request->input('room_id');
+            $rows                   = $request->input('rows');
+            $grow_days              = $request->input('grow_days');
+            $alarm_days             = $request->input('alarm_days');
+            $columns                = $request->input('columns');
+            $offsetX                = $request->input('offsetX');
+            $offsetY                = $request->input('offsetY');
+            $col_per_block          = $request->input('col_per_block');
+            $room_hgap              = $request->input('room_hgap');
+            $row_per_block          = $request->input('row_per_block');
+            $room_wgap              = $request->input('room_wgap');
+            $cell_height            = $request->input('cell_height');
+            $cell_width             = $request->input('cell_width');
+
+            $ProductGrowListSettings = ProductGrowListSetting::where('room_id', $room_id)->get();
+            $update_data = [];
+            array_push($update_data , 
+                array('rows'                    , $rows ),
+                array('grow_days'               , $grow_days ),
+                array('alarm_days'              , $alarm_days ),
+                array('columns'                 , $columns ), 
+                array('offsetX'                 , $offsetX ),
+                array('offsetY'                 , $offsetY ),
+                array('col_per_block'           , $col_per_block ),
+                array('room_hgap'               , $room_hgap ),
+                array('row_per_block'           , $row_per_block ),
+                array('room_wgap'               , $room_wgap ),
+                array('cell_height'             , $cell_height ),
+                array('cell_width'              , $cell_width )
+            );
+
+
+            foreach ($ProductGrowListSettings as $key => $ProductGrowListSetting) {
+                $ProductGrowListSetting->room_id = $room_id;
+                $ProductGrowListSetting->key = $update_data[$key][0];
+                $ProductGrowListSetting->value = $update_data[$key][1];
+                $ProductGrowListSetting->save();
+            }
+            echo "success";
+        }
     }
 
     public function global() {
         
-        return view('custom.grow.settings.global');
+        $globalColorLists = ProductGrowListSettingGlobal::all();
+        return view('custom.grow.settings.global', compact('globalColorLists'));
+    }
+
+    public function saveColorSettings(Request $request) 
+    {
+        $globalColorLists = ProductGrowListSettingGlobal::all();
+        foreach ($globalColorLists as $key => $globalColorList) {
+        
+            //$globalColor = ProductGrowListSettingGlobal::where('rowid', $globalColorList->rowid);
+            if($globalColorList->key == 'clone_color') $globalColorList->value =  $request->input('clone_color'); 
+
+            if($globalColorList->key == 'vegetation_color')  $globalColorList->value = $request->input('vegetation_color'); 
+            if($globalColorList->key == 'flower_color')  $globalColorList->value = $request->input('flower_color');
+
+            if($globalColorList->key == 'cutweigh_wet_color')  $globalColorList->value = $request->input('cutweigh_wet_color');
+
+            if($globalColorList->key == 'harvest_drying_color')  $globalColorList->value = $request->input('harvest_drying_color'); 
+
+            if($globalColorList->key == 'harvest_curing_color')  $globalColorList->value = $request->input('harvest_curing_color');
+            $globalColorList->save();
+        }
+        Session::flash('message', 'Succesfully Saved'); 
+        Session::flash('alert-class', 'alert-success');
+        return redirect('grow/settings/global?growMenu=visible'); 
     }
 
     /* plant growing part*/
@@ -251,17 +349,43 @@ class GrowController extends Controller
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $startdate = date("Y-m-d", strtotime($request->input('startdate')));
         $lastdate = date("Y-m-d", strtotime($request->input('lastdate')));
-
-        $histories = DB::table('product_grow_movements as p')
+        $rfid  = $request->input('metricId');
+        $move_src = $request->input('growArea');
+        if($rfid != '') {
+            $histories = DB::table('product_grow_movements as p')
                         ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
                         ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
                         ->leftJoin('product_grow_lists as c', 'c.id', '=', 'p.src' )
                         ->leftJoin('product_grow_lists as d', 'd.id', '=', 'p.dst' )
                         ->whereBetween('p.date', [$startdate, $lastdate])
+                        ->where('c.parent_id', $move_src)
+                        //->orWhere('d.parent_id', 1)
+                        ->where('p.rfid', $rfid)
                         ->select('s.p_id as productid', 'p.date as date', 'b.label as label', 'p.rfid as rfid', 'c.name as srcname', 'd.name as dstname')
                         ->groupBy('s.rfid')
                         ->get();
+        } else {
+            $histories = DB::table('product_grow_movements as p')
+                        ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
+                        ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
+                        ->leftJoin('product_grow_lists as c', 'c.id', '=', 'p.src' )
+                        ->leftJoin('product_grow_lists as d', 'd.id', '=', 'p.dst' )
+                        ->whereBetween('p.date', [$startdate, $lastdate])
+                        ->where('c.parent_id', $move_src)
+                        //->orWhere('d.parent_id', 1)
+                        //->where('p.rfid', $rfid)
+                        ->select('s.p_id as productid', 'p.date as date', 'b.label as label', 'p.rfid as rfid', 'c.name as srcname', 'd.name as dstname')
+                        ->groupBy('s.rfid')
+                        ->get();
+        }
+        
+        
+        // foreach ($histories as $key => $value) {
+        //     echo $value->date;
+        //     echo "<br>".$value->rfid;
 
+        // }
+        //die();
         return view('custom.grow.history.index', compact('histories', 'startdate', 'lastdate', 'growAreas'));
     }
     public function mgtGUI() {
