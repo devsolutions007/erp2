@@ -83,3 +83,17 @@ $('.task-list').on('click', 'li.list', function() {
 $(function() {
 	$(".loading-wrapper").fadeOut(2000);
 });
+
+
+/* fade session message */
+
+$('.close-session-message').click( function() {
+    $('.session-message').fadeOut();
+});
+
+// initialize datatable
+$(function(){
+	$('#datatableInitialize').DataTable({
+		'iDisplayLength': 10,
+	});
+});

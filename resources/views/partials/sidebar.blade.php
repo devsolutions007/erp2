@@ -42,8 +42,8 @@
         <nav class="side-nav">
             <!-- BEGIN: side-nav-content -->
             <ul class="unifyMenu" id="unifyMenu">
-                <li class="{{ Request::is('/') ? 'active' : ''}} selected">
-                    <a href="{{ url('/') }}">
+                <li class="{{ Request::is('/') ? 'active selected' : ''}}">
+                    <a href="/">
                         <span class="has-icon">
                             <i class="icon-laptop_windows"></i>
                         </span>
@@ -150,6 +150,22 @@
                         </span>
                         <span class="nav-title">Third Parties</span>
                     </a>
+                </li>
+                <li class="{{ Request::is('customers/*') ? 'active selected' : ''}}">
+                    <a href="#" class="has-arrow" aria-expanded="false">
+                        <span class="has-icon">
+                            <i class="icon-tabs-outline"></i>
+                        </span>
+                        <span class="nav-title">Customers</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse in">
+                        <li>
+                            <a href="/customers/create" class="{{ Request::is('customers/create') ? 'active selected' : ''}}">Create</a>
+                        </li>
+                        <li>
+                            <a href="/customers/viewAllCustomers" class="">View All</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="{{ Request::is('') ? 'active' : ''}}">
                     <a href="/product/index?productMenu=visible">

@@ -1,9 +1,3 @@
-/* fade session message */
-
-$('.close-session-message').click( function() {
-    $('.session-message').fadeOut();
-});
-
 /* area select */
 
 $("#checkallactions").click(function() {

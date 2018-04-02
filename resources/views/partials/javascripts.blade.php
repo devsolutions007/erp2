@@ -32,8 +32,7 @@
         });
     </script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- grow js -->
-    <script src="{{ asset('custom/grow/js/process.js') }}"></script>
+    
 
     <!-- jquery  validation  plugin-->
     <script src="{{ asset('js/jquery.validate.js') }}" type="text/javascript"></script>
@@ -79,3 +78,15 @@
     <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter.js') }}"></script>
     <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter_display.js') }}"></script> 
     @endif
+    <!-- grow js -->
+    @if (Request::is('grow/*'))
+    <script src="{{ asset('custom/grow/js/process.js') }}"></script>
+    @endif
+    <!-- customer js -->
+    @if (Request::is('customers/*'))
+    <script type="text/javascript" src="{{ asset('js/customer.js') }}"></script> 
+    @endif
+
+    <!-- Data Tables -->
+    <script src="{{ asset('vendor/datatables/dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap.min.js') }}"></script>

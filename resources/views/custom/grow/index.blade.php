@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<style type="text/css">
+.modal-lg {
+    max-width: 1000px !important;
+}
+</style>
 @section('content')
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -299,22 +303,6 @@
         </div>
     </div>
     <!-- Bulk Release modal end -->
-    <style type="text/css">
-        .modal_row_delete {
-            cursor: pointer;
-        }
-        .fileupload_modal_rowcol_area input {
-            width: 40%;
-            display: inline-block;
-        }
-        .input_row_col_state_right {
-            float: right;
-        }
-        .modal_dialog_error_text_p {
-            color: #da1113;
-            display: none;
-        }
-    </style>
     <!-- File Uplaod Modal -->
     <!-- Add plant by upload modal start-->
     <div class="modal fade" id="addPlantUploadModal" tabindex="-1" role="dialog" style="display: none;">

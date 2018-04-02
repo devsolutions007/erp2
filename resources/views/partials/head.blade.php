@@ -38,7 +38,12 @@
 
     <!-- sweet alert -->
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
-
+    @if (Request::is('grow/*'))
     <!--  grow page custom css -->
     <link rel="stylesheet" href="{{ asset('custom/grow/css/custom.css') }}"> 
     <!--  end -->
+    @endif
+
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bs4.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bs4-custom.css') }}" />

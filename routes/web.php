@@ -34,10 +34,21 @@ Route::group(['middleware' => ['auth']],function() {
         return View::make('welcome');
     });
     Route::group(['prefix' => 'customers', 'as' => 'customers.'], function(){
-        Route::get('manage/{id?}','Customer\CustomerManagerController@index');
+        
+        // Route::get('manage/{id?}','Customer\CustomerManagerController@index');
+        // Route::get('edit/{id}','Customer\CustomerManagerController@edit');
+        // Route::get('new','Customer\CustomerManagerController@add');
+        // Route::post('save','Customer\CustomerManagerController@store');
+
+
+        Route::get('create','Customer\CustomerManagerController@create');
+        Route::post('saveCustomerDetails','Customer\CustomerManagerController@saveCustomerDetails');
+        Route::post('customerAjax','Customer\CustomerManagerController@customerAjax');
+        Route::get('viewAllCustomers','Customer\CustomerManagerController@viewAllCustomers');
+        Route::get('details/{id}','Customer\CustomerManagerController@show');
         Route::get('edit/{id}','Customer\CustomerManagerController@edit');
-        Route::get('new','Customer\CustomerManagerController@add');
-        Route::post('save','Customer\CustomerManagerController@store');
+        Route::post('update/{id}','Customer\CustomerManagerController@update');
+        
         
     });
     
