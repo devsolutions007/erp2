@@ -786,6 +786,7 @@ class GrowController extends Controller
 
     public function plantAjaxFileUpload(Request $request) 
     {
+        /* Start file upload add plant */
         if($request->input('action') == 'file_upload_add_data_dialog') 
         {
             $room_id    = $request->input('room_id');
@@ -826,14 +827,13 @@ class GrowController extends Controller
                                     <td><div class='plant_gui_top_left fileupload_modal_number_area'>$no</div></td>
                                     <td><div class='plant_gui_top_left fileupload_modal_rfid_area'>
                                         <div class='plant_gui_top_left' name='fileupload_modal_rfid_area' id='fileupload_modal_rfid$j'>$filedata[$i]</div>
-                                        </div></td>
-                                    <td width='150'><div class='plant_gui_top_left fileupload_modal_rowcol_area'><div id='fileupload_modal_rowcol$j'><input type='text' id='row$j' name='row' class='form-control input_row_col_state' required value='".$emptyList[$j]['r']."' /> / <input type='text' id='col$j' name='col' class='form-control input_row_col_state_right' required value='".$emptyList[$j]['c']."' /></div></div></td>
+                                        </div><p id='fileupload_modal_rfid_warning_add$j' class='modal_dialog_error_text_p' ></p></td>
+                                    <td width='150'><div class='plant_gui_top_left fileupload_modal_rowcol_area'><div id='fileupload_modal_rowcol$j'><input type='text' id='row$j' name='row' class='form-control input_row_col_state' required value='".$emptyList[$j]['r']."' /> / <input type='text' id='col$j' name='col' class='form-control input_row_col_state_right' required value='".$emptyList[$j]['c']."' /></div></div><p id='fileupload_modal_rowcol_warning_add$j' class='modal_dialog_error_text_p'></p></td>
                                     <td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area' onclick='change_state_modal(\"clone\" , this)'>clone</div></td>
                                     <td><div class='plant_gui_top_left fileupload_modal_plant_area'><input type='hidden' name='sel_product_id$j' id='sel_product_id$j' ><input id='productNameList$j' class='form-control' type='text' name='productNameList$j'></div></td>
                                     <td><div class='plant_gui_top_left fileupload_modal_parent_area' ><input type='text' id='modal_parent_rfid$j' name='modal_parent_rfid' class='form-control grow_set_width_100'/></div></td>
                                     <td class='fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td>
-                                    </tr>
-                                    <tr><td></td><td><p id='fileupload_modal_rfid_warning_add$j' class='modal_dialog_error_text_p' ></p></td><td><p id='fileupload_modal_rowcol_warning_add$j' class='modal_dialog_error_text_p'></p></td><td></td><td></td><td></td><td></td></tr>";
+                                    </tr>";
                             $j++;
                         }
                     }
@@ -903,7 +903,9 @@ class GrowController extends Controller
             }
             echo "Success insert";
         }
+        /* End  file upload add plant */
 
+        /* Start file upload move plant */
         if( $request->input('action') == 'file_upload_move_data_dialog' ) 
         {
             $src_room    = $request->input('src_room');   
@@ -954,18 +956,33 @@ class GrowController extends Controller
                             //return $product_lists;
                             $data .="<tr class='each_rfid_list'>
                                         <td><div class='plant_gui_top_left fileupload_modal_number_area'>$no</div></td>
-                                        <td><div class='plant_gui_top_left' name='fileupload_modal_rfid_area' id='fileupload_modal_rfid$j'>$filedata[$i]</div></td>
-                                        <td width='200'><div class='plant_gui_top_left fileupload_modal_plant_area'>".$product_lists[0]->rol." / ".$product_lists[0]->col."</div></td>
-                                        <td width='200'><div id='fileupload_modal_rowcol$j' class='fileupload_modal_rowcol_area'>
-                                            <input type='text' id='row$j' name='row' class='form-control input_row_col_state' required value='".$emptyList[$j]['r']."' />
-                                            <input type='text' id='col$j' name='col' class='form-control input_row_col_state_right' required value='".$emptyList[$j]['c']."' />
-                                        </div></td>
-                                        <td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area' onclick='change_state_modal(\"$plant_state\" , this)'>".$plant_state."</div></td>
-                                        <td class='fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td>
-                                        </tr>";
-                                if(!$product_lists) {
-                                     $data .= "<tr><td></td><td><p id='fileupload_modal_rfid_warning_move$j' class='modal_dialog_error_text_p' >not found</p></td><td><p id='fileupload_modal_rowcol_warning_add$j' class='modal_dialog_error_text_p'></p></td><td></td><td></td><td></td></tr>";
-                                } 
+                                        <td><div class='plant_gui_top_left' name='fileupload_modal_rfid_area' id='fileupload_modal_rfid$j'>$filedata[$i]</div>";
+                            if($product_lists) {
+
+                                $data .= "</td>
+                                <td width='200'><div class='plant_gui_top_left fileupload_modal_plant_area'>".$product_lists[0]->rol." / ".$product_lists[0]->col."</div></td>
+                                <td width='200'><div id='fileupload_modal_rowcol$j' class='fileupload_modal_rowcol_area'>
+                                    <input type='text' id='row$j' name='row' class='form-control input_row_col_state' required value='".$emptyList[$j]['r']."' />
+                                    <input type='text' id='col$j' name='col' class='form-control input_row_col_state_right' required value='".$emptyList[$j]['c']."' />
+                                </div>
+                                </td>
+                                <td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area' onclick='change_state_modal(\"$plant_state\" , this)'>".$plant_state."</div></td>
+                                <td class='fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td>
+                                </tr>";
+                            } else {
+                                $data .= "<p id='fileupload_modal_rfid_warning_move$j' class='modal_dialog_error_text_p' >not found</p>
+                                </td>
+                                <td width='200'><div class='plant_gui_top_left fileupload_modal_plant_area'></div></td>
+                                <td width='200'><div id='fileupload_modal_rowcol$j' class='fileupload_modal_rowcol_area'>
+                                    <input type='text' id='row$j' name='row' class='form-control input_row_col_state' required value='' />
+                                    <input type='text' id='col$j' name='col' class='form-control input_row_col_state_right' required value='' />
+                                </div>
+                                <p id='fileupload_modal_rowcol_warning_add$j' class='modal_dialog_error_text_p'></p>
+                                </td>
+                                <td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area' onclick='change_state_modal(\"$plant_state\" , this)'></div></td>
+                                <td class='fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td>
+                                </tr>";
+                            }
                             $j++;
                         }       
                     }
@@ -977,7 +994,6 @@ class GrowController extends Controller
             }
 
         }
-
         if($request->input('action') == 'fileupload_move_data') 
         {
             $plantList   = $request->input('data');
@@ -1010,7 +1026,140 @@ class GrowController extends Controller
             echo "success";
             
         }
+        /* End  file upload move plant */
 
+        /* Start file upload release plant */
+        if( $request->input('action') == 'file_upload_release_data_dialog' ) 
+        {
+            if ($request->hasFile('file')) {
+                $validatedData = $request->validate([
+                    'file' => 'required|mimes:txt'
+                ]);
+                $file     = $request->file('file');
+                $fileName = $file->getClientOriginalName();
+                $filedata = [];
+                $output_result = '';
+                foreach(file($file->getRealPath()) as $line) {
+                    $output_result = explode(",",$line);
+                    $suboutput_data = substr($output_result[1], 1, -1);
+                    array_push( $filedata , $suboutput_data);
+                }
+                $j= 0;
+                for ( $i = 0; $i < count( $filedata ); $i++) {
+                    if( $filedata[$i] !="dentifie" && $filedata[$i] !="" ){               
+                        $no = $j + 1;
+                        $query = DB::table('product_grow_movements as p')
+                                ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
+                                ->leftJoin('product_grow_lists as m', 'm.id', '=', 's.room_id' )
+                                ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
+                                ->orWhere('p.dst', '<', 1)
+                                ->where('p.src', '=', 0)
+                                ->where('s.rfid', '=', $filedata[$i])
+                                ->select( 'p.src' , 'p.dst', 'p.date', 'p.type', 'm.name' , 'm.type', 'm.parent_id', 's.*' , DB::raw("SUM( ( case when (p.src = '".NULL."') then -p.qty else p.qty end ) ) AS stock_value"))
+                                ->groupBy('s.rfid');
+                                //->where('stock_value', '>', 0)
+                        $rfid_data = $query->get();
+                        echo "<tr class='each_rfid_list'>
+                                <td><div class='plant_gui_top_left fileupload_modal_number_area'>$no</div></td>";
+                        echo "<td><div class='plant_gui_top_left' name='fileupload_modal_rfid_area' id='fileupload_modal_rfid$j'>$filedata[$i]</div>";
+                        if(!$rfid_data->isEmpty()) {
+                            
+                        echo "</td><td><input type='hidden' id='plant_srcid$j' value='".$rfid_data[0]->room_id."'><div class='plant_gui_top_left fileupload_modal_rowcol_area'>".$rfid_data[0]->name."</div></td>
+                            <td class='plant_gui_top_left fileupload_modal_plant_area'>
+                                <div id='fileupload_modal_rowcol$j'>".$rfid_data[0]->rol." / ".$rfid_data[0]->col."</div></td>";
+                        echo "<td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area'>".$rfid_data[0]->state."</div></td>";
+                        echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
+                        } else {
+                             echo "<p id='fileupload_modal_rfid_warning_release$j' class='modal_dialog_error_text_p' >not found</p>";
+                            echo "</td><td><input type='hidden' id='plant_srcid$j' value=''><div class='plant_gui_top_left fileupload_modal_rowcol_area'></div></td>
+                                <td class='plant_gui_top_left fileupload_modal_plant_area'>
+                                    <div id='fileupload_modal_rowcol$j'>  / </div></td>";
+                            echo "<td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area'></div></td>";
+                            echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
+                        }
+                        
+                        $j++;
+                    }
+                }
+                echo "<input type='hidden' name='totalview' id='totalview' value='$j'> ";
+            }
+        }
+
+        if($request->input('action') == 'fileupload_release_data') 
+        {
+            $plantList       = $request->input('data');
+            $date      = date("Y-m-d");
+            $product_date = date("Y-m-d H:i:s");
+            for( $i = 0 ;$i < count( $plantList ) ; $i++ )
+            {
+                $ProductGrowMovement       = new ProductGrowMovement;
+                $ProductGrowMovement->rfid = $plantList[$i]['RFID'];
+                $ProductGrowMovement->src  = $plantList[$i]['src'];
+                $ProductGrowMovement->dst  = 0;
+                $ProductGrowMovement->qty  = 1;
+                $ProductGrowMovement->date = $date;
+                $ProductGrowMovement->type = 'release';
+                $ProductGrowMovement->save();
+
+                $ProductGrowProductRFID = ProductGrowProductRFID::find($plantList[$i]["RFID"]);
+                if($ProductGrowProductRFID) {
+                    $ProductGrowProductRFID->room_id = 0;
+                    $ProductGrowProductRFID->save();
+                }
+                $dst = $plantList[$i]['dst'];
+                $rfid = $plantList[$i]['RFID'];
+
+                $fk_product = ProductGrowProductRFID::where('rfid', $rfid)->pluck('p_id');
+                $fk_product = $fk_product[0];
+                $StockMovement       = new StockMovement;
+                $StockMovement->tms = $product_date;
+                $StockMovement->datem  = $product_date;
+                $StockMovement->fk_product  = $fk_product;
+                $StockMovement->fk_entrepot  = $dst;
+                $StockMovement->value = 1;
+                $StockMovement->type_mouvement = 0;
+                $StockMovement->fk_user_author = 1;
+                $StockMovement->label = 'Stock correction for product';
+                $StockMovement->inventorycode = 22222;
+                $StockMovement->fk_origin = 0;
+                $StockMovement->rfid = $plantList[$i]['RFID'];
+
+                $StockMovement->save();
+                
+
+                $stockCount = DB::table("product_stock")->select('*')
+                        ->whereIn('fk_product',function($query) use ($dst, $rfid) {
+                        $query->select('p_id')->from('product_grow_product_rfid')
+                        ->where('fk_entrepot', $dst)
+                        ->where('rfid', $rfid);
+                        })
+                        ->count();
+                if($stockCount > 0 ) {
+                    $ProductStock = ProductStock::whereIn('fk_product',function($query) use ($dst, $rfid) {
+                        $query->select('p_id')->from('product_grow_product_rfid')
+                        ->where('fk_entrepot', $dst)
+                        ->where('rfid', $rfid);
+                        })
+                        ->first();
+                    $ProductStock->reel = $ProductStock->reel + 1;
+                    $ProductStock->rfid = $rfid;
+                    $ProductStock->save();
+                } else {
+                    $ProductStock = new ProductStock;
+                    $ProductStock->tms = $product_date;
+                    $ProductStock->fk_product = $fk_product;
+                    $ProductStock->fk_entrepot = $dst;
+                    $ProductStock->reel = 1;
+                    $ProductStock->rfid = $rfid;
+                    $ProductStock->save();
+                }
+            }
+            echo "success";
+        }
+
+        /* End  file upload release plant */
+
+        /* Start file upload remove plant */
         if($request->input('action') == 'file_upload_remove_data_dialog') 
         {
             if ($request->hasFile('file')) 
@@ -1046,14 +1195,20 @@ class GrowController extends Controller
                         echo "<tr class='each_rfid_list'>
                                 <td><div class='plant_gui_top_left fileupload_modal_number_area'>$no</div></td>";
                         echo "<td><div class='plant_gui_top_left' name='fileupload_modal_rfid_area' id='fileupload_modal_rfid$j'>$filedata[$i]</div>";
-                        if($rfid_data == [])
-                        echo "<p id='fileupload_modal_rfid_warning_remove$j' class='modal_dialog_error_text_p' >not found</p>";
-                        echo "</td><td><input type='hidden' id='plant_srcid$j' value='".$rfid_data[0]->room_id."'><div class='plant_gui_top_left fileupload_modal_rowcol_area'>".$rfid_data[0]->name."</div></td>
-                            <td class='plant_gui_top_left fileupload_modal_plant_area'>
-                                <div id='fileupload_modal_rowcol$j'>".$rfid_data[0]->rol." / ".$rfid_data[0]->col."</div></td>";
-                        echo "<td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area'>".$rfid_data[0]->state."</div></td>";
-                        echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
-                        
+                        if(!$rfid_data) {
+                            echo "</td><td><input type='hidden' id='plant_srcid$j' value='".$rfid_data[0]->room_id."'><div class='plant_gui_top_left fileupload_modal_rowcol_area'>".$rfid_data[0]->name."</div></td>
+                                <td class='plant_gui_top_left fileupload_modal_plant_area'>
+                                    <div id='fileupload_modal_rowcol$j'>".$rfid_data[0]->rol." / ".$rfid_data[0]->col."</div></td>";
+                            echo "<td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area'>".$rfid_data[0]->state."</div></td>";
+                            echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
+                        } else {
+                            echo "<p id='fileupload_modal_rfid_warning_remove$j' class='modal_dialog_error_text_p' >not found</p>";
+                            echo "</td><td><input type='hidden' id='plant_srcid$j' value=''><div class='plant_gui_top_left fileupload_modal_rowcol_area'></div></td>
+                                <td class='plant_gui_top_left fileupload_modal_plant_area'>
+                                    <div id='fileupload_modal_rowcol$j'></div></td>";
+                            echo "<td><div name='fileupload_state_area' id='fileupload_state_area$j' class='img_cursor_show plant_gui_top_left fileupload_modal_state_area'></div></td>";
+                            echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
+                        }
                         $j++;
                     }
                 }
@@ -1065,26 +1220,30 @@ class GrowController extends Controller
 
         if($request->input('action') == 'fileupload_remove_data')
         {
-            // $plantList       = $request->input('data');
-            // $today      = date("Y-m-d");
+            $plantList       = $request->input('data');
+            $today      = date("Y-m-d");
 
-            // for( $i = 0 ;$i < count( $plantList ) ; $i++ )
-            // {
-            //     $ProductGrowMovement = new ProductGrowMovement;
-            //     $ProductGrowMovement->rfid = $plantList[$i]["RFID"];
-            //     $ProductGrowMovement->src  = $plantList[$i]["src"];
-            //     $ProductGrowMovement->dst  = -1;
-            //     $ProductGrowMovement->qty  = 1;
-            //     $ProductGrowMovement->date = $today;
-            //     $ProductGrowMovement->type = 'release';
-            //     $ProductGrowMovement->save();
+            for( $i = 0 ;$i < count( $plantList ) ; $i++ )
+            {
+                $ProductGrowMovement = new ProductGrowMovement;
+                $ProductGrowMovement->rfid = $plantList[$i]["RFID"];
+                $ProductGrowMovement->src  = $plantList[$i]["src"];
+                $ProductGrowMovement->dst  = -1;
+                $ProductGrowMovement->qty  = 1;
+                $ProductGrowMovement->date = $today;
+                $ProductGrowMovement->type = 'release';
+                $ProductGrowMovement->save();
 
-            //     $ProductGrowProductRFID = ProductGrowProductRFID::find($plantList["RFID"]);
-            //     $ProductGrowProductRFID->room_id = -1;
-            //     $ProductGrowProductRFID->save();
-            // }
+                $ProductGrowProductRFID = ProductGrowProductRFID::find($plantList["RFID"]);
+                $ProductGrowProductRFID->room_id = -1;
+                $ProductGrowProductRFID->save();
+            }
             echo "success";
         } 
+
+        /* End  file upload remove plant */
+
+        /* Start file upload state change plant */
 
         if( $request->input('action') == 'file_upload_state_data_dialog' )
         {
@@ -1129,14 +1288,23 @@ class GrowController extends Controller
                         echo "<tr class='each_rfid_list'>
                                 <td><div class='plant_gui_top_left fileupload_modal_number_area'>$no</div></td>";
                         echo "<td><div class='plant_gui_top_left' name='fileupload_modal_rfid_area' id='fileupload_modal_rfid$j'>$filedata[$i]</div>";
-                        if($rfid_data == [])
-                        echo "<p id='fileupload_modal_rfid_warning_state$j' class='modal_dialog_error_text_p' >not found</p>";
-                        echo "</td><td><input type='hidden' id='plant_srcid$j' value='".$rfid_data[0]->room_id."'><div class='plant_gui_top_left fileupload_modal_rowcol_area'>".$rfid_data[0]->name."</div></td>
-                            <td class='plant_gui_top_left fileupload_modal_plant_area'>
-                                <div id='fileupload_modal_rowcol$j'>".$rfid_data[0]->rol." / ".$rfid_data[0]->col."</div></td>";
-                        echo "<td><div name='fileupload_now_state' id='fileupload_now_state$j' class='img_cursor_show plant_gui_top_left fileupload_modal_now_state'>".$rfid_data[0]->state."</div></td>";
-                        echo "<td><div name='fileupload_next_state' id='fileupload_next_state$j' class='img_cursor_show plant_gui_top_left fileupload_modal_next_state' onclick='change_state_modal(\"$next_state\" , this)'>".$next_state."</div></td>";
-                        echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
+                        if(!$rfid_data) {
+                            echo "</td><td><input type='hidden' id='plant_srcid$j' value='".$rfid_data[0]->room_id."'><div class='plant_gui_top_left fileupload_modal_rowcol_area'>".$rfid_data[0]->name."</div></td>
+                                <td class='plant_gui_top_left fileupload_modal_plant_area'>
+                                    <div id='fileupload_modal_rowcol$j'>".$rfid_data[0]->rol." / ".$rfid_data[0]->col."</div></td>";
+                            echo "<td><div name='fileupload_now_state' id='fileupload_now_state$j' class='img_cursor_show plant_gui_top_left fileupload_modal_now_state'>".$rfid_data[0]->state."</div></td>";
+                            echo "<td><div name='fileupload_next_state' id='fileupload_next_state$j' class='img_cursor_show plant_gui_top_left fileupload_modal_next_state' onclick='change_state_modal(\"$next_state\" , this)'>".$next_state."</div></td>";
+                            echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
+                        } else {
+                            echo "<p id='fileupload_modal_rfid_warning_state$j' class='modal_dialog_error_text_p' >not found</p>";
+                            echo "</td><td><input type='hidden' id='plant_srcid$j' value=''><div class='plant_gui_top_left fileupload_modal_rowcol_area'></div></td>
+                                <td class='plant_gui_top_left fileupload_modal_plant_area'>
+                                    <div id='fileupload_modal_rowcol$j'></div></td>";
+                            echo "<td><div name='fileupload_now_state' id='fileupload_now_state$j' class='img_cursor_show plant_gui_top_left fileupload_modal_now_state'></div></td>";
+                            echo "<td><div name='fileupload_next_state' id='fileupload_next_state$j' class='img_cursor_show plant_gui_top_left fileupload_modal_next_state' onclick='change_state_modal(\"$next_state\" , this)'>".$next_state."</div></td>";
+                            echo "<td class='plant_gui_top_left fileupload_modal_delete_area modal_row_delete' id='modal_row_delete$j'><span>&#10540</span></td> </tr>";
+                        }
+                        
                         
                         $j++;
                     }
@@ -1148,19 +1316,22 @@ class GrowController extends Controller
 
         if( $request->input('action') == 'fileupload_state_data' )
         {
-            // $plantList       = $request->input('data');
-            // $today      = date("Y-m-d");
+            $plantList       = $request->input('data');
+            $today      = date("Y-m-d");
 
-            // for( $i = 0 ;$i < count( $plantList ) ; $i++ )
-            // {
-            //     $ProductGrowProductRFID = ProductGrowProductRFID::find($plantList[$i]["RFID"]);
-            //     if($ProductGrowProductRFID) {
-            //         $ProductGrowProductRFID->state = $plantList[$i]["next_state"];
-            //         $ProductGrowProductRFID->save();
-            //     }
+            for( $i = 0 ;$i < count( $plantList ) ; $i++ )
+            {
+                $ProductGrowProductRFID = ProductGrowProductRFID::find($plantList[$i]["RFID"]);
+                if($ProductGrowProductRFID) {
+                    $ProductGrowProductRFID->state = $plantList[$i]["next_state"];
+                    $ProductGrowProductRFID->save();
+                }
                 
-            // }
+            }
             echo "success";
         }
-    } 
+
+        /* End  file upload state change  plant */
+    }
+
 }

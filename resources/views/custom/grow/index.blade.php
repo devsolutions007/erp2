@@ -323,20 +323,22 @@
                 </div>
                 <form class="form-horizontal">
                     <div class="modal-body">
-                        <table class="table table-sm m-0">
-                            <thead>
-                                <th>SL No</th>
-                                <th>Metric Id</th>
-                                <th>Row / Col</th>
-                                <th>State</th>
-                                <th>Strain</th>
-                                <th>Parent Metric Id</th>
-                                <th>x</th>
-                            </thead>
-                            <tbody id="addfile_modal_detail_data">
-                                
-                            </tbody>
-                        </table>
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Row / Col</th>
+                                    <th>State</th>
+                                    <th>Strain</th>
+                                    <th>Parent Metric Id</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="addfile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
                         <p class="alert alert-warning" id="modal_dialog_alert_add_data" style="display: none; color: #da1113;"></p>
                     </div>
                     <div class="modal-footer">
@@ -370,19 +372,21 @@
                 </div>
                 <form class="form-horizontal">
                     <div class="modal-body">
-                        <table class="table table-sm m-0">
-                            <thead>
-                                <th>SL No</th>
-                                <th>Metric Id</th>
-                                <th>Source Row/Col</th>
-                                <th>Destination Row/Col</th>
-                                <th>State</th>
-                                <th>x</th>
-                            </thead>
-                            <tbody id="movefile_modal_detail_data">
-                                
-                            </tbody>
-                        </table>
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Source Row/Col</th>
+                                    <th>Destination Row/Col</th>
+                                    <th>State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="movefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                         <p class="alert alert-warning" id="modal_dialog_alert_move_data" style="display: none; color: #da1113;"></p>
                     </div>
                     <div class="modal-footer">
@@ -396,7 +400,51 @@
     <!-- Move Plant modal by upload file end -->
 
 
-    <!-- Remove Plant by upload modal start-->
+    <!-- Release Plant by upload modal start-->
+    <div class="modal fade" id="releasefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-9" id="releasefile_modalLabel">Release Plant</h5>
+                    <select id="release_stock_plant" class="col-md-3 form-control show-tick">
+                            <option value=""></option>
+                        @if($warehouseList)
+                            @foreach($warehouseList as $warehouse)
+                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Room</th>
+                                    <th>Source Row/Col</th>
+                                    <th>State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="releasefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
+                        <p class="alert alert-warning" id="modal_dialog_alert_release_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_release_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Release Plant modal by upload file end -->
+
+     <!-- Remove Plant by upload modal start-->
     <div class="modal fade" id="removefile_modal" tabindex="-1" role="dialog" style="display: none;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -413,19 +461,21 @@
                 </div>
                 <form class="form-horizontal">
                     <div class="modal-body">
-                        <table class="table table-sm m-0">
-                            <thead>
-                                <th>SL No</th>
-                                <th>Metric Id</th>
-                                <th>Room</th>
-                                <th>Source Row/Col</th>
-                                <th>State</th>
-                                <th>x</th>
-                            </thead>
-                            <tbody id="removefile_modal_detail_data">
-                                
-                            </tbody>
-                        </table>
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Room</th>
+                                    <th>Source Row/Col</th>
+                                    <th>State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="removefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
                         <p class="alert alert-warning" id="modal_dialog_alert_remove_data" style="display: none; color: #da1113;"></p>
                     </div>
                     <div class="modal-footer">
@@ -438,7 +488,7 @@
     </div>
     <!-- Remove Plant modal by upload file end -->
 
-     <!-- State Change Plant by upload modal start-->
+    <!-- State Change Plant by upload modal start-->
     <div class="modal fade" id="statefile_modal" tabindex="-1" role="dialog" style="display: none;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -447,20 +497,23 @@
                 </div>
                 <form class="form-horizontal">
                     <div class="modal-body">
-                        <table class="table table-sm m-0">
-                            <thead>
-                                <th>SL No</th>
-                                <th>Metric Id</th>
-                                <th>Room</th>
-                                <th>Source Row/Col</th>
-                                <th>Now State</th>
-                                <th>Next State</th>
-                                <th>x</th>
-                            </thead>
-                            <tbody id="statefile_modal_detail_data">
-                                
-                            </tbody>
-                        </table>
+                        <div class="div-scroll">
+
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Room</th>
+                                    <th>Source Row/Col</th>
+                                    <th>Now State</th>
+                                    <th>Next State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="statefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
                         <p class="alert alert-warning" id="modal_dialog_alert_state_data" style="display: none; color: #da1113;"></p>
                     </div>
                     <div class="modal-footer">

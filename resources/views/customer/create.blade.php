@@ -6,6 +6,15 @@
         display: inline-block;
     }
 </style>
+<?php
+$carriers = array('carrier1', 'carrier2', 'carrier3');
+$referrals = array('referral1', 'referral2', 'referral3');
+$members = array('member1', 'member2', 'member3');
+$locations = array('location1', 'location2', 'location3');
+$limit_units = array('unit1', 'unit2', 'unit3');
+$care_givers = array('Care Giver 1', 'Care Giver 2', 'Care Giver 3');
+$doctors = array('doctor1', 'doctor2', 'doctor3');
+?>
 <div class="row gutters">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card top-blue-bdr">
@@ -100,8 +109,9 @@
                                 <label class="col-sm-1 col-form-label">Carrier</label>
                                 <div class="col-sm-5">
                                     <select class="form-control" name="carrier" required>
-                                        <option value="1">abc</option>
-                                        <option value="2">def</option>
+                                        @foreach( $carriers as $car_key =>  $carrier )
+                                        <option value="{{ $car_key+1 }}">{{ $carrier }}</option>
+                                        @endforeach
                                     </select>
                                     @if($errors->has('carrier')) 
                                         <p class="help-block">{{$errors->first('carrier')}}</p>
@@ -144,15 +154,17 @@
                                 <label class="col-sm-1 col-form-label">Referral</label>
                                 <div class="col-sm-5">
                                     <select class="form-control" name="referral">
-                                        <option value="1">Owner</option>
-                                        <option value="2">Abc</option>
+                                        @foreach( $referrals as $ref_key =>  $referral )
+                                        <option value="{{ $ref_key+1 }}">{{ $referral }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <label class="col-sm-1 col-form-label">Member</label>
                                 <div class="col-sm-5">
                                     <select class="form-control" name="member">
-                                        <option value="1">Owner at WWP</option>
-                                        <option value="2">def</option>
+                                        @foreach( $members as $mem_key =>  $member )
+                                        <option value="{{ $mem_key+1 }}">{{ $member }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -174,8 +186,13 @@
                             </div>
                             <div class="card-footer">
                                 <input type="hidden" name="action" value="basicInfo">
+                                @if(Session::has('message'))
+                                <button type="submit" class="btn btn-primary" disabled>Save</button>
+                                <button type="reset" class="btn btn-secondary">Clear</button>
+                                @else
                                 <button type="submit" class="btn btn-primary">Save</button>
                                 <button type="reset" class="btn btn-secondary">Clear</button>
+                                @endif
                             </div>
                         </form>
                     </div>
@@ -275,8 +292,9 @@
                                 <label class="col-sm-1 col-form-label">Location</label>
                                 <div class="col-sm-5">
                                     <select class="form-control" name="location">
-                                        <option value="1">Loaction1</option>
-                                        <option value="2">Location2</option>
+                                        @foreach( $locations as $loc_key =>  $location )
+                                        <option value="{{ $loc_key+1 }}">{{ $location }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <label class="col-sm-1 col-form-label">Limit</label>
@@ -285,8 +303,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <select class="form-control" name="limit_unit">
-                                        <option value="1">Ounces</option>
-                                        <option value="2">abc</option>
+                                        @foreach( $limit_units as $lim_unit_key =>  $limit_unit )
+                                        <option value="{{ $lim_unit_key+1 }}">{{ $limit_unit }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -294,15 +313,17 @@
                                 <label class="col-sm-1 col-form-label">Care Giver</label>
                                 <div class="col-sm-5">
                                     <select class="form-control" name="care_giver">
-                                        <option value="1">Ounces</option>
-                                        <option value="2">abc</option>
+                                        @foreach( $care_givers as $car_giv_key =>  $care_giver )
+                                        <option value="{{ $car_giv_key+1 }}">{{ $care_giver }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <label class="col-sm-1 col-form-label">Doctor</label>
                                 <div class="col-sm-5">
                                     <select class="form-control" name="doctor">
-                                        <option value="1">Doctor 1</option>
-                                        <option value="2">Doctor 2</option>
+                                        @foreach( $doctors as $doc_key =>  $doctor )
+                                        <option value="{{ $doc_key+1 }}">{{ $doctor }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

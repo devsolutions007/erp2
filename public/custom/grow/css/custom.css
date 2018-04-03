@@ -141,7 +141,6 @@ body {
 }
 .fileupload_modal_number_area{
     width: 30px;
-    text-align: left;
 }
 .fileupload_modal_delete_area{
     width: 30px;
@@ -200,5 +199,16 @@ div.fiche > form > div.div-table-responsive {
 }
 .modal_dialog_error_text_p {
     color: #da1113;
-    display: none;
+    margin: 0;
+    /*display: none;*/
+}
+.modal-table-style th, .modal-table-style td  {
+    text-align: center;
+}
+
+.div-scroll{
+    position: relative;
+    overflow-y: scroll;
+    max-height: 400px;
+    width: 100%;
 }

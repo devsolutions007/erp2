@@ -11,6 +11,6 @@ class StockMovement extends Model
      *
      * @var string
      */
-    protected $table = 'stock_mouvement';
+    protected $table = 'stock_movement';
 
 }

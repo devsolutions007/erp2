@@ -13,7 +13,9 @@ $doctors = array('doctor1', 'doctor2', 'doctor3');
 <div class="row gutters">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card top-blue-bdr">
-            <div class="card-header">Customer Details</div> 
+            <div class="card-header">Customer Details
+                <a href="/customers/edit/{{ $customerDetail->id}}" class="btn btn-sm btn-primary pull-right">Edit</a>
+            </div> 
             <div class="card-body">
                 @if(Session::has('message'))
                 <div class="gutters row">
@@ -84,9 +86,29 @@ $doctors = array('doctor1', 'doctor2', 'doctor3');
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p>Address: {{ $customerDetail->address }}</p>
+                                        <p>City: {{ $customerDetail->city }}</p>
+                                        <p>Zip: {{ $customerDetail->zip }}</p>
+                                        <p>Plants: {{ $customerDetail->plants }}</p>
+                                        <p>Location: @foreach( $locations as $loc_key =>  $location )
+                                            {{ ($customerDetail->location == $loc_key+1) ?  $location : '' }}
+                                        @endforeach</p>
+                                        <p>Limit: {{ $customerDetail->limit }} @foreach( $limit_units as $lim_unit_key =>  $limit_unit )
+                                        {{ ($customerDetail->limit_unit == $lim_unit_key+1) ? $limit_unit : ''}}
+                                        @endforeach</p>
+                                        <p>Care Giver: @foreach( $care_givers as $car_giv_key =>  $care_giver )
+                                            {{ ($customerDetail->care_giver == $car_giv_key+1) ? $care_giver : ''}}
+                                        @endforeach</p>
                                     </div>
                                     <div class="col-md-6">
                                         <p>Apt/Suite: {{ $customerDetail->apt_suite }}</p>
+                                        <p>State: {{ $customerDetail->state }}</p>
+                                        <p>Sex: {{($customerDetail->sex == 1) ? 'Male' : 'Female'}} </p>
+                                        <p>Tax Exempt: {{ ($customerDetail->tax_exempt == 1) ? 'Yes' : 'No'}}</p>
+                                        <p>Is a vendor: {{ ($customerDetail->is_a_vendor == 1) ? 'Yes' : 'No'}}</p>
+                                        <p>Is a Care Giver: {{ ($customerDetail->is_a_care_giver == 1) ? 'Yes' : 'No'}}</p>
+                                        <p>Doctor: @foreach( $doctors as $doc_key =>  $doctor )
+                                        {{ ($customerDetail->doctor == $doc_key+1) ? $doctor : ''}}
+                                        @endforeach</p>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +124,18 @@ $doctors = array('doctor1', 'doctor2', 'doctor3');
                         </div>
                         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                             <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>No of Visits: {{ $customerDetail->no_of_visits }}</p>
+                                        <p>Points Remaining: {{ $customerDetail->points_remaining }}</p>
+                                        <p>Email Opt In: {{ ($customerDetail->email_opt_in == 1) ? 'Yes' : ''}}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Spent On Date: {{ $customerDetail->spent_on_date }}</p>
+                                        <p>Customer Referral: {{ $customerDetail->customer_referral }}</p>
+                                        <p>Text Messaging Opt-In: {{ ($customerDetail->text_messaging_opt_in == 1) ? 'Yes' : ''}}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,7 +149,19 @@ $doctors = array('doctor1', 'doctor2', 'doctor3');
                         </div>
                         <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
                             <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Details Came From: {{ $customerDetail->details_came_from }}</p>
+                                        <p>Audited: {{ ($customerDetail->audited == 0) ? 'No' : 'Yes'}}</p>
+                                        <p>Num Member Referrals: {{ $customerDetail->no_member_referrals }}</p>
+                                        <p>Member Referrals: {{ $customerDetail->member_referrals }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Sex: {{ ($customerDetail->details_came_from_male_female == 0) ? 'Female' : 'Male'}}</p>
+                                        <p>Got Birthday 1/8 ? : {{ ($customerDetail->got_birth_1_8 == 1) ? 'Yes' : 'No'}}</p>
+                                        <p>Referred By: {{ $customerDetail->referred_by }}</p>
+                                    </div>    
+                                </div>
                             </div>
                         </div>
                     </div>

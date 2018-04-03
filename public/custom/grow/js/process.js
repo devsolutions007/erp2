@@ -115,6 +115,7 @@ $("#bulk_add_grow").click(function(){
     add_plant_update(); 
 });
 
+
 function add_plant_update(){
 
     if( $("#sel_product_id").val() != "" && $("#rfid").val() != "" )
@@ -150,8 +151,9 @@ function add_plant_update(){
     }
 
 }
+// end add grow plant modal
 
-// move grow 
+// move grow plant modal
 
 $("#move_grow").click( function() {
     $("#modal_move_src").val($("#growArea").find('option:selected').text());
@@ -160,7 +162,9 @@ $("#move_grow").click( function() {
     $("#modal_checklist_count").val(check_count);
     $('#bulkMoveModal').modal('show');
 });
+// end move grow plant modal
 
+// bulk move plant modal
 $("#bulk_move_grow").click( function() {
     move_plant_update(); 
     $('#bulkMoveModal').modal('hide');
@@ -192,7 +196,7 @@ function move_plant_update(){
     });
 
 }
-
+// end bulk move plant modal
 // release grow modal 
 $("#release_grow").click( function() {
     $("#modal_release_src").val($("#growArea").find('option:selected').text() + " - " + $("#growRooms").find('option:selected').text());
@@ -231,6 +235,7 @@ function release_plant_update(){
     });
 
 }
+// end release grow modal 
 
 // remove grow table row
 $("#remove_grow").click( function() {
@@ -268,6 +273,48 @@ function remove_plant_update(){
 
 // File Upload events
 
+// start  delete  row from modal
+$("#addfile_modal_detail_data").on('click','.modal_row_delete',function(){
+    $(this).parent().remove();
+});
+// end delete row from modal
+
+// change state of grow function
+function change_state_modal( rfid  , this_tr )
+{
+    var state = $(this_tr).html();
+    var update_state;
+    if( state == '' )                   update_state = "clone";
+    if( state == 'clone' )              update_state = "vegetation";
+    if( state == 'vegetation' )         update_state = "flower";
+    if( state == 'flower' )             update_state = "Cutweigh-wet";
+    if( state == 'Cutweigh-wet' )       update_state = "harvest-drying";
+    if( state == 'harvest-drying' )     update_state = "harvest-curing";
+    if( state == 'harvest-curing' )     update_state = "clone";
+
+    $(this_tr).html(update_state);
+}
+// end chage state of grow
+
+// start auto complete product name
+function addAutoCompleteToStrain(totalView) {
+    for(var i=0 ; i < totalView ; i++ ) {
+        //alert("#productNameList"+i);
+         $( "#productNameList"+i ).autocomplete({
+            source: '/product/productNameList',
+            autoFocus:true,
+            minLength:2,
+            select: function(event,ui) {
+                $(this).val(ui.item.value);
+                $(this).prev('input').val(ui.item.id);
+            }
+        });
+    }
+} 
+
+// end auto complete  product name
+
+// Start Add  plant file upload Dialog
 $("#stock_file_add").change(function(){        
     var data = new FormData();
     data.append( 'file', $( '#stock_file_add' )[0].files[0] );
@@ -293,41 +340,9 @@ $("#stock_file_add").change(function(){
       }
     });
 });
-// delete  row from modal
-$("#addfile_modal_detail_data").on('click','.modal_row_delete',function(){
-    $(this).parent().remove();
-});
 
-// change state in modal
-function change_state_modal( rfid  , this_tr )
-{
-    var state = $(this_tr).html();
-    var update_state;
-    if( state == '' )                   update_state = "clone";
-    if( state == 'clone' )              update_state = "vegetation";
-    if( state == 'vegetation' )         update_state = "flower";
-    if( state == 'flower' )             update_state = "Cutweigh-wet";
-    if( state == 'Cutweigh-wet' )       update_state = "harvest-drying";
-    if( state == 'harvest-drying' )     update_state = "harvest-curing";
-    if( state == 'harvest-curing' )     update_state = "clone";
 
-    $(this_tr).html(update_state);
-}
 
-function addAutoCompleteToStrain(totalView) {
-    for(var i=0 ; i < totalView ; i++ ) {
-        //alert("#productNameList"+i);
-         $( "#productNameList"+i ).autocomplete({
-            source: '/product/productNameList',
-            autoFocus:true,
-            minLength:2,
-            select: function(event,ui) {
-                $(this).val(ui.item.value);
-                $(this).prev('input').val(ui.item.id);
-            }
-        });
-    }
-} 
 // file upload change room value event
 
 $("#fileupload_room_select").change(function(){        
@@ -439,416 +454,497 @@ $("#fileupload_add_success").click(function()
 
  //// //////////////////////////  End Add Plant Dialog   ///////////////////////////////////////////
 
-/////////////////////////////////  Start Move Plant Dialog   /////////////////////////////////////////
+// End Add Plant File Upload Dialog
+
+//Start Move Plant File upload Dialog 
 
 
-    $("#movefile_modal_detail_data").on('click','.modal_row_delete',function(){
-        $(this).parent().remove();
+$("#movefile_modal_detail_data").on('click','.modal_row_delete',function(){
+    $(this).parent().remove();
+});
+
+$("#stock_file_move").change(function(){        
+    var data = new FormData();
+    data.append( 'file', $( '#stock_file_move' )[0].files[0] );
+    $.ajax({
+        url: '/grow/plantAjaxFileUpload?action=file_upload_move_data_dialog&src_room=' + $("#growRooms option:selected").val() + '&dst_room=' + $("#move_select_dst").val()  ,
+        // dataType: 'html',
+        type: 'POST',
+        data: data,
+        cache: false,
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data)
+        {
+            $('#movefile_modal').modal('show');
+            $("#movefile_modal_detail_data").html(data);
+            $( "#stock_file_move" ).val("");
+
+            $("#move_select_src").val( $("#growRooms option:selected").text() ); 
+            $("#move_select_src").attr("disabled", "disabled");
+        }
     });
-
-    $("#stock_file_move").change(function(){        
-        var data = new FormData();
-        data.append( 'file', $( '#stock_file_move' )[0].files[0] );
-        $.ajax({
-            url: '/grow/plantAjaxFileUpload?action=file_upload_move_data_dialog&src_room=' + $("#growRooms option:selected").val() + '&dst_room=' + $("#move_select_dst").val()  ,
-            // dataType: 'html',
-            type: 'POST',
-            data: data,
-            cache: false,
-            processData: false, // Don't process the files
-            contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function(data)
-            {
-                $('#movefile_modal').modal('show');
-                $("#movefile_modal_detail_data").html(data);
-                $( "#stock_file_move" ).val("");
-
-                $("#move_select_src").val( $("#growRooms option:selected").text() ); 
-                $("#move_select_src").attr("disabled", "disabled");
-            }
-        });
-    });
+});
 
 
-    $("#fileupload_move_success").click(function()
+$("#fileupload_move_success").click(function()
+{
+var add_data = new Array();
+$("#modal_dialog_alert_move_data").removeClass("modal_dialog_alert_error");
+$("#modal_dialog_alert_move_data").removeClass("modal_dialog_alert_sucess");
+
+if( $("#move_select_src").val() != $("#move_select_dst option:selected").text() )
+{
+    for( i = 0 ; i < $("#totalview").val() ; i++ )
     {
-        var add_data = new Array();
-        $("#modal_dialog_alert_move_data").removeClass("modal_dialog_alert_error");
-        $("#modal_dialog_alert_move_data").removeClass("modal_dialog_alert_sucess");
-
-        if( $("#move_select_src").val() != $("#move_select_dst option:selected").text() )
+        if( $( "#fileupload_modal_rfid" + i ).html() && $( "#fileupload_state_area" + i ).html() )
         {
-            for( i = 0 ; i < $("#totalview").val() ; i++ )
-            {
-                if( $( "#fileupload_modal_rfid" + i ).html() && $( "#fileupload_state_area" + i ).html() )
-                {
-                add_data.push({
-                    r       : $( "#row"                       + i ).val()  ,
-                    c       : $( "#col"                       + i ).val()  ,
-                    RFID    : $( "#fileupload_modal_rfid"     + i ).html() ,
-                    state   : $( "#fileupload_state_area"     + i ).html() ,
-                });
-                }
-            }
-
-            $.ajax({
-                type: "POST",
-                url: '/grow/plantAjaxFileUpload' ,
-                data: {
-                    action      : 'fileupload_move_data',
-                    data        :  add_data ,
-                    src         : $("#move_select_src").val() ,
-                    dst         : $("#move_select_dst").val() ,
-                } ,
-                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-                success: function(data){
-                   getSearchResult();
-                    $("#modal_dialog_alert_move_data").text("Move the plants.");
-                    $("#modal_dialog_alert_move_data").addClass("modal_dialog_alert_sucess");
-                    $("#modal_dialog_alert_move_data" ).show(0).delay(1500).fadeOut().hide(0);
-                    setTimeout(function(){
-                        $('#movefile_modal').modal('hide');
-                        $(".movefile_modal_detail_data").empty();
-                    }, 1500);
-                }
-            });
-        }else{
-            $("#modal_dialog_alert_move_data").empty();
-            $("#modal_dialog_alert_move_data").text("Select other DST Room.");
-            $("#modal_dialog_alert_move_data").addClass("modal_dialog_alert_error");
-            $("#modal_dialog_alert_move_data" ).show(0).delay(2000).fadeOut().hide(0);
-        }
-
-    });
-
-    /////////////////////////////////  End Move Plant Dialog   /////////////////////////////////////////
-
-    /////////////////////////////////  Start Remove Plant Dialog   /////////////////////////////////////////
-
-
-    $("#removefile_modal_detail_data").on('click','.modal_row_delete',function(){
-        $(this).parent().remove();
-    });
-
-    $("#stock_file_remove").change(function(){        
-        var data = new FormData();
-        data.append( 'file', $( '#stock_file_remove' )[0].files[0] );
-        $.ajax({
-            url: '/grow/plantAjaxFileUpload?action=file_upload_remove_data_dialog' ,
-            // dataType: 'html',
-            type: 'POST',
-            data: data,
-            cache: false,
-            processData: false, // Don't process the files
-            contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function(data)
-            {
-                $('#removefile_modal').modal('show');
-                $("#removefile_modal_detail_data").html(data);
-
-                $( "#stock_file_remove" ).val("");
-            }
+        add_data.push({
+            r       : $( "#row"                       + i ).val()  ,
+            c       : $( "#col"                       + i ).val()  ,
+            RFID    : $( "#fileupload_modal_rfid"     + i ).html() ,
+            state   : $( "#fileupload_state_area"     + i ).html() ,
         });
-    });
+        }
+    }
 
-    $("#fileupload_remove_success").unbind( "click" );
-    $("#fileupload_remove_success").click(function(){
-        var add_data = new Array();
-        for( i = 0 ; i < $("#totalview").val() ; i++ )
+    $.ajax({
+        type: "POST",
+        url: '/grow/plantAjaxFileUpload' ,
+        data: {
+            action      : 'fileupload_move_data',
+            data        :  add_data ,
+            src         : $("#move_select_src").val() ,
+            dst         : $("#move_select_dst").val() ,
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+           getSearchResult();
+            $("#modal_dialog_alert_move_data").text("Move the plants.");
+            $("#modal_dialog_alert_move_data").addClass("modal_dialog_alert_sucess");
+            $("#modal_dialog_alert_move_data" ).show(0).delay(1500).fadeOut().hide(0);
+            setTimeout(function(){
+                $('#movefile_modal').modal('hide');
+                $(".movefile_modal_detail_data").empty();
+            }, 1500);
+        }
+    });
+}else{
+    $("#modal_dialog_alert_move_data").empty();
+    $("#modal_dialog_alert_move_data").text("Select other DST Room.");
+    $("#modal_dialog_alert_move_data").addClass("modal_dialog_alert_error");
+    $("#modal_dialog_alert_move_data" ).show(0).delay(2000).fadeOut().hide(0);
+}
+
+});
+
+//End Move Plant File Upload Dialog
+
+//Start Release Plant File Upload Dialog  
+$("#releasefile_modal_detail_data").on('click','.modal_row_delete',function(){
+    $(this).parent().remove();
+});
+
+$("#stock_file_release").change(function(){        
+    var data = new FormData();
+    data.append( 'file', $( '#stock_file_release' )[0].files[0] );
+    $.ajax({
+        url: '/grow/plantAjaxFileUpload?action=file_upload_release_data_dialog' ,
+        // dataType: 'html',
+        type: 'POST',
+        data: data,
+        cache: false,
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data)
         {
-            if( $( "#fileupload_modal_rfid" + i ).text() && $( "#fileupload_state_area" + i ).text() )
-            {
-            add_data.push({
-                RFID    : $( "#fileupload_modal_rfid"     + i ).html()  ,
-                src     : $( "#plant_srcid"     + i ).val() ,
-            });
-            }
+            $('#releasefile_modal').modal('show');
+            $("#releasefile_modal_detail_data").html(data);
+            $( "#stock_file_release" ).val("");
         }
-
-        $.ajax({
-            type: "POST",
-            url: '/grow/plantAjaxFileUpload' ,
-            data: {
-                action      : 'fileupload_remove_data',
-                data        :  add_data ,
-            } ,
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function(data){
-               getSearchResult();
-                $("#modal_dialog_alert_remove_data").text("Delete the plant data.");
-                $("#modal_dialog_alert_remove_data").addClass("modal_dialog_alert_sucess");
-                $("#modal_dialog_alert_remove_data" ).show(0).delay(1500).fadeOut().hide(0);
-                setTimeout(function(){
-                    $('#removefile_modal').modal('hide');
-                    $(".removefile_modal_detail_data").empty();
-                }, 1500);
-            }
-        });
-
     });
+});
 
-    /////////////////////////////////  Start State Change Plant Dialog   /////////////////////////////////////////
+$("#fileupload_release_success").unbind( "click" );
+$("#fileupload_release_success").click(function(){
 
-    $("#statefile_modal_detail_data").on('click','.modal_row_delete',function(){
-        $(this).parent().remove();
-    });
+    var add_data = new Array();
+    $("#modal_dialog_alert_release_data").removeClass("modal_dialog_alert_error");
+    $("#modal_dialog_alert_release_data").removeClass("modal_dialog_alert_sucess");
 
-    $("#stock_file_state").change(function(){        
-        var data = new FormData();
-        data.append( 'file', $( '#stock_file_state' )[0].files[0] );
-        $.ajax({
-            url: '/grow/plantAjaxFileUpload?action=file_upload_state_data_dialog' ,
-            // dataType: 'html',
-            type: 'POST',
-            data: data,
-            cache: false,
-            processData: false, // Don't process the files
-            contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function(data)
-            {
-                $('#statefile_modal').modal('show');
-                $("#statefile_modal_detail_data").html(data);
-
-                $( "#stock_file_state" ).val("");
-            }
-        });
-    });
-
-    $("#fileupload_state_success").unbind( "click" );
-    $("#fileupload_state_success").click(function(){
-        var add_data = new Array();
-        
-        for( i = 0 ; i < $("#totalview").val() ; i++ )
+    for( i = 0 ; i < $("#totalview").val() ; i++ )
+    {
+        if( $( "#fileupload_modal_rfid" + i ).text() && $( "#fileupload_state_area" + i ).text() )
         {
-            if( $( "#fileupload_modal_rfid" + i ).text() && $( "#fileupload_now_state" + i ).text() )
-            {
-            add_data.push({
-                RFID         : $( "#fileupload_modal_rfid"     + i ).html()  ,
-                now_state    : $( "#fileupload_now_state"      + i ).html()  ,
-                next_state   : $( "#fileupload_next_state"     + i ).html()  ,
-            });
-            }
-        }
-
-        $.ajax({
-            type: "POST",
-            url: '/grow/plantAjaxFileUpload' ,
-            data: {
-                action      : 'fileupload_state_data',
-                data        :  add_data ,
-            } ,
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function(data){
-               getSearchResult();
-                $("#modal_dialog_alert_state_data").text("Update plant state.");
-                $("#modal_dialog_alert_state_data").addClass("modal_dialog_alert_sucess");
-                $("#modal_dialog_alert_state_data" ).show(0).delay(1500).fadeOut().hide(0);
-                setTimeout(function(){
-                    $('#statefile_modal').modal('hide');
-                    $(".statefile_modal_detail_data").empty();
-                }, 1500);
-            }
+        add_data.push({
+            RFID    : $( "#fileupload_modal_rfid"     + i ).html()  ,
+            src     : $( "#plant_srcid"     + i ).val() ,
+            dst     : $( "#release_stock_plant" ).val() ,
         });
+        }
+    }
 
+    $.ajax({
+        type: "POST",
+        url: '/grow/plantAjaxFileUpload' ,
+        data: {
+            action      : 'fileupload_release_data',
+            data        :  add_data ,
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+           getSearchResult();
+            $("#modal_dialog_alert_release_data").text("Release plant data.");
+            $("#modal_dialog_alert_release_data").addClass("modal_dialog_alert_sucess");
+            $("#modal_dialog_alert_release_data" ).show(0).delay(1500).fadeOut().hide(0);
+            setTimeout(function(){
+                $('#releasefile_modal').modal('hide');
+                $("#releasefile_modal_detail_data").empty();
+            }, 1500);
+        }
     });
 
-    /////////////////////////////////  End State Change Plant Dialog   /////////////////////////////////////////
+});
+//End Release Plant File Upload Dialog 
+
+//Start Remove Plant Dialog  
+
+
+$("#removefile_modal_detail_data").on('click','.modal_row_delete',function(){
+    $(this).parent().remove();
+});
+
+$("#stock_file_remove").change(function(){        
+    var data = new FormData();
+    data.append( 'file', $( '#stock_file_remove' )[0].files[0] );
+    $.ajax({
+        url: '/grow/plantAjaxFileUpload?action=file_upload_remove_data_dialog' ,
+        // dataType: 'html',
+        type: 'POST',
+        data: data,
+        cache: false,
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data)
+        {
+            $('#removefile_modal').modal('show');
+            $("#removefile_modal_detail_data").html(data);
+
+            $( "#stock_file_remove" ).val("");
+        }
+    });
+});
+
+$("#fileupload_remove_success").unbind( "click" );
+$("#fileupload_remove_success").click(function(){
+    var add_data = new Array();
+    for( i = 0 ; i < $("#totalview").val() ; i++ )
+    {
+        if( $( "#fileupload_modal_rfid" + i ).text() && $( "#fileupload_state_area" + i ).text() )
+        {
+        add_data.push({
+            RFID    : $( "#fileupload_modal_rfid"     + i ).html()  ,
+            src     : $( "#plant_srcid"     + i ).val() ,
+        });
+        }
+    }
+
+    $.ajax({
+        type: "POST",
+        url: '/grow/plantAjaxFileUpload' ,
+        data: {
+            action      : 'fileupload_remove_data',
+            data        :  add_data ,
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+           getSearchResult();
+            $("#modal_dialog_alert_remove_data").text("Delete the plant data.");
+            $("#modal_dialog_alert_remove_data").addClass("modal_dialog_alert_sucess");
+            $("#modal_dialog_alert_remove_data" ).show(0).delay(1500).fadeOut().hide(0);
+            setTimeout(function(){
+                $('#removefile_modal').modal('hide');
+                $(".removefile_modal_detail_data").empty();
+            }, 1500);
+        }
+    });
+
+});
+
+//End Remove Plant Dialog  
+
+//Start State Change Plant Dialog
+
+$("#statefile_modal_detail_data").on('click','.modal_row_delete',function(){
+    $(this).parent().remove();
+});
+
+$("#stock_file_state").change(function(){        
+    var data = new FormData();
+    data.append( 'file', $( '#stock_file_state' )[0].files[0] );
+    $.ajax({
+        url: '/grow/plantAjaxFileUpload?action=file_upload_state_data_dialog' ,
+        // dataType: 'html',
+        type: 'POST',
+        data: data,
+        cache: false,
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data)
+        {
+            $('#statefile_modal').modal('show');
+            $("#statefile_modal_detail_data").html(data);
+
+            $( "#stock_file_state" ).val("");
+        }
+    });
+});
+
+$("#fileupload_state_success").unbind( "click" );
+$("#fileupload_state_success").click(function(){
+    var add_data = new Array();
+    
+    for( i = 0 ; i < $("#totalview").val() ; i++ )
+    {
+        if( $( "#fileupload_modal_rfid" + i ).text() && $( "#fileupload_now_state" + i ).text() )
+        {
+        add_data.push({
+            RFID         : $( "#fileupload_modal_rfid"     + i ).html()  ,
+            now_state    : $( "#fileupload_now_state"      + i ).html()  ,
+            next_state   : $( "#fileupload_next_state"     + i ).html()  ,
+        });
+        }
+    }
+
+    $.ajax({
+        type: "POST",
+        url: '/grow/plantAjaxFileUpload' ,
+        data: {
+            action      : 'fileupload_state_data',
+            data        :  add_data ,
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+           getSearchResult();
+            $("#modal_dialog_alert_state_data").text("Update plant state.");
+            $("#modal_dialog_alert_state_data").addClass("modal_dialog_alert_sucess");
+            $("#modal_dialog_alert_state_data" ).show(0).delay(1500).fadeOut().hide(0);
+            setTimeout(function(){
+                $('#statefile_modal').modal('hide');
+                $(".statefile_modal_detail_data").empty();
+            }, 1500);
+        }
+    });
+
+});
+
+//End State Change Plant Dialog
 
 /* Grow Area  Edit modal start */
 
-    function showEditGrowModal( name, type, licenceNumber, id) {
-        $('#editGrowAreaModal').modal('show');
-        $('#editName').val(name);
-        $('#editGrowAreaId').val(id)
-        $('#editLicenceNumber').val(licenceNumber);
-    }
+function showEditGrowModal( name, type, licenceNumber, id) {
+    $('#editGrowAreaModal').modal('show');
+    $('#editName').val(name);
+    $('#editGrowAreaId').val(id)
+    $('#editLicenceNumber').val(licenceNumber);
+}
 
 /* Grow Area  Edit modal end */
 
 /* Grow Area Remove */
 function removeGrowArea( id, name ) {
-        swal({
-          title: "Are you sure?",
-          text: "You want to delete Grow Area <b>"+name+"</b>.",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "Yes, delete it!",
-          closeOnConfirm: false,
-          html: true
-        },
-        function(){
-            $.ajax({
-                url: "/grow/growAreaAjax",
-                type: "post",
-                cache: false,
-                data: {"action": 'remove_grow_area', "id": id },
-                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-                success: function(result) {
-                    if ( result == 'success' ) {
-                        $( '#growAreaRow'+id ).remove();
-                        swal("Deleted!", "Grow Area has been deleted successfully.", "success"); 
-                    }
-                    else {
-                        swal("Something Went Wrong!!!");
-                    }
-                }
-            });
-        });
-    }
-    /* end*/
-
-    /* Growing Remove */
-function removeGrowing( id, name, key ) {
-        swal({
-          title: "Are you sure?",
-          text: "You want to delete Growing  <b>"+name+"</b>.",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "Yes, delete it!",
-          closeOnConfirm: false,
-          html: true
-        },
-        function(){
-            $.ajax({
-                url: "/grow/growingAjax",
-                type: "post",
-                cache: false,
-                data: {"action": 'remove_growing', "id": id },
-                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-                success: function(result) {
-                    if ( result == 'success' ) {
-                        $( '#growingRow'+key ).remove();
-                        swal("Deleted!", "Grow Area has been deleted successfully.", "success"); 
-                    }
-                    else {
-                        swal("Something Went Wrong!!!");
-                    }
-                }
-            });
-        });
-    }
-    /* end*/
-
-
-    /* Settings Page Js*/
-
-    /* Room Setting JS start */
-
-    var pubPath = '/grow/settings/roomAjax';
-    $("#area_select").change(function(){
+    swal({
+      title: "Are you sure?",
+      text: "You want to delete Grow Area <b>"+name+"</b>.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Yes, delete it!",
+      closeOnConfirm: false,
+      html: true
+    },
+    function(){
         $.ajax({
-                type: "POST",
-                url: pubPath,
-                data: {
-                    action : 'get_room_list' ,
-                    area_id : $("#area_select").val()
-                } ,
-                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-                success: function(data){
-                    $("#left_room_select" ).html( data );
-                    $("#left_room_select" ).trigger('change');
-                }
-        });
-    });
-    $("#area_select" ).trigger('change');
-
-    previewroom();
-
-    $("#left_room_select" ).change( function(){
-
-        $.ajax({
-            type: "POST",
-            url: pubPath,
-            data: {
-                action : 'get_room_setting' , 
-                room_id : $("#left_room_select").val()
-            } ,
+            url: "/grow/growAreaAjax",
+            type: "post",
+            cache: false,
+            data: {"action": 'remove_grow_area', "id": id },
             headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function( data ){
-                var room_setting = JSON.parse(data);
-                previewroom();
-                $("#room_rows").val( room_setting.rows );
-                $("#room_grow_day").val( room_setting.grow_days );
-                $("#room_alarm_days").val( room_setting.alarm_days );
-                $("#room_cols").val( room_setting.columns );
-                $("#room_offsetX").val( room_setting.offsetX );
-                $("#room_offsetY").val( room_setting.offsetY );
-                $("#room_cols_per").val( room_setting.col_per_block );
-                $("#room_hgap").val( room_setting.room_hgap );
-                $("#room_rows_per").val( room_setting.row_per_block );
-                $("#room_wgap").val( room_setting.room_wgap );
-                $("#room_cell_height").val( room_setting.cell_height );
-                $("#room_cell_width").val( room_setting.cell_width );
+            success: function(result) {
+                if ( result == 'success' ) {
+                    $( '#growAreaRow'+id ).remove();
+                    swal("Deleted!", "Grow Area has been deleted successfully.", "success"); 
+                }
+                else {
+                    swal("Something Went Wrong!!!");
+                }
             }
         });
-
     });
+}
+/* end*/
 
-    $("#save_setting").click(function(){
+/* Growing Remove */
+function removeGrowing( id, name, key ) {
+    swal({
+      title: "Are you sure?",
+      text: "You want to delete Growing  <b>"+name+"</b>.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Yes, delete it!",
+      closeOnConfirm: false,
+      html: true
+    },
+    function(){
         $.ajax({
+            url: "/grow/growingAjax",
+            type: "post",
+            cache: false,
+            data: {"action": 'remove_growing', "id": id },
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+            success: function(result) {
+                if ( result == 'success' ) {
+                    $( '#growingRow'+key ).remove();
+                    swal("Deleted!", "Grow Area has been deleted successfully.", "success"); 
+                }
+                else {
+                    swal("Something Went Wrong!!!");
+                }
+            }
+        });
+    });
+}
+/* end*/
+
+/* Grow settings page Js*/
+
+/* Room Setting JS start */
+
+var pubPath = '/grow/settings/roomAjax';
+$("#area_select").change(function(){
+    $.ajax({
             type: "POST",
             url: pubPath,
             data: {
-                action                  : 'update_room_setting' ,
-                room_id                 : $("#left_room_select").val() ,
-                rows                    : $("#room_rows").val() ,
-                grow_days               : $("#room_grow_day").val() ,
-                alarm_days              : $("#room_alarm_days").val() ,
-                columns                 : $("#room_cols").val() ,
-                offsetX                 : $("#room_offsetX").val() ,
-                offsetY                 : $("#room_offsetY").val() ,
-                col_per_block           : $("#room_cols_per").val() ,
-                room_hgap               : $("#room_hgap").val() ,
-                row_per_block           : $("#room_rows_per").val() ,
-                room_wgap               : $("#room_wgap").val() ,
-                cell_height             : $("#room_cell_height").val() ,
-                cell_width              : $("#room_cell_width").val() 
+                action : 'get_room_list' ,
+                area_id : $("#area_select").val()
             } ,
             headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
             success: function(data){
-                previewroom();
-                swal('Congrats','Settings Saved Successfully.', 'success');
+                $("#left_room_select" ).html( data );
+                $("#left_room_select" ).trigger('change');
             }
-        });
+    });
+});
+$("#area_select" ).trigger('change');
+
+previewroom();
+
+// change select room value  
+
+$("#left_room_select" ).change( function(){
+
+    $.ajax({
+        type: "POST",
+        url: pubPath,
+        data: {
+            action : 'get_room_setting' , 
+            room_id : $("#left_room_select").val()
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function( data ){
+            var room_setting = JSON.parse(data);
+            previewroom();
+            $("#room_rows").val( room_setting.rows );
+            $("#room_grow_day").val( room_setting.grow_days );
+            $("#room_alarm_days").val( room_setting.alarm_days );
+            $("#room_cols").val( room_setting.columns );
+            $("#room_offsetX").val( room_setting.offsetX );
+            $("#room_offsetY").val( room_setting.offsetY );
+            $("#room_cols_per").val( room_setting.col_per_block );
+            $("#room_hgap").val( room_setting.room_hgap );
+            $("#room_rows_per").val( room_setting.row_per_block );
+            $("#room_wgap").val( room_setting.room_wgap );
+            $("#room_cell_height").val( room_setting.cell_height );
+            $("#room_cell_width").val( room_setting.cell_width );
+        }
     });
 
+});
 
+// end change room value
 
-    function previewroom()
-    {
-        var option_type = $('option:selected', this).attr('rtype');
-    
-        $.ajax({
-            type: "GET",
-            url:  '/grow/getroomAjax',
-            data: {
-                action : 'get_room_setting' , 
-                room_id : $("#left_room_select").val()
-            } ,
-            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-            success: function(room_setting){
-                var room_setting = JSON.parse(room_setting);
-                $.ajax({
-                    type: "GET",
-                    url: '/grow/getplantAjax',
-                    data: {
-                        action : 'get_plant_list' ,
-                        room_id : $("#left_room_select").val(),
-                    } ,
-                    headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
-                    success: function(data){
-                        //var plantdata = JSON.parse(data);
-                        var plantdata = data;
-                        $("#left_room").empty();
-                        var LeftGroup  = new GrowBuild( "left_room" );
-                        LeftGroup.init( plantdata , room_setting , { uid : $("#left_room_select").val() , name : $("#left_room_select option:selected").text() , type : option_type } );
-                    }
-                });
-            }
-        });
-    }
+// save room settings
+
+$("#save_setting").click(function(){
+    $.ajax({
+        type: "POST",
+        url: pubPath,
+        data: {
+            action                  : 'update_room_setting' ,
+            room_id                 : $("#left_room_select").val() ,
+            rows                    : $("#room_rows").val() ,
+            grow_days               : $("#room_grow_day").val() ,
+            alarm_days              : $("#room_alarm_days").val() ,
+            columns                 : $("#room_cols").val() ,
+            offsetX                 : $("#room_offsetX").val() ,
+            offsetY                 : $("#room_offsetY").val() ,
+            col_per_block           : $("#room_cols_per").val() ,
+            room_hgap               : $("#room_hgap").val() ,
+            row_per_block           : $("#room_rows_per").val() ,
+            room_wgap               : $("#room_wgap").val() ,
+            cell_height             : $("#room_cell_height").val() ,
+            cell_width              : $("#room_cell_width").val() 
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(data){
+            previewroom();
+            swal('Congrats','Settings Saved Successfully.', 'success');
+        }
+    });
+});
+
+// end room setting
+
+// preview room settings
+
+function previewroom()
+{
+    var option_type = $('option:selected', this).attr('rtype');
+
+    $.ajax({
+        type: "GET",
+        url:  '/grow/getroomAjax',
+        data: {
+            action : 'get_room_setting' , 
+            room_id : $("#left_room_select").val()
+        } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+        success: function(room_setting){
+            var room_setting = JSON.parse(room_setting);
+            $.ajax({
+                type: "GET",
+                url: '/grow/getplantAjax',
+                data: {
+                    action : 'get_plant_list' ,
+                    room_id : $("#left_room_select").val(),
+                } ,
+                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+                success: function(data){
+                    //var plantdata = JSON.parse(data);
+                    var plantdata = data;
+                    $("#left_room").empty();
+                    var LeftGroup  = new GrowBuild( "left_room" );
+                    LeftGroup.init( plantdata , room_setting , { uid : $("#left_room_select").val() , name : $("#left_room_select option:selected").text() , type : option_type } );
+                }
+            });
+        }
+    });
+}
+
+// end preview room settings
