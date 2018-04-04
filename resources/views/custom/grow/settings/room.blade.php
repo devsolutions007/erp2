@@ -10,7 +10,6 @@
                     <div class="form-group col-md-2">
                         <label for="area_select" class="col-form-label">Grow Area</label>
                         <select id="area_select" class="form-control">
-                            <option value=""></option>
                             @foreach( $growAreas as $growArea )
                             <option value="{{ $growArea->id }}">{{ $growArea->name }}</option>
                             @endforeach
@@ -19,7 +18,6 @@
                     <div class="form-group col-md-2">
                         <label for="left_room_select" class="col-form-label">Rooms</label>
                         <select id="left_room_select" class="form-control">
-                            <option value=""></option>
                         </select>
                     </div>
                     <div class="form-group col-md-2">

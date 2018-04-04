@@ -110,6 +110,8 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('card','Product\ProductController@card');
         Route::post('getProduct','Product\ProductController@getProduct');
         Route::get('productNameList','Product\ProductController@productNameList');
+
+        Route::get('viewAllProducts','Product\ProductController@viewAllProducts');
     });
 
 

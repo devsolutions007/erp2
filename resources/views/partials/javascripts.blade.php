@@ -46,10 +46,13 @@
 
     <!-- sweet alert -->
     <script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
+    @if (Request::path() == 'grow/index')
+        <script src="{{ asset('custom/grow/js/process.js') }}"></script>
+    @endif
     @if (Request::path() == 'grow/settings/room')
 
     <!-- Grow JS -->
-    <script src="{{ asset('custom/grow/js/jquery.plainmodal.min.js') }}"></script>
+    <script src="{{ asset('custom/grow/js/growSettings.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/common/dragscroll.js') }}"></script>
     <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/common/jspdf.min.js') }}"></script>
@@ -79,9 +82,7 @@
     <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter_display.js') }}"></script> 
     @endif
     <!-- grow js -->
-    @if (Request::is('grow/*'))
-    <script src="{{ asset('custom/grow/js/process.js') }}"></script>
-    @endif
+    
     <!-- customer js -->
     @if (Request::is('customers/*'))
     <script type="text/javascript" src="{{ asset('js/customer.js') }}"></script> 

@@ -519,6 +519,9 @@ class GrowController extends Controller
             echo json_encode( $print_result );
         }
     }
+
+    /* Start search grow table data */
+
     public function ajaxSearchGrowTable(Request $request) {
 
         $grow_id    = $request->input('grow_id');
@@ -531,7 +534,7 @@ class GrowController extends Controller
         else
             $room_plant_time = "";
 
-        $product_lists = '';
+        $product_lists = [];
 
         if($request->input('mode') == 'searchResults') {
             if( $room_id == "all" ) {
@@ -539,19 +542,13 @@ class GrowController extends Controller
                                 ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
                                 ->leftJoin('product_grow_lists as m', 'm.id', '=', 's.room_id' )
                                 ->leftJoin('product as b', 'b.rowid', '=', 's.p_id')
-                                ->where('p.src', '=', 0)
-                                ->orWhere('p.dst', '<', 1)
+                                ->whereRaw('(p.src = 0 or p.dst < 1)')
                                 ->where('m.parent_id', '=', $grow_id)
                                 ->select('b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'm.name', DB::raw("SUM( ( case when (p.src = '".NULL."') then -p.qty else p.qty end ) ) AS stock_value"))
                                 ->groupBy('s.rfid');
                                 //->where('stock_value', '>', 0)
                 $product_lists = $query->get();
-
-                // $product_lists = DB::select('*')
-                //         ->from(DB::raw('SELECT b.label as p_name, p.rfid as rfid_value, s.p_id as rowid, s.birthdate as birthdate, s.col as col_val, s.rol as rol_val, s.parent_rfid as parent_rfid, as imgurl, s.state as state, m.name as room_name, SUM( case when (p.src = ) then p.qty else - p.qty end ) as stock_value FROM product_grow_movements as p LEFT JOIN product_grow_product_rfid as s on p.rfid = s.rfid LEFT JOIN product_grow_lists as m on m.id = s.room_id LEFT JOIN product as b on b.rowid = s.p_id WHERE ( (p.src = 0) or (p.dst < 1) ) and m.parent_id = 48 GROUP BY s.rfid as stable'))
-                //         ->where('stock_value', '>', 0)
-                //         ->get();
-
+                //return $product_lists;
             } else {
                 $query = DB::table('product_grow_movements as p')
                                 ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
@@ -561,13 +558,11 @@ class GrowController extends Controller
                                 
                 if( is_numeric( $room_id ) ) { 
 
-                    $query->where('p.src', '=', $room_id)
-                          ->orWhere('p.dst', '=', $room_id)
+                    $query->whereRaw('((p.src = '.$room_id.') or (p.dst = '.$room_id.'))')
                           ->where('m.parent_id', '=', $grow_id)
                           ->select('b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'n.name', DB::raw("SUM( ( case when (p.src = '".$room_id."') then -p.qty else p.qty end ) ) AS stock_value"));
                 } else {
-                    $query->where(DB::raw( "p.src in(select id from product_grow_lists where parent_id = '".$grow_id."'" ))
-                          ->orwhere(DB::raw( "p.dst in(select id from product_grow_lists where parent_id = '".$grow_id."'" ) )
+                    $query->whereRaw('(p.src in (select id from product_grow_lists where parent_id = '.$grow_id.' ) or (p.dst in (select id from product_grow_lists where parent_id = '.$grow_id.'))')
                           ->where('m.parent_id', '=', $grow_id)
                           ->select('b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'n.name', DB::raw("SUM( ( case when (p.src in(select id from product_grow_lists where parent_id = '".$grow_id."' ) then -p.qty else p.qty end ) ) AS stock_value"));
                 }
@@ -578,14 +573,14 @@ class GrowController extends Controller
 
                 if($product_id) $query->where('s.p_id', '=', $product_id);
                 //$query->where('stock_value', '>', 0); 
-                $product_lists = $query->get();
+                 $product_lists = $query->get();
 
                                
             }
             $data = '';
             $count = 1;
             $current = Carbon::now();
-            if(count($product_lists) > 0 ) {
+            if($product_lists != '') {
                 foreach ($product_lists as $key => $product) {
                     //if($product->stock_value > 0 ) {
                         $created = Carbon::parse($product->birthdate);
@@ -602,13 +597,20 @@ class GrowController extends Controller
                         $data .= '</tr>';
                     //}
                 }
+            } else {
+                $data = "<tr>Data not available</tr>";
             }
             echo $data;
             
         }
     }
-    
+    /* End Search gtow Table data */
+
+    /* Start grow modal function */
     public function ajaxRequestGrowModal(Request $request) {
+
+        /* add grow plant */
+
         if( $request->input('mode') == 'add_plant' )
         {
             $date    = $request->input('date');
@@ -619,7 +621,7 @@ class GrowController extends Controller
             $rol     = $request->input('rol');
             $col     = $request->input('col');
 
-            $new_date = date("Y-m-d", strtotime($date));
+            $date = date("Y-m-d", strtotime($date));
 
             $countRFID = ProductGrowProductRFID::where('rfid', '=', $rfid)->count();
             if($countRFID > 0) {
@@ -634,7 +636,7 @@ class GrowController extends Controller
         
                 $ProductGrowProductRFID->rfid = $rfid;
                 $ProductGrowProductRFID->p_id = $p_id;
-                $ProductGrowProductRFID->birthdate = $new_date;
+                $ProductGrowProductRFID->birthdate = $date;
                 $ProductGrowProductRFID->room_id = $src;
                 $ProductGrowProductRFID->col = $col;
                 $ProductGrowProductRFID->rol = $rol; 
@@ -646,13 +648,14 @@ class GrowController extends Controller
                 $ProductGrowMovement->rfid = $rfid;
                 $ProductGrowMovement->dst = $src;
                 $ProductGrowMovement->qty = 1;
-                $ProductGrowMovement->date = $new_date;
+                $ProductGrowMovement->date = $date;
                 $ProductGrowMovement->type = 'new';
                 $ProductGrowMovement->save();
                 echo "Success insert";
 
             }
         }
+        /* end grow plant*/
 
         if( $request->input('mode') == 'move_plant' )
         {

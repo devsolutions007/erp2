@@ -20,6 +20,12 @@ class ProductController extends Controller
         return view('product.index');
     }
 
+    public function viewAllProducts() {
+    	$products = Product::take(100)->get();
+    	$weight = Inventory::take(100)->get();
+    	return view('product.viewAllProducts', compact('products', 'weight'));
+    }
+
     public function createWareHouse() {
         
         return view('product.createWareHouse');

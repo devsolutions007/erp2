@@ -158,7 +158,7 @@
                         </span>
                         <span class="nav-title">Customers</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse in">
+                    <ul aria-expanded="false" class="collapse">
                         <li>
                             <a href="/customers/create" class="{{ Request::is('customers/create') ? 'active selected' : ''}}">Create</a>
                         </li>
@@ -167,13 +167,21 @@
                         </li>
                     </ul>
                 </li>
-                <li class="{{ Request::is('') ? 'active' : ''}}">
-                    <a href="/product/index?productMenu=visible">
+                <li class="{{ Request::is('product/*') ? 'active selected' : ''}}">
+                    <a href="#" class="has-arrow" aria-expanded="false">
                         <span class="has-icon">
                             <i class="icon-tabs-outline"></i>
                         </span>
-                        <span class="nav-title">Product | Services</span>
+                        <span class="nav-title">Products</span>
                     </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <!-- <li>
+                            <a href="/customers/create" class="{{ Request::is('customers/create') ? 'active selected' : ''}}">Create</a>
+                        </li> -->
+                        <li>
+                            <a href="/product/viewAllProducts" class="">View All</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="{{ Request::is('') ? 'active' : ''}}">
                     <a href="#">
