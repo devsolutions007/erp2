@@ -139,7 +139,7 @@ body {
 .addfile_modal_detail_header p{
     display: inline-block;
 }
-.fileupload_modal_number_area{
+/*.fileupload_modal_number_area{
     width: 30px;
 }
 .fileupload_modal_delete_area{
@@ -165,7 +165,7 @@ body {
 .fileupload_modal_plant_area{
     width: 200px;
     text-align: center;
-}
+}*/
 .fileupload_modal_detail_font{
     font-size: 15px;
 }
