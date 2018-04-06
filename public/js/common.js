@@ -92,8 +92,8 @@ $('.close-session-message').click( function() {
 });
 
 // initialize datatable
-$(function(){
-	$('#datatableInitialize').DataTable({
-		'iDisplayLength': 10,
-	});
-});
+// $(function(){
+// 	$('#datatableInitialize').DataTable({
+// 		'iDisplayLength': 10,
+// 	});
+// });

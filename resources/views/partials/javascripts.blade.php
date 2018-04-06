@@ -49,6 +49,12 @@
     @if (Request::path() == 'grow/index')
         <script src="{{ asset('custom/grow/js/process.js') }}"></script>
     @endif
+    @if (Request::path() == 'grow/growArea')
+        <script src="{{ asset('custom/grow/js/growArea.js') }}"></script>
+    @endif
+    @if (Request::is('grow/growing/*'))
+        <script src="{{ asset('custom/grow/js/growing.js') }}"></script>
+    @endif
     @if (Request::path() == 'grow/settings/room')
 
     <!-- Grow JS -->

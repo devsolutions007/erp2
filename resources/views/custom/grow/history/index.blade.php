@@ -14,7 +14,7 @@
                                 <label for="growArea" class="col-form-label">Grow Area</label>
                                 <select name="growArea" class="form-control show-tick">
                                     @foreach ($growAreas as $key => $growArea): ?>
-                                    <option value="{{$growArea->id}}">{{$growArea->name}}</option>
+                                    <option value="{{$growArea->id}}" {{ ($move_src == $growArea->id ) ? 'selected' : ''}}>{{$growArea->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="" class="col-form-label">Metric ID</label>
-                                <input type="type" name="metricId" class="form-control" id="" placeholder="">
+                                <input type="type" value="{{$rfid}}" name="metricId" class="form-control" id="" placeholder="">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="" class="col-form-label" style="opacity: 0; display: block;">Search</label>

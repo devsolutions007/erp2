@@ -125,7 +125,21 @@ function ToggleFullScreen()
     }   
 }
 
-
+// start auto complete product name
+function addAutoCompleteToStrain(totalView) {
+    for(var i=0 ; i < totalView ; i++ ) {
+        //alert("#productNameList"+i);
+         $( "#productNameList"+i ).autocomplete({
+            source: '/product/productNameList',
+            autoFocus:true,
+            minLength:2,
+            select: function(event,ui) {
+                $(this).val(ui.item.value);
+                $(this).prev('input').val(ui.item.id);
+            }
+        });
+    }
+} 
 
 
 
@@ -176,12 +190,13 @@ function setFileUploadButtonForAddActionEventHander( room_id )
 
             $.ajax({
                 type: "POST",
-                url: '../../class/engine/plantAjaxFileUpload.php' ,
+                url: '/grow/plantAjaxFileUpload' ,
                 data: {
                     action      : 'fileupload_add_data_check',
                     room_id     : $("#fileupload_room_select").val()  ,
                     data        : add_data
                 } ,
+                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
                 success: function(data){
                     var data = JSON.parse(data);
 
@@ -189,23 +204,20 @@ function setFileUploadButtonForAddActionEventHander( room_id )
                     {
                         $.ajax({
                             type: "POST",
-                            url: '../../class/engine/plantAjaxFileUpload.php' ,
+                            url: '/grow/plantAjaxFileUpload' ,
                             data: {
                                 action      : 'fileupload_add_data',
                                 data        : add_data ,
                                 room_id     : $("#fileupload_room_select").val(),
                             } ,
+                            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
                             success: function(data){
                                 
                                 GlobalLayout.reload_data( room_id );
                                 $("#modal_dialog_alert_add_data").empty();
-                                $("#modal_dialog_alert_add_data").text("Successfully uploaded");
-                                $("#modal_dialog_alert_add_data").addClass("modal_dialog_alert_sucess");
-                                $("#modal_dialog_alert_add_data" ).show(0).delay(2000).fadeOut().hide(0);
-                                setTimeout(function(){
-                                    $('#addfile_modal').plainModal('close');
-                                    $(".addfile_modal_detail_data").empty();
-                                }, 2000);
+                                swal("Congrats", "Plant added successfully.", "success");
+                                $('#addPlantUploadModal').modal('hide');
+                                $(".addfile_modal_detail_data").empty();
                             }
                         });
                     } else {
@@ -242,11 +254,12 @@ function setFileUploadButtonForMoveActionEventHander( room_id )
 {
     $("#fileupload_move_success").unbind( "click" );
     
-    $("#move_select_src").val( $( "#" + room_id + "_select option:selected").val() ); 
+    $("#move_select_src").val( $( "#" + room_id + "_select option:selected").text() ); 
     $("#move_select_src").attr("disabled", "disabled");
 
 
     $("#fileupload_move_success").click(function(){
+        $("#move_select_src").val( $( "#" + room_id + "_select option:selected").val() ); 
         var add_data = new Array();
         $("#modal_dialog_alert_move_data").removeClass("modal_dialog_alert_error");
         $("#modal_dialog_alert_move_data").removeClass("modal_dialog_alert_sucess");
@@ -268,22 +281,19 @@ function setFileUploadButtonForMoveActionEventHander( room_id )
 
             $.ajax({
                 type: "POST",
-                url: '../../class/engine/plantAjaxFileUpload.php' ,
+                url: '/grow/plantAjaxFileUpload' ,
                 data: {
                     action      : 'fileupload_move_data',
                     data        :  add_data ,
                     src         : $("#move_select_src").val() ,
                     dst         : $("#move_select_dst").val() ,
                 } ,
+                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
                 success: function(data){
                     GlobalLayout.reload_data( room_id );
-                    $("#modal_dialog_alert_move_data").text("Move the plants.");
-                    $("#modal_dialog_alert_move_data").addClass("modal_dialog_alert_sucess");
-                    $("#modal_dialog_alert_move_data" ).show(0).delay(1500).fadeOut().hide(0);
-                    setTimeout(function(){
-                        $('#movefile_modal').plainModal('close');
-                        $(".movefile_modal_detail_data").empty();
-                    }, 1500);
+                    swal("Congrats", "Plants moved successfully.", "success");
+                    $('#movefile_modal').modal('hide');
+                    $(".movefile_modal_detail_data").empty();
                 }
             });
         }else{
@@ -319,20 +329,17 @@ function setFileUploadButtonForReleaseActionEventHander( room_id )
 
         $.ajax({
             type: "POST",
-            url: '../../class/engine/plantAjaxFileUpload.php' ,
+            url: '/grow/plantAjaxFileUpload' ,
             data: {
                 action      : 'fileupload_release_data',
                 data        :  add_data ,
             } ,
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
             success: function(data){
                 GlobalLayout.reload_data( room_id );
-                $("#modal_dialog_alert_release_data").text("Release plant data.");
-                $("#modal_dialog_alert_release_data").addClass("modal_dialog_alert_sucess");
-                $("#modal_dialog_alert_release_data" ).show(0).delay(1500).fadeOut().hide(0);
-                setTimeout(function(){
-                    $('#releasefile_modal').plainModal('close');
-                    $(".releasefile_modal_detail_data").empty();
-                }, 1500);
+                swal("Congrats", "Plants released successfully.", "success");
+                $('#releasefile_modal').modal('hide');
+                $("#releasefile_modal_detail_data").empty();
             }
         });
     });
@@ -358,20 +365,17 @@ function setFileUploadButtonForRemoveActionEventHander( room_id )
 
         $.ajax({
             type: "POST",
-            url: '../../class/engine/plantAjaxFileUpload.php' ,
+            url: '/grow/plantAjaxFileUpload' ,
             data: {
                 action      : 'fileupload_remove_data',
                 data        :  add_data ,
             } ,
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
             success: function(data){
                 GlobalLayout.reload_data( room_id );
-                $("#modal_dialog_alert_remove_data").text("Delete the plant data.");
-                $("#modal_dialog_alert_remove_data").addClass("modal_dialog_alert_sucess");
-                $("#modal_dialog_alert_remove_data" ).show(0).delay(1500).fadeOut().hide(0);
-                setTimeout(function(){
-                    $('#removefile_modal').plainModal('close');
-                    $(".removefile_modal_detail_data").empty();
-                }, 1500);
+                swal("Congrats", "Plant deleted succeesfully.", "success");
+                $('#removefile_modal').modal('hide');
+                $(".removefile_modal_detail_data").empty();
             }
         });
 
@@ -400,20 +404,17 @@ function setFileUploadButtonForStateActionEventHander( room_id )
 
         $.ajax({
             type: "POST",
-            url: '../../class/engine/plantAjaxFileUpload.php' ,
+            url: '/grow/plantAjaxFileUpload' ,
             data: {
                 action      : 'fileupload_state_data',
                 data        :  add_data ,
             } ,
+            headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
             success: function(data){
                 GlobalLayout.reload_data( room_id );
-                $("#modal_dialog_alert_state_data").text("Update plant state.");
-                $("#modal_dialog_alert_state_data").addClass("modal_dialog_alert_sucess");
-                $("#modal_dialog_alert_state_data" ).show(0).delay(1500).fadeOut().hide(0);
-                setTimeout(function(){
-                    $('#statefile_modal').plainModal('close');
-                    $(".statefile_modal_detail_data").empty();
-                }, 1500);
+                swal("Congrats", "Plants state updated succeesfully.", "success");
+                $('#statefile_modal').modal('hide');
+                $(".statefile_modal_detail_data").empty();
             }
         });
 

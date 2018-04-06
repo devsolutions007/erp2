@@ -8,17 +8,21 @@
                     <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addGrowAreaModal">Add New</button>
                 </div>
                 <div class="card-body">
-                    <!-- <div class="form-row">
-                        <div class="form-group col-md-12 pull-right">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addGrowAreaModal">Add Grow Area</button>
-                        </div>
-                    </div> --> 
+                    @if(Session::has('message'))
+                    <div class="gutters row">
+                        <div class="col-md-12 session-message">
+                            <p class="alert {{ Session::get('alert-class') }}">{{ Session::get('message') }}<button type="button" class="close-session-message close pull-right" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button></p>
+                        </div> 
+                    </div>   
+                    @endif
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-striped m-0">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Register Date</th>
                                         <th>Administrator</th>
@@ -27,11 +31,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $count = 1; $parent_id = 1;  ?>
                                     @foreach( $growAreas as $key => $growArea )
                                        <tr id="growAreaRow{{$growArea->id}}">
-                                            <th scope="row">{{ $count }}</th>
-                                            <td id='growName{{$key}}'>{{ $growArea->name }}</td>
+                                            <th scope="row">#</th>
+                                            <th id='growName{{$key}}'>{{ $growArea->name }}</th>
                                             <td>{{ $growArea->reg_date }}</td>
                                             <td>{{ $growArea->owner }} </td>
                                             <td><?php 
@@ -42,14 +45,15 @@
                                                     if($growArea->type =="5")  $type =  "Harvest-drying";
                                                     if($growArea->type =="6")  $type =  "Harvest-curing";
                                                     if($growArea->type =="7")  $type =  "Cutweigh-wet"; ?> {{ $type }}</td>
-                                                    <td><button class="btn btn-sm btn-primary" onclick='showEditGrowModal("{{$growArea->name}}", "{{$type}}", "{{$growArea->licence_num}}", "{{$growArea->id}}")'>Edit</button>
+                                                    <td><button class="btn btn-sm btn-primary" onclick='showEditGrowModal("{{$growArea->name}}", "{{$growArea->type}}", "{{$growArea->licence_num}}", "{{$growArea->id}}")'>Edit</button>
 
                                                         <button class="btn btn-sm btn-warning removeGrowArea" onclick='removeGrowArea( "{{$growArea->id}}", "{{$growArea->name}}" )'>Remove</button></td>
                                         </tr>
+                                        <?php $count= 1;?>
                                         @foreach( $growRooms as $growRoom )
-                                        <?php if($growRoom->parent_id == $parent_id) { ?>
+                                        <?php if($growRoom->parent_id == $growArea->id) { ?>
                                         <tr id="growAreaRow{{$growRoom->id}}">
-                                            <th scope="row">{{ $count+1 }}</th>
+                                            <th scope="row">{{ $count }}</th>
                                             <td>{{ $growRoom->name }}</td>
                                             <td>{{ $growRoom->reg_date }}</td>
                                             <td>{{ $growRoom->owner }}</td>
@@ -61,14 +65,12 @@
                                                     if($growRoom->type =="5")  $type =  "Harvest-drying";
                                                     if($growRoom->type =="6")  $type =  "Harvest-curing";
                                                     if($growRoom->type =="7")  $type =  "Cutweigh-wet"; ?> {{ $type }}</td>
-                                            <td><button class="btn btn-sm btn-primary" onclick='showEditGrowModal("{{$growRoom->name}}", "{{$type}}", "{{$growRoom->licence_num}}", "{{$growRoom->id}}")'>Edit</button>
+                                            <td><button class="btn btn-sm btn-primary" onclick='showEditGrowModal("{{$growRoom->name}}", "{{$growRoom->type}}", "{{$growRoom->licence_num}}", "{{$growRoom->id}}")'>Edit</button>
 
-                                                        <button class="btn btn-sm btn-warning removeGrowArea" onclick='removeGrowArea( "{{$growRoom->id}}", "{{$growRoom->name}}" )'>Remove</button></td>
+                                                <button class="btn btn-sm btn-warning removeGrowArea" onclick='removeGrowArea( "{{$growRoom->id}}", "{{$growRoom->name}}" )'>Remove</button></td>
                                         </tr> 
-                                        
-                                        <?php $count++; }  ?> 
+                                        <?php $count++; } ?>
                                         @endforeach
-                                        <?php $parent_id = 48; ?>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -102,29 +104,13 @@
                             <div class="form-group row gutters">
                                 <label for="addGrowAreaGrowArea" class="col-sm-3 col-form-label">Type</label>
                                 <div class="col-sm-9">
-                                    
-                                    <select name="type" class="form-control">
-                                        @foreach( $growRooms as $growRoom )
-                                        <?php if($growRoom->parent_id == 1) { ?>
-                                        <?php 
-                                            $type = 'Grow';
-                                            if($growRoom->type =="2")  $type =  "Clone";
-                                            if($growRoom->type =="3")  $type =  "Vegetation";
-                                            if($growRoom->type =="4")  $type =  "Flower";
-                                            if($growRoom->type =="5")  $type =  "Harvest-drying";
-                                            if($growRoom->type =="6")  $type =  "Harvest-curing";
-                                            if($growRoom->type =="7")  $type =  "Cutweigh-wet"; ?> <option value="{{$growRoom->type}}">{{ $type }}</option>
-                                            
-                                        <?php  }  ?> 
-                                        @endforeach
-                                    </select>
-
+                                    <input type="text" name="type" value="Grow" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label for="addGrowAreaProduct" class="col-sm-3 col-form-label">Licence Number</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" placeholder="Enter Licence" name="liscence_number" type="text">
+                                    <input class="form-control" placeholder="Enter Licence" name="licence_number" type="text">
                                 </div>
                             </div>
                             
@@ -166,19 +152,13 @@
                                 <div class="col-sm-9">
                                     
                                     <select id="editType" name="type" class="form-control">
-                                        @foreach( $growRooms as $growRoom )
-                                        <?php if($growRoom->parent_id == 1) { ?>
-                                        <?php 
-                                            $type = 'Grow';
-                                            if($growRoom->type =="2")  $type =  "Clone";
-                                            if($growRoom->type =="3")  $type =  "Vegetation";
-                                            if($growRoom->type =="4")  $type =  "Flower";
-                                            if($growRoom->type =="5")  $type =  "Harvest-drying";
-                                            if($growRoom->type =="6")  $type =  "Harvest-curing";
-                                            if($growRoom->type =="7")  $type =  "Cutweigh-wet"; ?> <option value="{{$growRoom->type}}">{{ $type }}</option>
-                                            
-                                        <?php  }  ?> 
-                                        @endforeach
+                                        <option value='1'>Grow</option>
+                                        <option value='2'>Clone</option>
+                                        <option value='3'>Vegetation</option>
+                                        <option value='4'>Flower</option>
+                                        <option value='7'>Cutweigh-wet</option>
+                                        <option value='5'>Harvest-drying</option>
+                                        <option value='6'>Harvest-curing</option>
                                     </select>
 
                                 </div>

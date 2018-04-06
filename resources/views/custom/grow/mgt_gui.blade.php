@@ -28,6 +28,8 @@
     <script src="{{ asset('js/tether.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.2/umd/popper.min.js"></script>
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
 
     <!-- Grow JS -->
     <script src="{{ asset('custom/grow/js/jquery.plainmodal.min.js') }}"></script>
@@ -126,7 +128,231 @@
             </div>
         </div>    
     </div>
+    <!-- File Uplaod Modal -->
+    <!-- Add plant by upload modal start-->
+    <div class="modal fade" id="addPlantUploadModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPlantUploadModalLabel">Add Plant</h5>
+                    <div>
+                        <select id="fileupload_room_select" class="form-control">
+                            <option value="all">All</option>
+                            @if($growRooms)
+                                @foreach( $growRooms as $growRoom )
+                                <option value="{{ $growRoom->id }}">{{ $growRoom->name }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Row / Col</th>
+                                    <th>State</th>
+                                    <th>Strain</th>
+                                    <th>Parent Metric Id</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="addfile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
+                        <p class="alert alert-warning" id="modal_dialog_alert_add_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_add_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Add Plant modal by upload file end -->
+
+    <!-- Move Plant by upload modal start-->
+    <div class="modal fade" id="movefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-3" id="movefile_modalLabel">Move Plant</h5>
+                    <div class="col-md-1">
+                        <label for="move_select_src" class="col-form-label">Source</label>
+                    </div>
+                    <div class="col-md-3">   
+                        <input class="form-control" id="move_select_src" placeholder="Source" type="text" readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="move_select_dst" class="col-sm-3 col-form-label">Destination</label>
+                    </div>
+                    <div class="col-md-3">    
+                        <select id="move_select_dst" class="form-control show-tick"></select>
+                    </div>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Source Row/Col</th>
+                                    <th>Destination Row/Col</th>
+                                    <th>State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="movefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="alert alert-warning" id="modal_dialog_alert_move_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_move_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Move Plant modal by upload file end -->
+
+
+    <!-- Release Plant by upload modal start-->
+    <div class="modal fade" id="releasefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-9" id="releasefile_modalLabel">Release Plant</h5>
+                    <select id="release_stock_plant" class="col-md-3 form-control show-tick">
+                            <option value=""></option>
+                        @if($warehouseList)
+                            @foreach($warehouseList as $warehouse)
+                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Room</th>
+                                    <th>Source Row/Col</th>
+                                    <th>State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="releasefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
+                        <p class="alert alert-warning" id="modal_dialog_alert_release_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_release_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Release Plant modal by upload file end -->
+
+     <!-- Remove Plant by upload modal start-->
+    <div class="modal fade" id="removefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-9" id="removefile_modalLabel">Remove Plant</h5>
+                    <select id="idwarehouse" class="col-md-3 form-control show-tick">
+                            <option value=""></option>
+                        @if($warehouseList)
+                            @foreach($warehouseList as $warehouse)
+                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="div-scroll">
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Room</th>
+                                    <th>Source Row/Col</th>
+                                    <th>State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="removefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
+                        <p class="alert alert-warning" id="modal_dialog_alert_remove_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_remove_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Remove Plant modal by upload file end -->
+
+    <!-- State Change Plant by upload modal start-->
+    <div class="modal fade" id="statefile_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-9" id="removefile_modalLabel">State Change Plant</h5>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="div-scroll">
+
+                            <table class="table table-sm m-0 modal-table-style">
+                                <thead>
+                                    <th>SL No</th>
+                                    <th>Metric Id</th>
+                                    <th>Room</th>
+                                    <th>Source Row/Col</th>
+                                    <th>Now State</th>
+                                    <th>Next State</th>
+                                    <th>x</th>
+                                </thead>
+                                <tbody id="statefile_modal_detail_data">
+                                    
+                                </tbody>
+                            </table>
+                        </div>    
+                        <p class="alert alert-warning" id="modal_dialog_alert_state_data" style="display: none; color: #da1113;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="fileupload_state_success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- State Change Plant modal by upload file end -->
     <!-- Common JS -->
     <script src="{{ asset('js/common.js') }}"></script>
+    <!-- sweet alert -->
+    <script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
 </body>
 </html>

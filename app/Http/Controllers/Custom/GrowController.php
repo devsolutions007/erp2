@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Custom;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\ProductGrowList;
@@ -22,61 +23,92 @@ use Session;
 class GrowController extends Controller
 {
     
-    public function index() {
-
+    public function index() 
+    {
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $growRooms = ProductGrowList::where( 'parent_id', '=', 1 )->get();
         $warehouseList = Entrepot::all();
         return view('custom.grow.index', compact('growAreas', 'growRooms', 'warehouseList'));
     }
 
-    public function growArea() {
+    public function growArea() 
+    {
         
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
         return view('custom.grow.growArea', compact('growAreas', 'growRooms'));
     }
 
-    public function growAreaAdd(Request $request) {
-        
-        $productGrowList = new ProductGrowList;
+    public function growAreaAdd(Request $request) 
+    {
+        $date = date('Y-m-d');
+        $user = Auth::user()->username;
 
+        $productGrowList = new ProductGrowList;
         $productGrowList->name =  $request->input('name');
-        $productGrowList->type =  $request->input('type');
+        $productGrowList->type =  1;
         $productGrowList->licence_num = $request->input('licence_number');
-        $productGrowList->reg_date = date('Y-m-d');
+        $productGrowList->reg_date = $date;
         $productGrowList->parent_id = 0;
-        $productGrowList->owner = 'SuperAdmin';
+        $productGrowList->owner = $user;
+        $productGrowList->save();
+        $data = array(
+                    array('parent_id'=> $productGrowList->id, 'name'=>'clone', 'reg_date' => $date, 'owner' => $user ,'type'=>2),
+                    array('parent_id'=> $productGrowList->id, 'name'=>'Vegetation', 'reg_date' => $date, 'owner' => $user ,'type'=>3),
+                    array('parent_id'=> $productGrowList->id, 'name'=>'Flower', 'reg_date' => $date, 'owner' => $user ,'type'=>4),
+                    array('parent_id'=> $productGrowList->id, 'name'=>'Cutweigh-wet', 'reg_date' => $date, 'owner' => $user ,'type'=>7),
+                    array('parent_id'=> $productGrowList->id, 'name'=>'Harvest-drying', 'reg_date' => $date, 'owner' => $user ,'type'=>5),
+                    array('parent_id'=> $productGrowList->id, 'name'=>'Harvest-curing', 'reg_date' => $date, 'owner' => $user ,'type'=>6)
+                );
+        ProductGrowList::insert($data);
+
+        Session::flash('message', 'Succesfully added'); 
+        Session::flash('alert-class', 'alert-success');
+        return redirect('grow/growArea?growMenu=visible');
+    }
+    
+    public function growAreaEdit(Request $request) {
+        
+        $date = date('Y-m-d');
+        $user = Auth::user()->username;
+        $productGrowList = ProductGrowList::find($request->input('editGrowAreaId'));
+        $productGrowList->name =  $request->input('name');
+        if($productGrowList->type != 1) {
+            $productGrowList->type =  $request->input('type');
+        }
+        
+        $productGrowList->licence_num = $request->input('licence_number');
+        $productGrowList->reg_date = $date;
+        $productGrowList->owner = $user;
         $productGrowList->save();
 
-        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
-        $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
-        return view('custom.grow.growArea', compact('growAreas', 'growRooms'));
+        Session::flash('message', 'Succesfully updated'); 
+        Session::flash('alert-class', 'alert-success');
+        return redirect('grow/growArea?growMenu=visible');
     }
+    // delete grow area 
     public function growAreaAjax(Request $request) 
     {
         if($request->input('action') == 'remove_grow_area') 
         {
             $productGrowList = ProductGrowList::find($request->input('id'));
-            $productGrowList->delete();
+            if($productGrowList->type == 1) 
+            {
+                $productGrowListRooms = ProductGrowList::where('parent_id', $productGrowList->id)->get();
+                foreach ($productGrowListRooms as $productGrowListRoom) {
+                    $productGrowListRoom->delete();
+                }
+                $productGrowList->delete();
+
+            } else {
+                $productGrowList->delete();
+            }
+            
             echo "success"; 
         }
     }
-    public function growAreaEdit(Request $request) {
-        
-        $productGrowList = ProductGrowList::find($request->input('editGrowAreaId'));
-        $productGrowList->name =  $request->input('name');
-        $productGrowList->type =  $request->input('type');
-        $productGrowList->licence_num = $request->input('licence_number');
-        $productGrowList->reg_date = date('Y-m-d');
-        $productGrowList->parent_id = 0;
-        $productGrowList->owner = 'SuperAdmin';
-        $productGrowList->save();
+    // delete grow area
 
-        $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
-        $growRooms = ProductGrowList::where( 'parent_id', '>', 0 )->get();
-        return view('custom.grow.growArea', compact('growAreas', 'growRooms'));
-    }
     public function room() 
     {
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
@@ -201,6 +233,7 @@ class GrowController extends Controller
 
         if(request()->growMode == 'new') 
         {
+            $query->where('b.date', '=', $date)->where('b.type', '=', request()->growMode);
             $query->select('d.label as label', 'a.rfid as rfid', 'c.name as srcname', 'a.parent_rfid as parent_rfid');
         }
         if(request()->growMode == 'move') 
@@ -330,8 +363,8 @@ class GrowController extends Controller
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $startdate = date("Y-m-01");
         $lastdate = date("Y-m-d");
-        $currentMonth = date('m');
-        $currentYear = date('Y');
+        $move_src = '';
+        $rfid = '';
 
         $histories = DB::table('product_grow_movements as p')
                         ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
@@ -343,11 +376,12 @@ class GrowController extends Controller
                         ->groupBy('s.rfid')
                         ->get();
 
-        return view('custom.grow.history.index', compact('histories', 'startdate', 'lastdate', 'growAreas'));
+        return view('custom.grow.history.index', compact('histories', 'startdate', 'lastdate', 'growAreas', 'move_src', 'rfid'));
     }
 
     public function historySearchResult(Request $request) 
     {
+        $rfid = '';
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $startdate = date("Y-m-d", strtotime($request->input('startdate')));
         $lastdate = date("Y-m-d", strtotime($request->input('lastdate')));
@@ -361,7 +395,6 @@ class GrowController extends Controller
                         ->leftJoin('product_grow_lists as d', 'd.id', '=', 'p.dst' )
                         ->whereBetween('p.date', [$startdate, $lastdate])
                         ->where('c.parent_id', $move_src)
-                        //->orWhere('d.parent_id', 1)
                         ->where('p.rfid', $rfid)
                         ->select('s.p_id as productid', 'p.date as date', 'b.label as label', 'p.rfid as rfid', 'c.name as srcname', 'd.name as dstname')
                         ->groupBy('s.rfid')
@@ -374,24 +407,26 @@ class GrowController extends Controller
                         ->leftJoin('product_grow_lists as d', 'd.id', '=', 'p.dst' )
                         ->whereBetween('p.date', [$startdate, $lastdate])
                         ->where('c.parent_id', $move_src)
-                        //->orWhere('d.parent_id', 1)
-                        //->where('p.rfid', $rfid)
                         ->select('s.p_id as productid', 'p.date as date', 'b.label as label', 'p.rfid as rfid', 'c.name as srcname', 'd.name as dstname')
                         ->groupBy('s.rfid')
                         ->get();
         }
         
         
-        return view('custom.grow.history.index', compact('histories', 'startdate', 'lastdate', 'growAreas'));
+        return view('custom.grow.history.index', compact('histories', 'startdate', 'lastdate', 'growAreas', 'move_src', 'rfid'));
     }
-    public function mgtGUI() {
+
+    public function mgtGUI() 
+    {
         
         $growAreas = ProductGrowList::where( 'parent_id', '=', 0 )->get();
         $growRooms = ProductGrowList::where( 'parent_id', '=', 1 )->get();
-        return view('custom.grow.mgt_gui', compact('growAreas', 'growRooms'));
+        $warehouseList = Entrepot::all();
+        return view('custom.grow.mgt_gui', compact('growAreas', 'growRooms', 'warehouseList'));
     }
    
-    public function roomAjax(Request $request) {
+    public function roomAjax(Request $request) 
+    {
         $area_id = $request->input('area_id');
         $allset = $request->input('allset');
         $select_room = $request->input('select_val');
@@ -431,7 +466,8 @@ class GrowController extends Controller
         }
     }
 
-    public function getroomAjax(Request $request) {
+    public function getroomAjax(Request $request) 
+    {
         if( $request->input('action') == 'get_room_setting' )
         {
             $result = array();
@@ -451,7 +487,9 @@ class GrowController extends Controller
             echo json_encode( $result );
         }
     }
-    public function getplantAjax(Request $request) {
+
+    public function getplantAjax(Request $request) 
+    {
         if( $request->input('action') == 'get_plant_list' )
         {
             $room_id = $request->input('room_id');

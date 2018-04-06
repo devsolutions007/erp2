@@ -27,7 +27,7 @@
                         </button></p>
                     </div>    
                     @endif
-                     @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
+                    @if(isset($_GET['growMode']) and $_GET['growMode'] == 'new')
                     <div class="col-md-12">
                         <table class="table table-striped m-0">
                         <thead>
@@ -98,6 +98,7 @@
                                     <th>Waste weight</th>
                                     <th>Source</th>
                                     <th>Store</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -222,8 +223,8 @@
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Grow List </label>
                                 <div class="col-sm-9">
-                                    <select name="growArea" class="form-control show-tick">
-                                        @foreach ($growAreas as $key => $growArea): ?>
+                                    <select id="growArea" name="growArea" class="form-control show-tick">
+                                        @foreach ($growAreas as $key => $growArea)
                                         <option value="{{$growArea->id}}">{{$growArea->name}}</option>
                                         @endforeach
                                     </select>
@@ -232,20 +233,14 @@
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Source Room </label>
                                 <div class="col-sm-9">
-                                    <select name="sourceRoom" class="form-control show-tick">
-                                        @foreach ($growRooms as $key => $growRoom): ?>
-                                            <option value="{{$growRoom->id}}">{{$growRoom->name}}</option>
-                                        @endforeach
+                                    <select id="sourceRoom" name="sourceRoom" class="form-control show-tick">
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row gutters">
                                 <label class="col-sm-3 col-form-label">Destination Room </label>
                                 <div class="col-sm-9">
-                                    <select name="destinationRoom" class="form-control show-tick">
-                                        @foreach ($growRooms as $key => $growRoom): ?>
-                                            <option value="{{$growRoom->id}}">{{$growRoom->name}}</option>
-                                        @endforeach
+                                    <select id="destinationRoom" name="destinationRoom" class="form-control show-tick">
                                     </select>
                                 </div>
                             </div>
@@ -300,8 +295,12 @@
                                 <label class="col-sm-3 col-form-label">Grow Area </label>
                                 <div class="col-sm-9">
                                     <select name="growArea" class="form-control show-tick">
-                                        @foreach ($growAreas as $key => $growArea): ?>
-                                        <option value="{{$growArea->id}}">{{$growArea->name}}</option>
+                                        @foreach ($growAreas as $key => $growArea)
+                                            @foreach( $growRooms as $growRoom)
+                                                @if(($growRoom->type == 5) and ($growRoom->parent_id == $growArea->id))
+                                                    <option value="{{$growRoom->id}}">{{$growArea->name}}- {{$growRoom->name}}</option>
+                                                @endif
+                                            @endforeach
                                         @endforeach
                                     </select>
                                 </div>
