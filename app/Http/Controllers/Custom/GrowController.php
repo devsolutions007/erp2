@@ -474,13 +474,12 @@ class GrowController extends Controller
 
             $room_id = $request->input('room_id');
 
-            $first = DB::table('product_grow_list_setting')->select('key','value')
-                        ->where('room_id', $room_id);
-            $setting_list = DB::table('product_grow_list_setting_global')->select('key','value')
-                        ->unionAll($first)
-                        ->get();
-            if(count($setting_list) > 0) {
-                foreach ($setting_list as $key => $setting_value) {
+            $productGrowListSettings = DB::table('product_grow_list_setting')->select('key','value')->where('room_id', $room_id);
+
+            $setting_lists = DB::table('product_grow_list_setting_global')->select('key','value')->unionAll($productGrowListSettings)->get();
+
+            if(count($setting_lists) > 0) {
+                foreach ($setting_lists as $key => $setting_value) {
                     $result[ $setting_value->key ] = $setting_value->value;
                 }
             } 
@@ -532,8 +531,111 @@ class GrowController extends Controller
 
             echo json_encode( $print_result );
         }
+
+        // get Room info in GUI Modal
+        if( $request->input('action') == 'plant_get_roominfor' )
+        {
+            $room_id = $request->input('room_id');
+            $this_month = date("m");
+            $this_year = date("Y");
+            $output_room_infor = [];
+
+            $productGrowListSettings = DB::table('product_grow_list_setting')->select('key','value')->where('room_id', $room_id);
+
+            $roominfors = DB::table('product_grow_list_setting_global')->select('key','value')->unionAll($productGrowListSettings)->get();
+
+            if(count($roominfors) > 0) 
+            {
+                foreach ($roominfors as $roominfor) 
+                {
+                    if( $roominfor->key =="rows" ) $rows = $roominfor->value;
+
+                    if( $roominfor->key =="grow_days" ) $days = $roominfor->value;
+
+                    if( $roominfor->key =="columns" ) $columns = $roominfor->value;
+                }
+            }
+            $cells = $rows * $columns;
+
+            $plantinfors = $this->grow_stock_product_search( $room_id );
+            $all_plant_cnt = count( $plantinfors );
+            $clone_count            = 0;
+            $flower_count           = 0;
+            $vegetation_count       = 0;
+            $harvest_drying_count   = 0;
+            $harvest_curing_count   = 0;
+            $cutweigh_wet_count     = 0;
+
+            foreach ($plantinfors as $plantinfor) 
+            {
+                if( $plantinfor->state == "clone" )           $clone_count ++ ;
+                if( $plantinfor->state == "flower" )          $flower_count ++ ;
+                if( $plantinfor->state == "vegetation" )      $vegetation_count ++ ;
+                if( $plantinfor->state == "harvest-drying" )  $harvest_drying_count ++ ;
+                if( $plantinfor->state == "harvest-curing" )  $harvest_curing_count ++ ;
+                if( $plantinfor->state == "Cutweigh-wet" )    $cutweigh_wet_count ++ ;
+            }
+
+            $monthly_process = $this->grow_product_iostock( $room_id ,'', $this_year , $this_month);
+            
+            $yearly_process = $this->grow_product_iostock( $room_id , '' ,  $this_year , '');
+            //return json_encode( $yearly_process );
+            $monthly_import = $monthly_process[0]->import_stock;
+            $monthly_output = $monthly_process[0]->output_stock;
+            $yearly_import  = $yearly_process[0]->import_stock;
+            $yearly_output  = $yearly_process[0]->output_stock;
+
+            array_push($output_room_infor , 
+                array('all_plant'   , $all_plant_cnt ),
+                array('rows'            , $rows ),
+                array('days'            , $days ),
+                array('columns'         , $columns ), 
+                array('cells'           , $cells ),
+                array('clone'           , $clone_count ),
+                array('flower'          , $flower_count ),
+                array('vegetation'      , $vegetation_count ),
+                array('harvest-drying'  , $harvest_drying_count ),
+                array('harvest-curing'  , $harvest_curing_count ),
+                array('Cutweigh-wet'    , $cutweigh_wet_count ),
+                array('month_input'     , $monthly_import ),
+                array('month_output'    , $monthly_output ),
+                array('year_input'      , $yearly_import ),
+                array('year_output'     , $yearly_output )
+            );
+
+        echo json_encode( $output_room_infor );
+        }
     }
 
+    // Start Get the I/O relation data of room 
+    public function grow_product_iostock( $room_id , $RFID='' , $Yeartime='' , $Monthtime='' )
+    {
+        $product_lists = [];
+        $query = DB::table('product_grow_movements as p')
+                                ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
+                                ->leftJoin('product_grow_lists as m', 'm.id', '=', 'p.src' )
+                                ->leftJoin('product_grow_lists as n', 'n.id', '=', 'p.dst' )
+                                ->leftJoin('product as b', 'b.rowid', '=', 's.p_id');
+
+                                $query->whereRaw('((p.src = '.$room_id.') or (p.dst = '.$room_id.'))');
+
+                                if($RFID) $query->where('p.rfid', '=', $RFID);
+
+                                if($Monthtime) $query->whereMonth('p.date', '=', $Monthtime);
+
+                                if($Yeartime) $query->whereYear('p.date', '=', $Yeartime);
+
+                                 $query->select('p.date', 'b.label', 'p.rfid', 's.p_id', 's.birthdate', 's.col', 's.rol', 's.parent_rfid', 's.state', 'n.name', DB::raw("SUM(if((p.src = '".$room_id."') , p.qty , 0 )) as output_stock, SUM(if((p.dst = '".$room_id."') , p.qty , 0 )) as import_stock"));
+                                
+                                $query->groupBy('p.rfid');
+                                
+
+                                
+                                //$query->where('stock_value', '>', 0); 
+                                 $product_lists = $query->get();
+                            return $product_lists;
+    }
+    // End Get the I/O relation data of room 
 
     // start search product by only grow_id function
     public function grow_stock_productby_growarea( $grow_id )
@@ -584,7 +686,8 @@ class GrowController extends Controller
     }
     // End 
     // get product by rfid
-    public function grow_stock_productby_rfid( $rfid ) {
+    public function grow_stock_productby_rfid( $rfid ) 
+    {
         $product = [];
         $query = DB::table('product_grow_movements as p')
                                 ->leftJoin('product_grow_product_rfid as s', 'p.rfid', '=', 's.rfid')
@@ -672,7 +775,8 @@ class GrowController extends Controller
     /* End Search gtow Table data */
 
     /* Start grow modal function */
-    public function ajaxRequestGrowModal(Request $request) {
+    public function ajaxRequestGrowModal(Request $request) 
+    {
 
         /* add grow plant */
 

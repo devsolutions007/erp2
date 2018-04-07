@@ -99,7 +99,7 @@ background-position: -45px 0;
 }
 .move_modal_detail_table{
 	font-size: 13px;
-	font-weight: 600;
+	/*font-weight: 600;*/
 }
 .move_modal_detail_table tr{
 	line-height: 35px;
@@ -255,7 +255,7 @@ background-position: -45px 0;
 	cursor: pointer;
 }
 .plant_gui_top_left{
-	display: inline-block;
+	/*display: inline-block;*/
 }
 .plant_gui_top_right{
 	display: inline-block;
@@ -459,7 +459,7 @@ input[type="file"] {
 }
 .room_infor_tables{
 	display: inline-block;
-    width: 48%;
+    /*width: 48%;*/
     vertical-align: top;
 }
 .grow_set_width_100{

@@ -60,6 +60,11 @@
 
     <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter.js') }}"></script>
     <script type="text/javascript" src="{{ asset('custom/grow/mgt-gui/js/GuiFilter_display.js') }}"></script>
+    <style type="text/css">
+        .modal-lg {
+            max-width: 1000px !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Loading starts -->
@@ -231,7 +236,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title col-md-9" id="releasefile_modalLabel">Release Plant</h5>
-                    <select id="release_stock_plant" class="col-md-3 form-control show-tick">
+                    <select id="release_gui_plant" class="col-md-3 form-control show-tick">
                             <option value=""></option>
                         @if($warehouseList)
                             @foreach($warehouseList as $warehouse)
@@ -350,6 +355,93 @@
         </div>
     </div>
     <!-- State Change Plant modal by upload file end -->
+
+    <!-- Room Information GUI modal start-->
+    <div class="modal fade" id="room_infor_modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-md-9" id="removefile_modalLabel">Room Information</h5>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="move_modal_detail_table room_infor_tables" id="room_information_data">
+                                    <tbody>
+                                        <tr>
+                                            <td>Plants </td>
+                                            <td id="all_plant">18</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Clone </td>
+                                            <td id="clone_count">9</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Vegetation </td>
+                                            <td id="vegetation_count">4</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Flower </td>
+                                            <td id="flower_count">4</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Cutweigh Wet</td>
+                                            <td id="cutweigh_wet_count">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Harvest Drying</td>
+                                            <td id="harvest_drying_count">1</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Harvest Curing</td>
+                                            <td id="harvest_curing_count">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Statistics</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Monthly import </td>
+                                            <td id="monthly_import">2</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Monthly export </td>
+                                            <td id="monthly_export">1</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Yearly import </td>
+                                            <td id="yearly_import">29</td>
+                                        </tr>
+                                        <tr>
+                                            <td> -  Yearly export </td>
+                                            <td id="yearly_output">19</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="move_modal_detail_table room_infor_tables" id="room_information_setting">
+                                    <tbody>
+                                        <tr><td colspan="2">Settings </td></tr>
+                                        <tr><td> -  Days </td><td id="setting_days">5</td></tr>
+                                        <tr><td> -  Rows </td><td id="setting_rows">20</td></tr>
+                                        <tr><td> -  Columns </td><td id="setting_column">20</td></tr>
+                                        <tr><td> -  Cells </td><td id="setting_cells">400</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/grow/settings/room?growMenu=visible" class="btn btn-primary">Edit</a>
+                        <button id="close_room_information" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+    <!-- Room Information GUI modal end -->
+
     <!-- Common JS -->
     <script src="{{ asset('js/common.js') }}"></script>
     <!-- sweet alert -->

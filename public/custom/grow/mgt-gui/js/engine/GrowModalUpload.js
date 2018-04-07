@@ -340,6 +340,7 @@ function setFileUploadButtonForReleaseActionEventHander( room_id )
                 swal("Congrats", "Plants released successfully.", "success");
                 $('#releasefile_modal').modal('hide');
                 $("#releasefile_modal_detail_data").empty();
+                $( "#release_gui_plant" ).val("");
             }
         });
     });
@@ -426,11 +427,12 @@ function GetRoomInformation( room_id )
 {
     $.ajax({
         type: "POST",
-        url: '../../class/engine/plantAjax.php' ,
+        url: '/grow/getplantAjax' ,
         data: {
             action      : 'plant_get_roominfor',
             room_id     :  $( "#" + room_id + "_select option:selected").val() ,
         } ,
+        headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
         success: function(data){
             var data = JSON.parse(data);
             for (i = 0 ; i < data.length ; i++) {
@@ -451,14 +453,13 @@ function GetRoomInformation( room_id )
                 if( data[i][0] == "year_output")    $("#yearly_output").text(       data[i][1] );
             }
 
-            var modal = $('#room_infor_modal').plainModal({duration: 300});
-            modal.plainModal('open');           
+            $('#room_infor_modal').modal('show');       
         }
     })
 }
 
 $("#close_room_information").click(function(){
-    $('#room_infor_modal').plainModal('close');  
+    $('#room_infor_modal').modal('hide'); 
     $("#all_plant").empty();
     $("#setting_rows").empty();
     $("#setting_days").empty();
@@ -474,9 +475,4 @@ $("#close_room_information").click(function(){
     $("#monthly_export").empty();
     $("#yearly_import").empty();
     $("#yearly_output").empty();
-});
-
-$("#edit_room_information").click(function(){
-    $('#room_infor_modal').plainModal('close');  
-    window.open('/custom/grow/pages/plant-room-setting/index.php', '_self');
 });
