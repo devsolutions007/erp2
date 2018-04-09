@@ -72,71 +72,71 @@
                 </li> -->
                 @endcan
                 @if(isset($_GET['growMenu']))
-                <li class="">
+                <li class="<?php if((Request::path() == 'grow/index') ||( Request::path() == 'grow/growArea') || (Request::path() == 'grow/mgt_gui')) echo 'selected active'; ?>">
                     <a href="#" class="has-arrow" aria-expanded="false">
                         <span class="has-icon">
                             <i class="icon-tabs-outline"></i>
                         </span>
                         <span class="nav-title">Grow</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse in">
+                    <ul aria-expanded="false" class="collapse">
                         <li>
-                            <a href="/grow/index?growMenu=visible" class="current-page">Grow House</a>
+                            <a href="/grow/index?growMenu=visible" class="{{ (Request::path() == 'grow/index') ? 'current-page' : ''}}">Grow House</a>
                         </li>
                         <li>
-                            <a href="/grow/growArea?growMenu=visible">Grow Area</a>
+                            <a href="/grow/growArea?growMenu=visible" class="{{ (Request::path() == 'grow/growArea') ? 'current-page' : ''}}">Grow Area</a>
                         </li>
                         <li>
-                            <a href='/grow/index?growMenu=visible'>Plant Mgt</a>
+                            <a href='/grow/index?growMenu=visible' class="{{ (Request::path() == 'grow/index') ? 'current-page' : ''}}">Plant Mgt</a>
                         </li>
                         <li>
-                            <a href='/grow/mgt_gui?growMenu=visible'>Plant Mgt(GUI)</a>
+                            <a href='/grow/mgt_gui?growMenu=visible' class="{{ (Request::path() == 'grow/mgt_gui') ? 'current-page' : ''}}">Plant Mgt(GUI)</a>
                         </li>
                     </ul>
                 </li>
-                <li class="">
+                <li class="<?php if((Request::path() == 'grow/settings/room') ||( Request::path() == 'grow/settings/global')) echo 'selected active'; ?>">
                     <a href="#" class="has-arrow" aria-expanded="false">
                         <span class="has-icon">
                             <i class="icon-layers"></i>
                         </span>
                         <span class="nav-title">Settings</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse in">
+                    <ul aria-expanded="false" class="collapse">
                         <li>
-                            <a href="/grow/settings/room?growMenu=visible" class="current-page">Room</a>
+                            <a href="/grow/settings/room?growMenu=visible" class="{{ (Request::path() == 'grow/settings/room') ? 'current-page' : ''}}">Room</a>
                         </li>
                         <li>
-                            <a href="/grow/settings/global?growMenu=visible">Global</a>
+                            <a href="/grow/settings/global?growMenu=visible" class="{{ (Request::path() == 'grow/settings/global') ? 'current-page' : ''}}">Global</a>
                         </li>
                     </ul>
                 </li>
-                <li class="">
+                <li class="<?php if(Request::path() == 'grow/growing/index') echo 'selected active'; ?>">
                     <a href="#" class="has-arrow" aria-expanded="false">
                         <span class="has-icon">
                             <i class="icon-tabs-outline"></i>
                         </span>
                         <span class="nav-title">Growing</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse in">
+                    <ul aria-expanded="false" class="collapse">
                         <li>
-                            <a href="/grow/growing/index?growMenu=visible&growMode=new" class="current-page">New Grow</a>
+                            <a href="/grow/growing/index?growMenu=visible&growMode=new" class="{{ (Request::path() == 'grow/growing/index' && request()->growMode == 'new') ? 'current-page' : ''}}">New Grow</a>
                         </li>
                         <li>
-                            <a href="/grow/growing/index?growMenu=visible&growMode=move">Move Grow</a>
+                            <a href="/grow/growing/index?growMenu=visible&growMode=move" class="{{ (Request::path() == 'grow/growing/index' && request()->growMode == 'move') ? 'current-page' : ''}}">Move Grow</a>
                         </li>
                         <li>
-                            <a href="/grow/growing/index?growMenu=visible&growMode=release">Release</a>
+                            <a href="/grow/growing/index?growMenu=visible&growMode=release" class="{{ (Request::path() == 'grow/growing/index' && request()->growMode == 'release') ? 'current-page' : ''}}">Release</a>
                         </li>
                     </ul>
                 </li>
-                 <li class="">
+                 <li class="<?php if(Request::path() == 'grow/history/index' || Request::path() == 'grow/history/searchResult') echo 'selected active'; ?>">
                     <a href="#" class="has-arrow" aria-expanded="false">
                         <span class="has-icon">
                              <i class="icon-adjust2"></i>
                         </span>
                         <span class="nav-title">History</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse in">
+                    <ul aria-expanded="false" class="collapse">
                         <li>
                             <a href="/grow/history/index?growMenu=visible" class="current-page">Move History</a>
                         </li>

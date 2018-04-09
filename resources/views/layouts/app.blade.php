@@ -32,7 +32,7 @@
                 <!-- BEGIN .app-main -->
                 <div class="app-main">
                     <!-- BEGIN .main-heading -->
-                     @include('partials.header')
+                    <!--  @include('partials.header') -->
                     <!-- END: .main-heading -->
                     <!-- BEGIN .main-content -->
                     <!-- @if (Session::has('message'))

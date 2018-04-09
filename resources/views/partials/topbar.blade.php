@@ -84,7 +84,7 @@
                     <li class="dropdown">
                         <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
                             <img class="avatar" src="{{ asset('img/user.png') }}" alt="User Thumb" />
-                            <span class="user-name">Katy Perry</span>
+                            <span class="user-name">{{Auth::user()->username}}</span>
                             <i class="icon-chevron-small-down"></i>
                         </a>
                         <div class="dropdown-menu lg dropdown-menu-right" aria-labelledby="userSettings">
