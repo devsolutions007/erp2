@@ -272,7 +272,7 @@
                                     <select id="idwarehouse" class="form-control show-tick">
                                         @if($warehouseList)
                                             @foreach($warehouseList as $warehouse)
-                                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                                                <option value="{{$warehouse->id}}">{{$warehouse->label}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -410,7 +410,7 @@
                             <option value=""></option>
                         @if($warehouseList)
                             @foreach($warehouseList as $warehouse)
-                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                                <option value="{{$warehouse->id}}">{{$warehouse->label}}</option>
                             @endforeach
                         @endif
                     </select>
@@ -454,7 +454,7 @@
                             <option value=""></option>
                         @if($warehouseList)
                             @foreach($warehouseList as $warehouse)
-                                <option value="{{$warehouse->rowid}}">{{$warehouse->label}}</option>
+                                <option value="{{$warehouse->id}}">{{$warehouse->label}}</option>
                             @endforeach
                         @endif
                     </select>

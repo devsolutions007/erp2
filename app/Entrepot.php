@@ -11,6 +11,6 @@ class Entrepot extends Model
      *
      * @var string
      */
-    protected $table = 'entrepot';
+    //protected $table = 'entrepot';
 
 }

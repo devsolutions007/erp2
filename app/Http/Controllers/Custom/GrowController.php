@@ -244,7 +244,7 @@ class GrowController extends Controller
         }  
         if(request()->growMode == 'release') 
         {
-            $query->leftJoin('entrepot as e', 'b.dst', '=', 'e.rowid' );
+            $query->leftJoin('entrepots as e', 'b.dst', '=', 'e.id' );
             $query->where('b.date', '=', $date)->where('b.type', '=', request()->growMode);
             $query->select('d.label as label', 'a.rfid as rfid', 'a.flowerweight as flowerweight', 'a.wasteweight as wasteweight', 'c.name as srcname', 'e.label as dstname', 'a.parent_rfid as parent_rfid');
         }  

@@ -142,6 +142,42 @@
                         </li>
                     </ul>
                 </li>
+                @elseif(Request::is('product/*') || Request::is('warehouse/*'))
+                <li class="{{ Request::is('product/*') ? 'active selected' : ''}}">
+                    <a href="#" class="has-arrow" aria-expanded="false">
+                        <span class="has-icon">
+                            <i class="icon-tabs-outline"></i>
+                        </span>
+                        <span class="nav-title">Products</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <!-- <li>
+                            <a href="/customers/create" class="{{ Request::is('customers/create') ? 'active selected' : ''}}">Create</a>
+                        </li> -->
+                        <li>
+                            <a href="/product/viewAllProducts" class="">View All</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="{{ Request::is('warehouse/*') ? 'active selected' : ''}}">
+                    <a href="#" class="has-arrow" aria-expanded="false">
+                        <span class="has-icon">
+                            <i class="icon-tabs-outline"></i>
+                        </span>
+                        <span class="nav-title">Warehouses</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a href="/warehouse/index" class="{{ Request::is('warehouse/index') ? 'active selected' : ''}}">Warehouse Area</a>
+                        </li>
+                        <li>
+                            <a href="/warehouse/create" class="{{ Request::is('warehouse/create') ? 'active selected' : ''}}">Create</a>
+                        </li>
+                        <li>
+                            <a href="/warehouse/viewAll" class="{{ Request::is('warehouse/viewAll') ? 'active selected' : ''}}">View All</a>
+                        </li>
+                    </ul>
+                </li>
                 @else
                 <li class="{{ Request::is('') ? 'active' : ''}}">
                     <a href="#">
@@ -167,21 +203,13 @@
                         </li>
                     </ul>
                 </li>
-                <li class="{{ Request::is('product/*') ? 'active selected' : ''}}">
-                    <a href="#" class="has-arrow" aria-expanded="false">
+                <li class="{{ Request::is('') ? 'active' : ''}}">
+                    <a href="/product/index">
                         <span class="has-icon">
-                            <i class="icon-tabs-outline"></i>
+                            <i class="icon-chat_bubble_outline"></i>
                         </span>
-                        <span class="nav-title">Products</span>
+                        <span class="nav-title">Products | Services</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse">
-                        <!-- <li>
-                            <a href="/customers/create" class="{{ Request::is('customers/create') ? 'active selected' : ''}}">Create</a>
-                        </li> -->
-                        <li>
-                            <a href="/product/viewAllProducts" class="">View All</a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="{{ Request::is('') ? 'active' : ''}}">
                     <a href="#">

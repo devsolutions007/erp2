@@ -26,11 +26,6 @@ class ProductController extends Controller
     	return view('product.viewAllProducts', compact('products', 'weight'));
     }
 
-    public function createWareHouse() {
-        
-        return view('product.createWareHouse');
-    }
-
 
     public function card() {
         

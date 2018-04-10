@@ -93,7 +93,9 @@
     @if (Request::is('customers/*'))
     <script type="text/javascript" src="{{ asset('js/customer.js') }}"></script> 
     @endif
-
+    @if (Request::is('warehouse/*'))
+    <script type="text/javascript" src="{{ asset('js/product-services/warehouses.js') }}"></script> 
+    @endif
     <!-- Data Tables -->
     <script src="{{ asset('vendor/datatables/dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap.min.js') }}"></script>

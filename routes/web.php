@@ -114,6 +114,14 @@ Route::group(['middleware' => ['auth']],function() {
         Route::get('viewAllProducts','Product\ProductController@viewAllProducts');
     });
 
+    /* ##########-------------------Warehouses-------------------########### */
+    Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], function(){
+        Route::get('index','Warehouses\WarehouseController@index');
+        Route::get('create','Warehouses\WarehouseController@create');
+        Route::post('store','Warehouses\WarehouseController@store');
+        Route::get('viewAll','Warehouses\WarehouseController@viewAll');
+    });
+
 
 });
 
